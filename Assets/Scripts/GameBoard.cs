@@ -15,7 +15,10 @@ public class GameBoard : MonoBehaviour
     void Start()
     {
         GenerateGrid();
-        CreateSeparator();
+        if (playerNumber == 1)
+        {
+            CreateSeparator();
+        }
     }
 
     void CreateSeparator()
