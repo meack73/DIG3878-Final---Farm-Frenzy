@@ -8,6 +8,7 @@ public class MonsterBehavior : MonoBehaviour
     public float lastAttackTime = 0f;
     public bool isAttacking = false;
 
+
     void Start()
     {
         animator = GetComponent<Animator>();

@@ -40,7 +40,8 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 worldPos = transform.TransformPoint(localPos);
 
         // 4. Spawn and Record
-        GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], worldPos, transform.rotation);
+        Vector3 spawnPos = new Vector3(worldPos.x - gameBoard.tileSize/2, worldPos.y, worldPos.z + gameBoard.tileSize/2);
+        GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], spawnPos, transform.rotation);
         monsterLocations[x, z] = selectedMonster + 1; // Store ID (offset by 1 so 0 stays 'Empty')
         
         Debug.Log($"Placed monster {selectedMonster} at {x}, {z}");
