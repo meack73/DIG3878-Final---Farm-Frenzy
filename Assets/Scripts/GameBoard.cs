@@ -16,15 +16,19 @@ public class GameBoard : MonoBehaviour
 
     void Awake()
     {
+        if (gameObject.CompareTag("P1Board")) playerId = 1;
+        else if (gameObject.CompareTag("P2Board")) playerId = 2;
+
+        Debug.Log("GAME BOARD AWAKE");
+
+        monsterLocations = new int[width, depth];
         offset = tileSize * width / 2 + 0.5f; //separator width
-        if (gameObject.CompareTag("P1Board"))
+        if (playerId == 1)
         {
-            playerId = 1;
             transform.position = new Vector3(-offset, 0, 0);
             transform.rotation = Quaternion.identity;
-        } else if (gameObject.CompareTag("P2Board"))
-        {
-            playerId = 2;            
+        } else if (playerId == 2)
+        {         
             transform.position = new Vector3(offset, 0, 0);
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }

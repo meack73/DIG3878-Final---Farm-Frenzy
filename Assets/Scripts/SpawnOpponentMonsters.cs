@@ -7,11 +7,13 @@ public class SpawnOpponentMonsters : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("SPAWN OPP MONSTERS");
         monsterSpawner = GetComponent<MonsterSpawner>();
         gameBoard = GetComponentInParent<GameBoard>();
-
-        SpawnInitialMonsters();
         
+        if (gameBoard != null && monsterSpawner != null) {
+            SpawnInitialMonsters();
+        }
     }
 
     public void SpawnInitialMonsters()

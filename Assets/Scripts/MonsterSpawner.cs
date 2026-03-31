@@ -9,6 +9,7 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {    
+        Debug.Log("MONSTER SPAWNER START");
         gameBoard = GetComponentInParent<GameBoard>();
 
         playerId = gameBoard.playerId;     
