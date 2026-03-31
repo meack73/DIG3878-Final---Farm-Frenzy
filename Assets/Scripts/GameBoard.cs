@@ -9,42 +9,71 @@ public class GameBoard : MonoBehaviour
     private Color lightGreen = new Color(0.45f, 0.8f, 0.2f);
     private Color darkGreen = new Color(0.4f, 0.7f, 0.15f);
     public int tileSize = 3;
-    public int playerNumber;
+    public int playerId;
     private float offset;
     
-    void Start()
+    public int[,] monsterLocations;
+
+    void Awake()
     {
-        GenerateGrid();
-        if (playerNumber == 1)
+        offset = tileSize * width / 2 + 0.5f; //separator width
+        if (gameObject.CompareTag("P1Board"))
         {
-            CreateSeparator();
+            playerId = 1;
+            transform.position = new Vector3(-offset, 0, 0);
+            transform.rotation = Quaternion.identity;
+        } else if (gameObject.CompareTag("P2Board"))
+        {
+            playerId = 2;            
+            transform.position = new Vector3(offset, 0, 0);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        //FOR TESTING MULTILPLAYER 
+        //in multiplayer version, constantly import and update monsterLocations
+
+        GenerateGrid();
+        CreateSeparator();
+        monsterLocations = new int[width, depth];
+        if (playerId == 1) {
+
+            for (int x = 0; x < monsterLocations.GetLength(0); x++) {
+                for (int z = 0; z < monsterLocations.GetLength(1); z++) {
+                    monsterLocations[x, z] = 0; // 0 means empty
+                }
+            } //1, 2, 3 for different monsters
+        }
+
+        else 
+        {
+           monsterLocations = new int[,]
+            {
+                {0, 0, 1, 0, 0},
+                {0, 2, 0, 0, 0},
+                {0, 0, 0, 3, 0},
+                {1, 0, 0, 0, 0},
+                {0, 0, 2, 0, 0},
+                {0, 0, 0, 0, 3},
+                {0, 1, 0, 0, 0},
+                {0, 0, 0, 2, 0}
+            };
         }
     }
 
     void CreateSeparator()
     {
         if (separator != null) return; // Only create one separator
-        separator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        separator.transform.localScale = new Vector3(1, 0.5f, depth * tileSize);
-        separator.transform.position = new Vector3(0, 0, 0);
-        separator.GetComponent<Renderer>().material.color = Color.red;
+        if (playerId == 1)
+        {
+            separator = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            separator.name = "Separator";
+            separator.transform.localScale = new Vector3(1, 0.5f, depth * tileSize);
+            separator.transform.position = new Vector3(0, 0, 0);
+            separator.GetComponent<Renderer>().material.color = Color.red;
+        }
     }
 
     void GenerateGrid()
     {
-        offset = tileSize * width / 2 + 0.5f; //separator width
-        if (gameObject.CompareTag("P1Board"))
-        {
-            playerNumber = 1;
-            transform.position = new Vector3(-offset, 0, 0);
-            transform.rotation = Quaternion.identity;
-        } else if (gameObject.CompareTag("P2Board"))
-        {
-            playerNumber = 2;            
-            transform.position = new Vector3(offset, 0, 0);
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        
         float startX = -((width - 1) * tileSize) / 2f;
         float startZ = -((depth - 1) * tileSize) / 2f;
 
@@ -68,7 +97,6 @@ public class GameBoard : MonoBehaviour
 
                 data.xIndex = x; 
                 data.zIndex = z;
-                Debug.Log($"Tile {newTile.name} assigned data: {data.xIndex}, {data.zIndex}");
                 Renderer rend = newTile.GetComponent<Renderer>();
                 if ((x + z) % 2 == 0)
                     rend.material.color = lightGreen;

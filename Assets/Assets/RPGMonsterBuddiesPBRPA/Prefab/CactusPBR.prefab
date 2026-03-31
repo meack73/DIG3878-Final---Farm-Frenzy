@@ -107,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 178560101459360467}
   - component: {fileID: 6096312193273766057}
+  - component: {fileID: -3531385958406202684}
   m_Layer: 0
   m_Name: CactusPBR
   m_TagString: Untagged
@@ -153,6 +154,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3531385958406202684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662468794185850985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec42bbf6a017e824ab915264688d9b84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterBehavior
+  health: 3
+  attackCooldown: 1
+  lastAttackTime: 0
+  isAttacking: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
+  playerId: 0
 --- !u!1 &1006438018938304421
 GameObject:
   m_ObjectHideFlags: 0

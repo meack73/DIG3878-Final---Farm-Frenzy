@@ -7,7 +7,9 @@ public class MonsterBehavior : MonoBehaviour
     public float attackCooldown = 1.0f;   // 1 second between hits
     public float lastAttackTime = 0f;
     public bool isAttacking = false;
-
+    public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
+    public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
+    public int playerId = 0; 
 
     void Start()
     {
