@@ -33,12 +33,12 @@ public class GameBoard : MonoBehaviour
     void GenerateGrid()
     {
         offset = tileSize * width / 2 + 0.5f; //separator width
-        if (gameObject.CompareTag("Player1"))
+        if (gameObject.CompareTag("P1Board"))
         {
             playerNumber = 1;
             transform.position = new Vector3(-offset, 0, 0);
             transform.rotation = Quaternion.identity;
-        } else if (gameObject.CompareTag("Player2"))
+        } else if (gameObject.CompareTag("P2Board"))
         {
             playerNumber = 2;            
             transform.position = new Vector3(offset, 0, 0);
