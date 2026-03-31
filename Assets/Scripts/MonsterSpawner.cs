@@ -46,12 +46,18 @@ public class MonsterSpawner : MonoBehaviour
         
         Debug.Log($"Placed monster {selectedMonster} at {x}, {z}");
 
+        //rotate different prefabs appropriately
         if (selectedMonster == 0)
         {
             newMonster.transform.Rotate(0, 180, 0);
-        } else
+        } 
+        else if (selectedMonster == 1 || selectedMonster == 2)
         {
             newMonster.transform.Rotate(0, 90, 0);
+        }
+        else if (selectedMonster == 3)
+        {
+            newMonster.transform.Rotate(0, 0, 180);
         }
         LogMonsterGrid();
     }
