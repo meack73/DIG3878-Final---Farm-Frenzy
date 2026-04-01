@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8173dc0f8d84c764cbdc990253a60f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChange
-  SceneToLoad: SampleScene
+  SceneToLoad: health
 --- !u!4 &170386482
 Transform:
   m_ObjectHideFlags: 0
