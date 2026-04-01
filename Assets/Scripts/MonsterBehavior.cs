@@ -16,6 +16,7 @@ public class MonsterBehavior : MonoBehaviour
     public bool isAttacking = false;
     public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
+    private MonsterBehavior currentTarget; //current plant target 
 
     void Start()
     {
@@ -40,6 +41,11 @@ public class MonsterBehavior : MonoBehaviour
             {
                 animator.SetBool("Attack", true);
                 lastAttackTime = Time.time;
+
+                if (currentTarget != null)
+                {
+                    currentTarget.TakeDamage(1);
+                }
             }
 
             else if (Time.time >= lastAttackTime + 0.1f) // Reset attack animation halfway through cooldown
@@ -69,6 +75,7 @@ public class MonsterBehavior : MonoBehaviour
             if (other != null && other.playerId != playerId)
             {
                 isAttacking = true;
+                currentTarget = other; 
             }
         }
         else if (collision.gameObject.CompareTag("House"))
@@ -82,18 +89,19 @@ public class MonsterBehavior : MonoBehaviour
         if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
         {
             isAttacking = false;
+            currentTarget = null;
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet") && !collision.gameObject.name.Contains("PlantShooterAsset"))
+        if (collision.gameObject.CompareTag("Bullet") && !gameObject.name.Contains("PlantShooterAsset"))
         {
             Destroy(collision.gameObject);
             TakeDamage(1);        
         }
 
-        else if (collision.gameObject.name.Contains("Cactus") || collision.gameObject.name.Contains("Mushroom")|| collision.gameObject.CompareTag("House"))
+        else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
         {
             MonsterBehavior otherMonster = collision.gameObject.GetComponent<MonsterBehavior>();
             //checks if interaction with house or eneny monster
@@ -110,12 +118,6 @@ public class MonsterBehavior : MonoBehaviour
                     TakeDamage(1); //take damage if hits other monster
                 }
             }
-        }
-        else if (collision.gameObject.name.Contains("PlantShooterAsset"))
-        {
-            isAttacking = true;
-            //rb.linearVelocity = Vector3.zero;
-            animator.SetBool("Walk", false);
         }
     }
 
@@ -135,6 +137,6 @@ public class MonsterBehavior : MonoBehaviour
         animator.SetBool("Die", true);
         GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 5f);
     }
 }
