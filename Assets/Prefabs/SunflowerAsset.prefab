@@ -110,7 +110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
       propertyPath: m_Name
-      value: sunflowerPrefab
+      value: SunflowerAsset
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
+      propertyPath: m_TagString
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 1566150883519244935, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -135,6 +139,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3353547089629752535}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5007810041248157252}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3655040462714192822}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8314174083199394248}
   m_SourcePrefab: {fileID: 100100000, guid: 984cbd2e56aa8fb46a8195a71d9a0d26, type: 3}
 --- !u!1 &3017161166397942267 stripped
 GameObject:
@@ -163,3 +176,69 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5007810041248157252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017161166397942267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ca35ab51e48c7347b689f13197cdcbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlowerBehavior
+  health: 3
+  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnTile: {x: 0, y: 0, z: 0}
+  playerId: 0
+--- !u!54 &3655040462714192822
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017161166397942267}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!136 &8314174083199394248
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017161166397942267}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.25
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.1, z: 0}

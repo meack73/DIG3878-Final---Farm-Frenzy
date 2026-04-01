@@ -36,14 +36,37 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 localPos = new Vector3(localX, 0.5f, localZ);
         Vector3 worldPos = transform.TransformPoint(localPos);
         
-        GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], worldPos, transform.rotation);        
-        MonsterBehavior behavior = newMonster.GetComponent<MonsterBehavior>();
-        if (behavior != null)
+        GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], worldPos, transform.rotation); 
+        if (selectedMonster == 1 || selectedMonster == 2) //Cactus or mushroom
         {
-            behavior.spawnPoint = localPos;
-            behavior.spawnTile = new Vector3Int(x, 0, z);
-            behavior.playerId = playerId; 
+            MonsterBehavior behavior = newMonster.GetComponent<MonsterBehavior>();
+            if (behavior != null)
+            {
+                behavior.spawnPoint = localPos;
+                behavior.spawnTile = new Vector3Int(x, 0, z);
+                behavior.playerId = playerId; 
+            }
+        } else if (selectedMonster == 0) //shooter
+        {
+            ShooterBehavior behavior = newMonster.GetComponent<ShooterBehavior>();
+            if (behavior != null)
+            {
+                behavior.spawnPoint = localPos;
+                behavior.spawnTile = new Vector3Int(x, 0, z);
+                behavior.playerId = playerId; 
+            }
         }
+        else //sunflower
+        {
+            FlowerBehavior behavior = newMonster.GetComponent<FlowerBehavior>();
+            if (behavior != null)
+            {
+                behavior.spawnPoint = localPos;
+                behavior.spawnTile = new Vector3Int(x, 0, z);
+                behavior.playerId = playerId; 
+            }
+        }
+        
         gameBoard.monsterLocations[x, z] = selectedMonster + 1; // Store ID (offset by 1 so 0 stays 'Empty')
         
         RotateMonster(newMonster);
@@ -58,10 +81,12 @@ public class MonsterSpawner : MonoBehaviour
         else if (selectedMonster == 1 || selectedMonster == 2)
         {
             monster.transform.Rotate(0, 90, 0);
+            monster.transform.Translate(0, -0.5f, 0);
         }
         else if (selectedMonster == 3)
         {
             monster.transform.Rotate(0, 0, 180);
+            monster.transform.Translate(0, -0.5f, 0);
         }
         
     }

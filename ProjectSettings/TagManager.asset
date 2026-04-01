@@ -11,8 +11,8 @@ TagManager:
   - P1Board
   - P2Board
   - Bullet
-  - Monster
   - House
+  - Monster
   layers:
   - Default
   - TransparentFX

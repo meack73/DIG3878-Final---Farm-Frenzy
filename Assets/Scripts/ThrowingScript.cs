@@ -7,7 +7,7 @@ public class ThrowingScript : MonoBehaviour
     [Header("Shooting Settings")]
     public GameObject rockPrefab; 
     float rockImpulse = 30f; 
-    public MonsterBehavior monsterBehavior;
+    public ShooterBehavior shooterBehavior;
     private float throwDelay = 0.5f;
     private float shotTimer = 0f;
     private bool canShoot = true;
@@ -18,11 +18,11 @@ public class ThrowingScript : MonoBehaviour
         if (repeatTimer > 3f && canShoot) 
         {
             repeatTimer = 0f;
-            if (Time.time >= monsterBehavior.lastAttackTime + monsterBehavior.attackCooldown)
+            if (Time.time >= shooterBehavior.lastAttackTime + shooterBehavior.attackCooldown)
             {
                 canShoot = false; 
                 shotTimer = 0f;
-                monsterBehavior.isAttacking = true; //start animation
+                shooterBehavior.isAttacking = true; //start animation
             }
         }
 

@@ -8,12 +8,8 @@ public class OutlineSelection : MonoBehaviour
     private Transform highlight;
     private Transform selection;
     private RaycastHit raycastHit;
-    MonsterSpawner monsterSpawner;
+    public MonsterSpawner monsterSpawner;
 
-    void Start()
-    {
-        monsterSpawner = GameObject.FindAnyObjectByType<MonsterSpawner>();    
-    }
     void Update()
     {
         // Highlight

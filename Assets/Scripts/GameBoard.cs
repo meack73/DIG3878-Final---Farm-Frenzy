@@ -45,18 +45,18 @@ public class GameBoard : MonoBehaviour
             } //1, 2, 3 for different monsters
         }
 
-        else 
+        else //edit for opponent board testing
         {
            monsterLocations = new int[,]
             {
-                {0, 0, 1, 0, 0},
-                {0, 2, 0, 0, 0},
-                {0, 0, 0, 3, 0},
-                {1, 0, 0, 0, 0},
-                {0, 0, 2, 0, 0},
-                {0, 0, 0, 0, 3},
-                {0, 1, 0, 0, 0},
-                {0, 0, 0, 2, 0}
+                {0, 0, 1, 1, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {3, 0, 4, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 4, 3, 2, 1}
             };
         }
     }
