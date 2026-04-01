@@ -58,8 +58,6 @@ public class ShooterBehavior : MonoBehaviour
         } else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
         {
             isAttacking = true;
-            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            animator.SetBool("Walk", false);
         }
 
         if (health <= 0)

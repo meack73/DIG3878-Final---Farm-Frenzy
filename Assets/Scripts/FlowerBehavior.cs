@@ -68,7 +68,7 @@ public class FlowerBehavior : MonoBehaviour
     {
         //animator.SetBool("Die", true);
         GetComponent<Collider>().enabled = false; 
-        rb.isKinematic = true; 
+        //rb.isKinematic = true; 
         Destroy(gameObject, 5f);
     }
 }
