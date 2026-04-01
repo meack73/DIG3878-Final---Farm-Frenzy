@@ -4,12 +4,12 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
     public PlayerHealthManager healthManager;
-    
+
     public float maxPlayerHealth = 100f;
 
     [HideInInspector] public float playerHealth = 0.0f;
     [SerializeField] private Image healthBar;
-    
+
     PlayerHealth player1Health;
 
     void Start()
@@ -21,15 +21,20 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void DamagePlayer(float damage)
     {
         playerHealth -= damage;
-        healthBar.fillAmount = playerHealth / maxPlayerHealth;
+
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = playerHealth / maxPlayerHealth;
+        }
+
     }
-    
+
     /*
     //Example of damage dealing script
     void OnCollisionEnter(Collision collision)
@@ -42,4 +47,22 @@ public class PlayerHealth : MonoBehaviour
         }
     }
     */
+
+    //healing from sunflower!
+    public void Heal(int amount)
+    {
+        playerHealth += amount;
+
+        if (playerHealth > maxPlayerHealth)
+        {
+            playerHealth = maxPlayerHealth;
+        }
+
+        Debug.Log("Player healed. Current health: " + playerHealth);
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = playerHealth / maxPlayerHealth;
+
+        }
+    }
 }
