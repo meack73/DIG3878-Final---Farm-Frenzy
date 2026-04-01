@@ -11,16 +11,27 @@ public class SunflowerGrow : MonoBehaviour
     public GameObject petals;
     public GameObject soil;
 
-    public float timeBetweenStages = 5f;
+    public float timeBetweenStages = 3f;
     public int healAmount = 10;
+    public int coinAmount = 2;
 
     int currStage = 0;
     bool fullyGrown = false;
     bool isGrowing = false;
 
+    //currency drop
+    public GameObject sunCoinPrefab;
+    public int numCoinsDrop = 2;
+    public float dropRadius = 5f;
+    public float coinSpawnHeight = 0.2f;
+    public Collider flowerCol;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        flowerCol = GetComponent<Collider>();
+        flowerCol.enabled = false;
+
         ResetSunflower();
         StartCoroutine(GrowSunflower());
     }
@@ -56,11 +67,26 @@ public class SunflowerGrow : MonoBehaviour
             {
                 yield return new WaitForSeconds(timeBetweenStages);
             }
+
         }
 
         fullyGrown = true;
         isGrowing = false;
+        flowerCol.enabled = true;
+
         Debug.Log("Sunflower is fully grown & ready to be picked.");
+
+        StartCoroutine(CoinDropLoop());
+    }
+
+    IEnumerator CoinDropLoop()
+    {
+        while (fullyGrown)
+        {
+            yield return new WaitForSeconds(3f);
+            DropCoins();
+
+        }
 
     }
 
@@ -99,6 +125,7 @@ public class SunflowerGrow : MonoBehaviour
         sunHead.SetActive(false);
         leaves.SetActive(false);
         petals.SetActive(false);
+        flowerCol.enabled = false;
 
     }
 
@@ -126,6 +153,26 @@ public class SunflowerGrow : MonoBehaviour
         StopAllCoroutines();
         ResetSunflower();
         StartCoroutine(GrowSunflower());
+    }
+
+    void DropCoins()
+    {
+        if (sunCoinPrefab == null)
+        {
+            Debug.LogWarning("No sun coin assigned");
+            return;
+        }
+
+        for (int i=0; i < numCoinsDrop; i++)
+        {
+            Vector3 randomOffset = new Vector3(Random.Range(-dropRadius, dropRadius), coinSpawnHeight, Random.Range(-dropRadius, dropRadius));
+
+            Vector3 spawnPosition = transform.position + randomOffset;
+            GameObject SunCoin = Instantiate(sunCoinPrefab, spawnPosition, Quaternion.identity);
+            Destroy(SunCoin, 10f);
+        }
+
+        Debug.Log("Coins dropped");
     }
 
     // Update is called once per frame
