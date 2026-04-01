@@ -26,8 +26,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void DamagePlayer(float damage)
     {
+        //Deducts damage amount from the Player's health
         playerHealth -= damage;
 
+        //Updates the healthbar UI to reflect damage taken
         if (healthBar != null)
         {
             healthBar.fillAmount = playerHealth / maxPlayerHealth;
