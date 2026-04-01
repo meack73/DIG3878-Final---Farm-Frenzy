@@ -10,6 +10,7 @@ TagManager:
   - Selectable
   - P1Board
   - P2Board
+  - SunCoin
   layers:
   - Default
   - TransparentFX
