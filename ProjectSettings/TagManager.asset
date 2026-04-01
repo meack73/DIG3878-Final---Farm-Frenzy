@@ -10,6 +10,9 @@ TagManager:
   - Selectable
   - P1Board
   - P2Board
+  - Bullet
+  - Monster
+  - House
   layers:
   - Default
   - TransparentFX

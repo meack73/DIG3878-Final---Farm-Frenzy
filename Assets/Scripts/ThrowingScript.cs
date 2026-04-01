@@ -11,11 +11,13 @@ public class ThrowingScript : MonoBehaviour
     private float throwDelay = 0.5f;
     private float shotTimer = 0f;
     private bool canShoot = true;
+    private float repeatTimer = 0f;
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && canShoot) 
+        if (repeatTimer > 3f && canShoot) 
         {
+            repeatTimer = 0f;
             if (Time.time >= monsterBehavior.lastAttackTime + monsterBehavior.attackCooldown)
             {
                 canShoot = false; 
@@ -33,6 +35,7 @@ public class ThrowingScript : MonoBehaviour
                 canShoot = true; 
             }
         }
+        repeatTimer += Time.deltaTime;
     }
 
     void Shoot()

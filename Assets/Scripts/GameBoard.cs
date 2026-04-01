@@ -3,7 +3,6 @@ using UnityEngine;
 public class GameBoard : MonoBehaviour
 {
     public GameObject tilePrefab; // P2 has one without outline
-    private GameObject separator;
     public int width = 8;  
     public int depth = 5; 
     private Color lightGreen = new Color(0.45f, 0.8f, 0.2f);
@@ -36,7 +35,6 @@ public class GameBoard : MonoBehaviour
         //in multiplayer version, constantly import and update monsterLocations
 
         GenerateGrid();
-        CreateSeparator();
         monsterLocations = new int[width, depth];
         if (playerId == 1) {
 
@@ -60,19 +58,6 @@ public class GameBoard : MonoBehaviour
                 {0, 1, 0, 0, 0},
                 {0, 0, 0, 2, 0}
             };
-        }
-    }
-
-    void CreateSeparator()
-    {
-        if (separator != null) return; // Only create one separator
-        if (playerId == 1)
-        {
-            separator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            separator.name = "Separator";
-            separator.transform.localScale = new Vector3(1, 0.5f, depth * tileSize);
-            separator.transform.position = new Vector3(0, 0, 0);
-            separator.GetComponent<Renderer>().material.color = Color.red;
         }
     }
 
