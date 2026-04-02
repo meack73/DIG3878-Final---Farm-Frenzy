@@ -59,7 +59,7 @@ public class ShooterBehavior : MonoBehaviour
         {
             isAttacking = true;
             //rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            animator.SetBool("Walk", false);
+            //animator.SetBool("Walk", false);
         }
 
         if (health <= 0)
