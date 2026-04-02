@@ -44,7 +44,7 @@ public class SunflowerGrow : MonoBehaviour
         Debug.Log("Sunflower: waiting to start growing...");
 
         // wait a few seconds before start growth
-        yield return new WaitForSeconds(7f);
+        //yield return new WaitForSeconds(7f);
 
         //set active pot & start growing
         pot.SetActive(true);
@@ -52,7 +52,7 @@ public class SunflowerGrow : MonoBehaviour
         Debug.Log("Growing commences...");
 
         //wait a few seconds between stage 0 & stage 1
-        yield return new WaitForSeconds(7f);
+        //yield return new WaitForSeconds(7f);
 
         Debug.Log("Sunflower has begun to grow - pot & soil appear");
         soil.SetActive(true);
