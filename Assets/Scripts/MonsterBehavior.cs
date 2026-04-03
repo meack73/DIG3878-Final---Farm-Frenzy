@@ -126,10 +126,11 @@ public class MonsterBehavior : MonoBehaviour
         health -= damage;
         Debug.Log(gameObject.name + " Health: " + health);
 
+/*
         if (health <= 0)
         {
             PlayDeath();
-        }
+        }*/
     }
 
     void PlayDeath()
