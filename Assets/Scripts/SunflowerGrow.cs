@@ -22,8 +22,8 @@ public class SunflowerGrow : MonoBehaviour
     //currency drop
     public GameObject sunCoinPrefab;
     public int numCoinsDrop = 2;
-    public float dropRadius = 5f;
-    public float coinSpawnHeight = 0.2f;
+    public float dropRadius = 1f;
+    public float coinSpawnHeight = 0.05f;
     public Collider flowerCol;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -83,9 +83,8 @@ public class SunflowerGrow : MonoBehaviour
     {
         while (fullyGrown)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(10f);
             DropCoins();
-
         }
 
     }
@@ -169,7 +168,7 @@ public class SunflowerGrow : MonoBehaviour
 
             Vector3 spawnPosition = transform.position + randomOffset;
             GameObject SunCoin = Instantiate(sunCoinPrefab, spawnPosition, Quaternion.identity);
-            Destroy(SunCoin, 10f);
+            Destroy(SunCoin, 4f);
         }
 
         Debug.Log("Coins dropped");
