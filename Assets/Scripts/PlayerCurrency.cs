@@ -4,13 +4,15 @@ using UnityEngine.UI;
 public class PlayerCurrency : MonoBehaviour
 {
     public int SunCoins = 0;
-    public Text plyrCurrency;
+    public Text plyrCurrencyText;
+    public int playerCurrency;
 
     public void AddCoins(int amount)
     {
         SunCoins += amount;
+        playerCurrency = SunCoins * 2;
         Debug.Log("Sun Coins: " + SunCoins);
-        plyrCurrency.text = "Sun Coins: $" + SunCoins * 2;
+        plyrCurrencyText.text = "Sun Coins: $" + playerCurrency;
 
     }
 }
