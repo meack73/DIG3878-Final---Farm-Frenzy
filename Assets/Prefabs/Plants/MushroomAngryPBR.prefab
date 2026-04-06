@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: -6090960805628978679}
   - component: {fileID: -8442114575432871374}
   - component: {fileID: -6088075238661988161}
+  - component: {fileID: -5396877903056642398}
   m_Layer: 0
   m_Name: MushroomAngryPBR
   m_TagString: Monster
@@ -136,12 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterBehavior
   health: 3
+  playerId: 0
   attackCooldown: 1
   lastAttackTime: 0
   isAttacking: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
-  playerId: 0
 --- !u!54 &-8442114575432871374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,6 +193,18 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &-5396877903056642398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875073071404757921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59fb866343211948aa121e9d63751f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1326775223490303571
 GameObject:
   m_ObjectHideFlags: 0
