@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8987743981622075421}
   - component: {fileID: 4628063033852953388}
   - component: {fileID: 2445759542296409267}
-  - component: {fileID: 7297063646345816670}
+  - component: {fileID: 11985111627232756}
   m_Layer: 0
   m_Name: Cannon
   m_TagString: Untagged
@@ -113,7 +113,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7297063646345816670
+--- !u!114 &11985111627232756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrowingScript
   rockPrefab: {fileID: 6145706723880417205, guid: eda488bdc8e43944bbbc1edf2fab384a, type: 3}
-  monsterBehavior: {fileID: 4472220763938173716}
+  shooterBehavior: {fileID: 892665217003967313}
 --- !u!1001 &2785886659586732450
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlantShooterAsset
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7af8ee3b4c4a9dc418fde148b61867e2, type: 3}
+      propertyPath: m_TagString
+      value: Monster
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -194,10 +198,13 @@ PrefabInstance:
       addedObject: {fileID: 2057292165234164704}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7af8ee3b4c4a9dc418fde148b61867e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4472220763938173716}
+      addedObject: {fileID: 2837579914632644111}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7af8ee3b4c4a9dc418fde148b61867e2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2837579914632644111}
+      addedObject: {fileID: 892665217003967313}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7af8ee3b4c4a9dc418fde148b61867e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5866361317737650698}
   m_SourcePrefab: {fileID: 100100000, guid: 7af8ee3b4c4a9dc418fde148b61867e2, type: 3}
 --- !u!4 &2387976894618785353 stripped
 Transform:
@@ -250,26 +257,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
-  m_Height: 3
+  m_Radius: 1.5
+  m_Height: 3.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &4472220763938173716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3055724207190543603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec42bbf6a017e824ab915264688d9b84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterBehavior
-  health: 3
-  attackCooldown: 1
-  lastAttackTime: 0
-  isAttacking: 0
 --- !u!114 &2837579914632644111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,3 +275,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   maxHealth: 10
   monsterHealth: 0
+--- !u!114 &892665217003967313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055724207190543603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63b73299dc346b47abe1850076359da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShooterBehavior
+  health: 3
+  attackCooldown: 3
+  lastAttackTime: 0
+  isAttacking: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnTile: {x: 0, y: 0, z: 0}
+  playerId: 0
+--- !u!54 &-5866361317737650698
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3055724207190543603}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

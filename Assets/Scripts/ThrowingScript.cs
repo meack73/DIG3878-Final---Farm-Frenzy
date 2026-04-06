@@ -7,20 +7,22 @@ public class ThrowingScript : MonoBehaviour
     [Header("Shooting Settings")]
     public GameObject rockPrefab; 
     float rockImpulse = 30f; 
-    public MonsterBehavior monsterBehavior;
+    public ShooterBehavior shooterBehavior;
     private float throwDelay = 0.5f;
     private float shotTimer = 0f;
     private bool canShoot = true;
+    private float repeatTimer = 0f;
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && canShoot) 
+        if (repeatTimer > 3f && canShoot) 
         {
-            if (Time.time >= monsterBehavior.lastAttackTime + monsterBehavior.attackCooldown)
+            repeatTimer = 0f;
+            if (Time.time >= shooterBehavior.lastAttackTime + shooterBehavior.attackCooldown)
             {
                 canShoot = false; 
                 shotTimer = 0f;
-                monsterBehavior.isAttacking = true; //start animation
+                shooterBehavior.isAttacking = true; //start animation
             }
         }
 
@@ -33,6 +35,7 @@ public class ThrowingScript : MonoBehaviour
                 canShoot = true; 
             }
         }
+        repeatTimer += Time.deltaTime;
     }
 
     void Shoot()

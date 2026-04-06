@@ -10,7 +10,9 @@ TagManager:
   - Selectable
   - P1Board
   - P2Board
-  - SunCoin
+  - Bullet
+  - House
+  - Monster
   layers:
   - Default
   - TransparentFX
