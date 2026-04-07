@@ -15,9 +15,10 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         //Sets the player's health to the max health at Start
-        playerHealth = maxPlayerHealth;
-    }
+         playerHealth = maxPlayerHealth;
 
+    }
+      
     // Update is called once per frame
     void Update()
     {
