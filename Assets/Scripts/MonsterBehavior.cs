@@ -19,6 +19,8 @@ public class MonsterBehavior : MonoBehaviour
     private MonsterBehavior currentTarget; //current plant target 
 
     private string TargetHouse = "Player1";
+    private PlayerHealth targetHouse = null;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -28,8 +30,12 @@ public class MonsterBehavior : MonoBehaviour
 
         if (playerId == 1)
         {
-            TargetHouse = "Player2";
+            TargetHouse = "Player1";
         }
+        else
+        {
+            TargetHouse = "Player2";
+        }   
     }
 
     void Update()
@@ -61,9 +67,14 @@ public class MonsterBehavior : MonoBehaviour
                 {
                     currentTarget.TakeDamage(1);
                 }
+                else if (targetHouse != null)
+                {
+                    Debug.Log("House health" + targetHouse.playerHealth);
+                    targetHouse.DamagePlayer(1f);
+                }
             }
 
-            else if (Time.time >= lastAttackTime + 0.1f) // Reset attack animation halfway through cooldown
+            else if (Time.time >= lastAttackTime + 0.5f) // Reset attack animation halfway through cooldown
             {
                 animator.SetBool("Attack", false);
             }
@@ -83,24 +94,22 @@ public class MonsterBehavior : MonoBehaviour
     }
 
     void OnCollisionStay(Collision collision)
-    {        
+    {            
         if (collision.gameObject.CompareTag("Monster"))
         {
             MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
             
-            if (other != null && other.playerId != playerId)
+            if (other != null && other.playerId != playerId && other.health > 0)
             {
                 isAttacking = true;
                 currentTarget = other; 
             }
-            else if (other != null && other.health <= 0)
-            {
-                isAttacking = false;
-            }
         }
+
         else if (collision.gameObject.CompareTag(TargetHouse))
         {
             isAttacking = true;
+            targetHouse = collision.gameObject.GetComponent<PlayerHealth>();
         }
     }
 
@@ -110,6 +119,7 @@ public class MonsterBehavior : MonoBehaviour
         {
             isAttacking = false;
             currentTarget = null;
+            targetHouse = null;
         }
     }
 
