@@ -18,12 +18,18 @@ public class MonsterBehavior : MonoBehaviour
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
     private MonsterBehavior currentTarget; //current plant target 
 
+    private string TargetHouse = "Player1";
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         rb.isKinematic = false;
         rb.freezeRotation = true;
+
+        if (playerId == 1)
+        {
+            TargetHouse = "Player2";
+        }
     }
 
     void Update()
@@ -35,8 +41,17 @@ public class MonsterBehavior : MonoBehaviour
 
         if (isAttacking)
         {
+            
             rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             animator.SetBool("Walk", false);
+
+            if (currentTarget != null && currentTarget.health <= 0)
+            {
+                currentTarget = null;
+                isAttacking = false;
+                return;
+            }
+            
             if (Time.time >= lastAttackTime + attackCooldown)
             {
                 animator.SetBool("Attack", true);
@@ -52,12 +67,13 @@ public class MonsterBehavior : MonoBehaviour
             {
                 animator.SetBool("Attack", false);
             }
-        } else
+        } 
+        else
         {
             HandleMovement();
         }
+    
     }
-
     void HandleMovement()
     {
         Vector3 moveDir = transform.forward * speed;
@@ -77,8 +93,12 @@ public class MonsterBehavior : MonoBehaviour
                 isAttacking = true;
                 currentTarget = other; 
             }
+            else if (other != null && other.health <= 0)
+            {
+                isAttacking = false;
+            }
         }
-        else if (collision.gameObject.CompareTag("House"))
+        else if (collision.gameObject.CompareTag(TargetHouse))
         {
             isAttacking = true;
         }
@@ -86,7 +106,7 @@ public class MonsterBehavior : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
+        if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag(TargetHouse))
         {
             isAttacking = false;
             currentTarget = null;
@@ -95,29 +115,10 @@ public class MonsterBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet") && !gameObject.name.Contains("PlantShooterAsset"))
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
-            TakeDamage(1);        
-        }
-
-        else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
-        {
-            MonsterBehavior otherMonster = collision.gameObject.GetComponent<MonsterBehavior>();
-            //checks if interaction with house or eneny monster
-            bool isEnemyMonster = otherMonster != null && otherMonster.playerId != playerId;
-            
-            if (collision.gameObject.CompareTag("House") || isEnemyMonster)
-            {
-                isAttacking = true;
-                rb.linearVelocity = Vector3.zero;
-                animator.SetBool("Walk", false);
-                if (isEnemyMonster)
-                {
-                    Debug.Log("health: " + health);
-                    TakeDamage(1); //take damage if hits other monster
-                }
-            }
+            TakeDamage(1);
         }
     }
 
