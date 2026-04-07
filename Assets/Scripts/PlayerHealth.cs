@@ -10,8 +10,6 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector] public float playerHealth = 0.0f;
     [SerializeField] private Image healthBar;
 
-    PlayerHealth player1Health;
-
     void Start()
     {
         //Sets the player's health to the max health at Start

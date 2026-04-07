@@ -42,7 +42,7 @@ public class PlayerHealthManager : MonoBehaviour
         /*if (Input.GetKeyDown(KeyCode.R))
         {
             player1Health.DamagePlayer(5);
-        }
-        */
+            Debug.Log ("Player 1 Health = " + p1Health);
+        }*/
     }
 }
