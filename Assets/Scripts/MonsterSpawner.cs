@@ -86,11 +86,11 @@ public class MonsterSpawner : MonoBehaviour
             if (playerId == 1)
             {
                 monster.transform.Translate(1f, 0.5f, 0.5f);
-                monster.transform.Rotate(0, 180, 0);
             }
             else if (playerId == 2)
             {
                 monster.transform.Translate(-2f, 0.5f, 0);
+                monster.transform.Rotate(0, 180, 0);
             }
         }
         
@@ -112,4 +112,3 @@ public class MonsterSpawner : MonoBehaviour
         Debug.Log(visualGrid);
     }
     }
-
