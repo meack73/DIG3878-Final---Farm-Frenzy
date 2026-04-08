@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FlowerBehavior : MonoBehaviour
 {
-    //private Animator animator;    
+    private Animator animator;    
     private Rigidbody rb;
 
     public int health = 3;
@@ -16,8 +16,7 @@ public class FlowerBehavior : MonoBehaviour
 
     void Start()
     {
-        //animator = GetComponent<Animator>();
-
+        animator = GetComponent<Animator>();
     }
 
     void Update()

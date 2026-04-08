@@ -9,7 +9,6 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {    
-        Debug.Log("MONSTER SPAWNER START");
         gameBoard = GetComponentInParent<GameBoard>();
 
         playerId = gameBoard.playerId;     
@@ -20,7 +19,6 @@ public class MonsterSpawner : MonoBehaviour
         //Maybe remove
         if (playerId == 1 && gameBoard.monsterLocations[x, z] != 0) 
         {
-            Debug.Log("Space occupied!");
             return;
         }
 
@@ -85,8 +83,16 @@ public class MonsterSpawner : MonoBehaviour
         }
         else if (selectedMonster == 3)
         {
-            monster.transform.Rotate(0, 0, 180);
-            monster.transform.Translate(0, -0.5f, 0);
+            if (playerId == 1)
+            {
+                monster.transform.Translate(2f, 0.5f, 0);
+                monster.transform.Rotate(0,0,0);
+            }
+            else if (playerId == 2)
+            {
+                monster.transform.Translate(-2f, 0.5f, 0);
+                monster.transform.Rotate(0,180,0);
+            }
         }
         
     }
