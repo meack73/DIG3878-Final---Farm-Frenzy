@@ -3,9 +3,11 @@ using UnityEngine;
 public class ButtonClick : MonoBehaviour
 {
     public MonsterSpawner monsterSpawner;
+    public StoreManager storeManager;
     
     public void OnClick1() 
     { 
+        
         monsterSpawner.selectedMonster = 0;
     } 
 
