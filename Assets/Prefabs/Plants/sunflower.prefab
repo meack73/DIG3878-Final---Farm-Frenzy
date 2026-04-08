@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 0.012
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 602c9e408df82474fb39302ecdb1d6bc, type: 2}
+      objectReference: {fileID: 9100000, guid: 989658e95e3569a4b832e56b4314243c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -85,6 +85,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8732501358682117137}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5936881787727751070}
   m_SourcePrefab: {fileID: 100100000, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
 --- !u!1 &1311075292995546189 stripped
 GameObject:
@@ -144,3 +147,29 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.3, z: 0}
+--- !u!114 &-5936881787727751070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311075292995546189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e81bdea6657ac949a53cf4260b06e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SunflowerGrow
+  pot: {fileID: 1311075292995546189}
+  stem: {fileID: 1311075292995546189}
+  leaves: {fileID: 1311075292995546189}
+  sunHead: {fileID: 1311075292995546189}
+  petals: {fileID: 1311075292995546189}
+  soil: {fileID: 1311075292995546189}
+  timeBetweenStages: 3
+  healAmount: 10
+  coinAmount: 2
+  sunCoinPrefab: {fileID: 4772223845757536543, guid: 3f5d50f0f662bee4f84643a7e67b4ec4, type: 3}
+  numCoinsDrop: 2
+  dropRadius: 5
+  coinSpawnHeight: 0.2
+  flowerCol: {fileID: 0}

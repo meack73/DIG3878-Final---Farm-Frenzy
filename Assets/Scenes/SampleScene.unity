@@ -1629,6 +1629,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6662174415517613310, guid: 81dad7d5552c9a341b390c79338fe0a4, type: 3}
   m_PrefabInstance: {fileID: 1903832187}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &506338081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3145676803300823663, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
+  m_PrefabInstance: {fileID: 1552932251}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &506338082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506338081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurrency
+  SunCoins: 0
+  plyrCurrencyText: {fileID: 3406653731391649872}
+  playerCurrency: 0
 --- !u!1 &539739112
 GameObject:
   m_ObjectHideFlags: 0
@@ -4818,7 +4838,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3145676803300823663, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 506338082}
   m_SourcePrefab: {fileID: 100100000, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
 --- !u!1 &1553877171
 GameObject:
@@ -6628,7 +6651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -857, y: 353}
+  m_AnchoredPosition: {x: -857, y: 322}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2326372083964970446

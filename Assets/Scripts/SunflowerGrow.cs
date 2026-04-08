@@ -33,7 +33,10 @@ public class SunflowerGrow : MonoBehaviour
         flowerCol.enabled = false;
 
         ResetSunflower();
-        StartCoroutine(GrowSunflower());
+        gameObject.SetActive(true); 
+        if (gameObject.activeInHierarchy) {
+            StartCoroutine(GrowSunflower());
+        }
     }
 
     IEnumerator GrowSunflower()
