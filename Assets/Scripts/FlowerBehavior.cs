@@ -13,16 +13,42 @@ public class FlowerBehavior : MonoBehaviour
     private float damageCooldown = 3.0f; // same as monster attack cooldown 
 
     public int playerId = 0; 
+    public bool coinSpawn = false; 
+    private float coinSpawnAnimationCooldown = 2.5f; 
+    private float coinSpawnAnimationTimer = 0f;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        animator.SetBool("Idle", true);
     }
-
+    
     void Update()
     {
-      
-        
+        if(coinSpawn)
+        {
+            CoinAnimation();
+        } else
+        {
+            animator.SetBool("Coin", false); 
+            animator.SetBool("Idle", true);
+        }
+    }
+
+    public void CoinAnimation()
+    {
+        coinSpawnAnimationTimer += Time.deltaTime;
+
+        if (coinSpawn && coinSpawnAnimationTimer >= coinSpawnAnimationCooldown)
+        {        
+            if (coinSpawn)
+            {
+                animator.SetBool("Coin", true);
+                coinSpawn = false;
+            }
+            
+            coinSpawnAnimationTimer = 0f;
+        }
     }
 
     void OnCollisionEnter(Collision collision)

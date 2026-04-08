@@ -26,9 +26,12 @@ public class SunflowerGrow : MonoBehaviour
     public float coinSpawnHeight = 0.2f;
     public Collider flowerCol;
 
+    public FlowerBehavior flowerBehavior;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        flowerBehavior = GetComponent<FlowerBehavior>();
         flowerCol = GetComponent<Collider>();
         flowerCol.enabled = false;
 
@@ -160,6 +163,7 @@ public class SunflowerGrow : MonoBehaviour
 
     void DropCoins()
     {
+        flowerBehavior.coinSpawn = true;
         if (sunCoinPrefab == null)
         {
             Debug.LogWarning("No sun coin assigned");
