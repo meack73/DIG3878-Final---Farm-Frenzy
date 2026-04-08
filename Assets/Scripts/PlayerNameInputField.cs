@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Photon.Pun;
+using JetBrains.Annotations;
 
 //player name input - appears above character in game
 [RequireComponent(typeof(InputField))]
@@ -19,6 +20,7 @@ public class PlayerNameInputField : MonoBehaviour
         if (inputField != null && PlayerPrefs.HasKey(playerNamePrefKey))
         {
             defaultName = PlayerPrefs.GetString(playerNamePrefKey);
+            Debug.Log("Player Name originally: " + defaultName);
             inputField.text = defaultName;
         }
 

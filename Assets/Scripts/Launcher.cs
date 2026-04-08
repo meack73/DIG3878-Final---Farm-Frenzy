@@ -29,6 +29,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         if (isConnecting)
         {
             PhotonNetwork.JoinRandomRoom();
+            OnJoinedRoom();
         }
 
     }
@@ -38,6 +39,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         Debug.LogWarning($"Disconnected: {cause}");
         isConnecting = false;
         progressLabel.SetActive(false);
+        waitingLabel.SetActive(false);
         controlPanel.SetActive(true);
     }
 
@@ -47,12 +49,22 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
     }
 
+    //temp variablee to test photon network
+    int numJoined = 1;
+
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined room. Player count = " + PhotonNetwork.CurrentRoom.PlayerCount);
-        progressLabel.SetActive(false);
 
-        if (PhotonNetwork.CurrentRoom.PlayerCount < maxPlayersPerRoom)
+        //Debug.Log("Joined room. Player count = " + ++numJoined);
+
+        numJoined = PhotonNetwork.CurrentRoom.PlayerCount;
+
+        progressLabel.SetActive(false);
+        controlPanel.SetActive(false);
+        isConnecting = true;
+
+        if (numJoined < maxPlayersPerRoom)
         {
             waitingLabel.SetActive(true);
 
@@ -101,12 +113,14 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.JoinRandomRoom();
+            Debug.Log("Connected to Master");
+            OnConnectedToMaster();
         }
         else
         {
             PhotonNetwork.GameVersion = gameVersion;
             PhotonNetwork.ConnectUsingSettings();
+            Debug.Log("Not connected to master, trying again...");
         }
     }
 
@@ -114,10 +128,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("Not master client...");
             return;
         }
 
-        waitingLabel.SetActive(false);
+        //waitingLabel.SetActive(false);
+
+        if (numJoined < maxPlayersPerRoom)
+        {
+            Debug.Log("Still waiting on player to join...");
+            return;
+        }
 
         Debug.Log("Enough players joined. Loading game scene...");
         PhotonNetwork.LoadLevel(gameplayScene);
