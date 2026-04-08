@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections; 
 
 public class FlowerBehavior : MonoBehaviour
 {
@@ -85,15 +86,31 @@ public class FlowerBehavior : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            PlayDeath();
+            StartCoroutine(Die());
         }
     }
 
-    void PlayDeath()
+    IEnumerator Die()
     {
-        //animator.SetBool("Die", true);
-        GetComponent<Collider>().enabled = false; 
-        //rb.isKinematic = true; 
-        Destroy(gameObject, 5f);
+        float duration = 1f;
+        float time = 0f;
+        int rotateAmount = 90; 
+
+        if (playerId == 2) rotateAmount *= -1; 
+
+        Quaternion startRot = transform.rotation;
+        Quaternion endRot = Quaternion.Euler(rotateAmount, 0, 0); // flop sideways
+
+        while (time < duration)
+        {
+            transform.rotation = Quaternion.Lerp(startRot, endRot, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = endRot;
+        rb.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 3f);
     }
 }
