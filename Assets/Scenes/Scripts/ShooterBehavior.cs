@@ -42,7 +42,7 @@ public class ShooterBehavior : MonoBehaviour
             animator.SetBool("Idle", true);
         }
 
-        //isAttacking  = false; 
+        isAttacking  = false; 
     }
 
     void OnCollisionEnter(Collision collision)
