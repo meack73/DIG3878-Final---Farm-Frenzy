@@ -51,24 +51,24 @@ public class ShooterBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet") && !gameObject.name.Contains("PlantShooterAsset"))
+        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
+        if (collision.gameObject.CompareTag(enemyBulletTag))
         {
             Destroy(collision.gameObject);
-            health--;            
-        } else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
-        {
-            isAttacking = true;
-            //rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            //animator.SetBool("Walk", false);
-        }
+            TakeDamage(1);        
+        } 
+    }
+
+    void TakeDamage(int damage)
+    {
+        health -= damage;
+        Debug.Log(gameObject.name + " Health: " + health);
 
         if (health <= 0)
         {
             PlayDeath();
         }
-        
     }
-
    
     void PlayDeath()
     {

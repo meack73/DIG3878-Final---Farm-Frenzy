@@ -16,7 +16,6 @@ public class MonsterSpawner : MonoBehaviour
 
     public void PlaceMonster(int x, int z) 
     {
-        //Maybe remove
         if (playerId == 1 && gameBoard.monsterLocations[x, z] != 0) 
         {
             return;
@@ -24,8 +23,6 @@ public class MonsterSpawner : MonoBehaviour
 
         if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length) return;
         
-        LogMonsterGrid();
-        // We use the board's logic to find the exact center of the tile
         float startX = -((gameBoard.width - 1) * gameBoard.tileSize) / 2f;
         float startZ = -((gameBoard.depth - 1) * gameBoard.tileSize) / 2f;
 
@@ -54,7 +51,7 @@ public class MonsterSpawner : MonoBehaviour
                 behavior.playerId = playerId; 
             }
         }
-        else //sunflower
+        else if (selectedMonster == 3)
         {
             FlowerBehavior behavior = newMonster.GetComponent<FlowerBehavior>();
             if (behavior != null)

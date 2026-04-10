@@ -88,7 +88,7 @@ PrefabInstance:
       addedObject: {fileID: -578691392437511086}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8732501358682117137}
+      addedObject: {fileID: 8537181976501790967}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: -1
       addedObject: {fileID: -5936881787727751070}
@@ -132,8 +132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterHealth
   maxHealth: 5
   monsterHealth: 0
---- !u!136 &8732501358682117137
-CapsuleCollider:
+--- !u!65 &8537181976501790967
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -150,10 +150,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.7
-  m_Height: 2
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8, y: 1.7, z: 0.8}
   m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &-5936881787727751070
 MonoBehaviour:
@@ -204,8 +202,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 110
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

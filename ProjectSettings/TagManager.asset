@@ -13,6 +13,9 @@ TagManager:
   - Bullet
   - House
   - Monster
+  - P1Bullet
+  - P2Bullet
+  - Tile
   layers:
   - Default
   - TransparentFX

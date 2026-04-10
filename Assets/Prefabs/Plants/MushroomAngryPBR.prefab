@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 5876949206263575393}
   - component: {fileID: 3022155994709639125}
   - component: {fileID: -8442114575432871374}
-  - component: {fileID: -6088075238661988161}
+  - component: {fileID: -7488460684650177649}
   m_Layer: 0
   m_Name: MushroomAngryPBR
   m_TagString: Monster
@@ -164,13 +164,13 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!136 &-6088075238661988161
-CapsuleCollider:
+--- !u!65 &-7488460684650177649
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -187,11 +187,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.7
-  m_Height: 0.7
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.7, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.7, y: 1, z: 0.7}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1326775223490303571
 GameObject:
   m_ObjectHideFlags: 0

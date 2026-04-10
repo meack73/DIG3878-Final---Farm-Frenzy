@@ -11,15 +11,21 @@ public class MonsterBehavior : MonoBehaviour
     private float speed = 1.5f;
 
     [Header("Combat Settings")]
-    public float attackCooldown = 2.0f;   // 1 second between hits
+    public float attackCooldown = 2.0f;  
     public float lastAttackTime = 0f;
     public bool isAttacking = false;
+
+    private float postAttackDelay = 2.0f;
+    private float lastStopAttackTime = -999f;
+
     public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
     private MonsterBehavior currentTarget; //current plant target 
+    private FlowerBehavior currentFlower;
 
     private string TargetHouse = "Player1";
     private PlayerHealth targetHouse = null;
+    
 
     void Start()
     {
@@ -45,33 +51,52 @@ public class MonsterBehavior : MonoBehaviour
             return;
         }
 
+        if (!isAttacking && Time.time < lastStopAttackTime + postAttackDelay)
+        {
+            rb.linearVelocity = new Vector3(0, 0, 0);
+
+            animator.SetBool("Walk", false);
+            animator.SetBool("Attack", false);
+            animator.SetBool("Idle", true);
+
+            return;
+        }
+
         if (isAttacking)
         {
             
-            rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            animator.SetBool("Walk", false);
+            rb.linearVelocity = new Vector3(0, 0, 0);
+            animator.SetBool( "Walk", false);
+            animator.SetBool("Idle", false);
 
             if (currentTarget != null && currentTarget.health <= 0)
             {
                 currentTarget = null;
                 isAttacking = false;
+                lastStopAttackTime = Time.time;
                 return;
             }
-            
+
+            if (currentFlower != null && currentFlower.health <= 0)
+            {
+                currentFlower = null;
+                isAttacking = false;
+                lastStopAttackTime = Time.time;
+                return;
+            }
+                        
             if (Time.time >= lastAttackTime + attackCooldown)
             {
                 animator.SetBool("Attack", true);
                 lastAttackTime = Time.time;
 
                 if (currentTarget != null)
-                {
                     currentTarget.TakeDamage(1);
-                }
+                else if (currentFlower != null)
+                    currentFlower.TakeDamage(1);
                 else if (targetHouse != null)
-                {
-                    Debug.Log("House health" + targetHouse.playerHealth);
                     targetHouse.DamagePlayer(1f);
-                }
+
             }
 
             else if (Time.time >= lastAttackTime + 0.5f) // Reset attack animation halfway through cooldown
@@ -88,24 +113,31 @@ public class MonsterBehavior : MonoBehaviour
     void HandleMovement()
     {
         Vector3 moveDir = transform.forward * speed;
-        rb.linearVelocity = new Vector3(moveDir.x, rb.linearVelocity.y, moveDir.z);
+        rb.linearVelocity = new Vector3(moveDir.x, 0, moveDir.z);
+
         animator.SetBool("Walk", true);
         animator.SetBool("Attack", false);
+        animator.SetBool("Idle", false); 
     }
 
     void OnCollisionStay(Collision collision)
-    {            
+    {   
         if (collision.gameObject.CompareTag("Monster"))
         {
             MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
-            
+            FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
+
             if (other != null && other.playerId != playerId && other.health > 0)
             {
                 isAttacking = true;
-                currentTarget = other; 
+                currentTarget = other;
+            }
+            else if (flower != null && flower.playerId != playerId && flower.health > 0)
+            {
+                isAttacking = true;
+                currentFlower = flower;
             }
         }
-
         else if (collision.gameObject.CompareTag(TargetHouse))
         {
             isAttacking = true;
@@ -117,19 +149,29 @@ public class MonsterBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag(TargetHouse))
         {
+            MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
+            FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
+
+            if ((other != null && other.health <= 0) || (flower != null && flower.health <= 0))
+            {
+                lastStopAttackTime = Time.time;
+            }
+
             isAttacking = false;
             currentTarget = null;
+            currentFlower = null;
             targetHouse = null;
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
+        if (collision.gameObject.CompareTag(enemyBulletTag))
         {
             Destroy(collision.gameObject);
-            TakeDamage(1);
-        }
+            TakeDamage(1);        
+        } 
     }
 
     void TakeDamage(int damage)

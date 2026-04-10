@@ -17,11 +17,15 @@ public class FlowerBehavior : MonoBehaviour
     public bool coinSpawn = false; 
     private float coinSpawnAnimationCooldown = 2.5f; 
     private float coinSpawnAnimationTimer = 0f;
+    private bool isDying = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         animator.SetBool("Idle", true);
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        Debug.Log(gameObject.name + " flower playerId: " + playerId);
     }
     
     void Update()
@@ -54,52 +58,46 @@ public class FlowerBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Stationary plants should take damage from Bullets (monsters) or Enemy projectiles
-        if (collision.gameObject.CompareTag("Bullet"))
+        Debug.Log("Flower (P" + playerId + ") hit by: " + collision.gameObject.tag);
+
+        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
+        if (collision.gameObject.CompareTag(enemyBulletTag))
         {
             Destroy(collision.gameObject);
             TakeDamage(1);        
         } 
-
-        if (collision.gameObject.CompareTag("Monster") && collision.gameObject.GetComponent<MonsterBehavior>().playerId != playerId)
-        {
-            TakeDamage(1);
-            Debug.Log("Plant hit by Monster!");
-        }
     }
 
-    void OnCollisionStay(Collision collision)
+    public void TakeDamage(int damage)
     {
-        if (collision.gameObject.CompareTag("Monster") && collision.gameObject.GetComponent<MonsterBehavior>().playerId != playerId)
-        {
-            damageTimer += Time.deltaTime;
-            if (damageTimer >= damageCooldown)
-            {
-                TakeDamage(1);
-                damageTimer = 0f;
-            }
-        }
-    }
-
-    void TakeDamage(int damage)
-    {
+        if (isDying) return;
+        isDying = true; 
         health -= damage;
+            Debug.Log(gameObject.name + " took damage, health now: " + health + " | caller: " + new System.Diagnostics.StackTrace().ToString());
+
         if (health <= 0)
         {
+            isDying = true;
             StartCoroutine(Die());
+        } else
+        {
+            isDying = false;
         }
     }
 
     IEnumerator Die()
     {
-        float duration = 1f;
-        float time = 0f;
-        int rotateAmount = 90; 
+        rb.isKinematic = true; 
+        rb.linearVelocity = Vector3.zero;
 
-        if (playerId == 2) rotateAmount *= -1; 
+        Debug.Log("death animation");
+        yield return null;
+        
+        float duration = 0.7f;
+        float time = 0f;
 
         Quaternion startRot = transform.rotation;
-        Quaternion endRot = Quaternion.Euler(rotateAmount, 0, 0); // flop sideways
+        Quaternion endRot = Quaternion.Euler(90, 0, 0);
 
         while (time < duration)
         {
@@ -109,8 +107,8 @@ public class FlowerBehavior : MonoBehaviour
         }
 
         transform.rotation = endRot;
-        rb.isKinematic = true;
         GetComponent<Collider>().enabled = false;
-        Destroy(gameObject, 3f);
+        Debug.Log("destroy");
+        Destroy(gameObject, 2f);
     }
 }

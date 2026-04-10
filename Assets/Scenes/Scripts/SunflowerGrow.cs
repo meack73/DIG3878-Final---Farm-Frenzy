@@ -47,7 +47,7 @@ public class SunflowerGrow : MonoBehaviour
         isGrowing = true;
         fullyGrown = false;
 
-        Debug.Log("Sunflower: waiting to start growing...");
+        //Debug.Log("Sunflower: waiting to start growing...");
 
         // wait a few seconds before start growth
         //yield return new WaitForSeconds(7f);
@@ -55,19 +55,19 @@ public class SunflowerGrow : MonoBehaviour
         //set active pot & start growing
         pot.SetActive(true);
 
-        Debug.Log("Growing commences...");
+        //Debug.Log("Growing commences...");
 
         //wait a few seconds between stage 0 & stage 1
         //yield return new WaitForSeconds(7f);
 
-        Debug.Log("Sunflower has begun to grow - pot & soil appear");
+        //Debug.Log("Sunflower has begun to grow - pot & soil appear");
         soil.SetActive(true);
 
         for (int i=0; i < 4; i++)
         {
             ShowOnlyStage(i);
             currStage = i;
-            Debug.Log("Sunflower is on growing stage: " + (i + 1));
+            //Debug.Log("Sunflower is on growing stage: " + (i + 1));
 
             if (i < 3)
             {
@@ -80,7 +80,7 @@ public class SunflowerGrow : MonoBehaviour
         isGrowing = false;
         flowerCol.enabled = true;
 
-        Debug.Log("Sunflower is fully grown & ready to be picked.");
+        //Debug.Log("Sunflower is fully grown & ready to be picked.");
 
         StartCoroutine(CoinDropLoop());
     }
@@ -179,7 +179,7 @@ public class SunflowerGrow : MonoBehaviour
             Destroy(SunCoin, 10f);
         }
 
-        Debug.Log("Coins dropped");
+        //Debug.Log("Coins dropped");
     }
 
     // Update is called once per frame
