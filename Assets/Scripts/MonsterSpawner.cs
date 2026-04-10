@@ -28,6 +28,7 @@ public class MonsterSpawner : MonoBehaviour
 
         float localX = startX + (x * gameBoard.tileSize) - (gameBoard.tileSize / 2f);
         float localZ = startZ + (z * gameBoard.tileSize) + (gameBoard.tileSize / 2f);
+
         Vector3 localPos = new Vector3(localX, 0.5f, localZ);
         Vector3 worldPos = transform.TransformPoint(localPos);
         
@@ -51,7 +52,7 @@ public class MonsterSpawner : MonoBehaviour
                 behavior.playerId = playerId; 
             }
         }
-        else if (selectedMonster == 3)
+        else if (selectedMonster == 3) //sunflower
         {
             FlowerBehavior behavior = newMonster.GetComponent<FlowerBehavior>();
             if (behavior != null)

@@ -26,7 +26,6 @@ public class MonsterBehavior : MonoBehaviour
 
     private string TargetHouse = "Player1";
     private PlayerHealth targetHouse = null;
-    
 
     void Start()
     {
@@ -66,7 +65,7 @@ public class MonsterBehavior : MonoBehaviour
         if (isAttacking)
         {
             
-            rb.linearVelocity = new Vector3(0, 0, 0);
+            rb.linearVelocity = Vector3.zero;
             animator.SetBool( "Walk", false);
             animator.SetBool("Idle", false);
 
@@ -133,27 +132,25 @@ public class MonsterBehavior : MonoBehaviour
 
     void OnCollisionStay(Collision collision)
     {   
-        if (collision.gameObject.CompareTag("Monster"))
-        {
-            MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
-            FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
-            ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
+        MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
+        FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
+        ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
 
-            if (monster != null && monster.playerId != playerId && monster.health > 0)
-            {
-                isAttacking = true;
-                currentTarget = monster;
-            }
-            else if (flower != null && flower.playerId != playerId && flower.health > 0)
-            {
-                isAttacking = true;
-                currentFlower = flower;
-            }
-            else if (shooter != null && shooter.playerId != playerId && shooter.health > 0)
-            {
-                isAttacking = true;
-                currentShooter = shooter;
-            }
+        if (monster != null && monster.playerId != playerId && monster.health > 0)
+        {
+            isAttacking = true;
+            currentTarget = monster;
+        }
+        else if (flower != null && flower.playerId != playerId && flower.health > 0)
+        {
+            Debug.Log("P2 MONSTER FOUND FLOWER SCRIPT!");
+            isAttacking = true;
+            currentFlower = flower;
+        }
+        else if (shooter != null && shooter.playerId != playerId && shooter.health > 0)
+        {
+            isAttacking = true;
+            currentShooter = shooter;
         }
         else if (collision.gameObject.CompareTag(TargetHouse))
         {

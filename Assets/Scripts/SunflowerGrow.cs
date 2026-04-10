@@ -33,7 +33,7 @@ public class SunflowerGrow : MonoBehaviour
     {
         flowerBehavior = GetComponent<FlowerBehavior>();
         flowerCol = GetComponent<Collider>();
-        flowerCol.enabled = false;
+        //flowerCol.enabled = false;
 
         ResetSunflower();
         gameObject.SetActive(true); 
@@ -131,7 +131,7 @@ public class SunflowerGrow : MonoBehaviour
         sunHead.SetActive(false);
         leaves.SetActive(false);
         petals.SetActive(false);
-        flowerCol.enabled = false;
+        //flowerCol.enabled = false;
 
     }
 

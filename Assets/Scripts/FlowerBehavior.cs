@@ -24,8 +24,8 @@ public class FlowerBehavior : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("Idle", true);
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
         rb.freezeRotation = true;
-        Debug.Log(gameObject.name + " flower playerId: " + playerId);
     }
     
     void Update()
@@ -65,30 +65,21 @@ public class FlowerBehavior : MonoBehaviour
             TakeDamage(1);        
         } 
     }
-
+  
     public void TakeDamage(int damage)
     {
-        if (isDying) return;
-        isDying = true; 
+        if (isDying || health <= 0) return;
         health -= damage;
 
         if (health <= 0)
         {
             isDying = true;
             StartCoroutine(Die());
-        } else
-        {
-            isDying = false;
-        }
+        } 
     }
 
     IEnumerator Die()
     {
-        rb.isKinematic = true; 
-        rb.linearVelocity = Vector3.zero;
-
-        yield return null;
-        
         float duration = 0.7f;
         float time = 0f;
 
