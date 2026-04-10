@@ -69,28 +69,28 @@ public class MonsterSpawner : MonoBehaviour
 
     private void RotateMonster(GameObject monster)
     {
-        if (selectedMonster == 0)
+        if (selectedMonster == 0) //shooter
         {
             monster.transform.Rotate(0, 180, 0);
+            monster.transform.Translate(-1.5f, 0, 0);
         }
-        else if (selectedMonster == 1 || selectedMonster == 2)
+        else if (selectedMonster == 1 || selectedMonster == 2) //cactus and mushroom
         {
             monster.transform.Rotate(0, 90, 0);
             monster.transform.Translate(0, -0.5f, 0);
         }
-        else if (selectedMonster == 3)
+        else if (selectedMonster == 3) //sunflower
         {
             if (playerId == 1)
             {
-                monster.transform.Translate(1f, 0.5f, 0.5f);
+                monster.transform.Translate(1f, 1f, 0);
             }
             else if (playerId == 2)
             {
-                monster.transform.Translate(-2f, 0.5f, 0);
+                monster.transform.Translate(-1.5f, 1f, 0);
                 monster.transform.Rotate(0, 180, 0);
             }
         }
-        
     }
 
     public void LogMonsterGrid()
