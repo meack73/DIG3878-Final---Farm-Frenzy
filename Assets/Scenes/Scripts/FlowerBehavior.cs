@@ -58,8 +58,6 @@ public class FlowerBehavior : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Flower (P" + playerId + ") hit by: " + collision.gameObject.tag);
-
         string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
         if (collision.gameObject.CompareTag(enemyBulletTag))
         {
@@ -73,7 +71,6 @@ public class FlowerBehavior : MonoBehaviour
         if (isDying) return;
         isDying = true; 
         health -= damage;
-            Debug.Log(gameObject.name + " took damage, health now: " + health + " | caller: " + new System.Diagnostics.StackTrace().ToString());
 
         if (health <= 0)
         {
@@ -90,7 +87,6 @@ public class FlowerBehavior : MonoBehaviour
         rb.isKinematic = true; 
         rb.linearVelocity = Vector3.zero;
 
-        Debug.Log("death animation");
         yield return null;
         
         float duration = 0.7f;
@@ -108,7 +104,6 @@ public class FlowerBehavior : MonoBehaviour
 
         transform.rotation = endRot;
         GetComponent<Collider>().enabled = false;
-        Debug.Log("destroy");
         Destroy(gameObject, 2f);
     }
 }

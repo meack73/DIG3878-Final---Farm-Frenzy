@@ -22,6 +22,7 @@ public class MonsterBehavior : MonoBehaviour
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
     private MonsterBehavior currentTarget; //current plant target 
     private FlowerBehavior currentFlower;
+    private ShooterBehavior currentShooter; 
 
     private string TargetHouse = "Player1";
     private PlayerHealth targetHouse = null;
@@ -77,9 +78,17 @@ public class MonsterBehavior : MonoBehaviour
                 return;
             }
 
-            if (currentFlower != null && currentFlower.health <= 0)
+            else if (currentFlower != null && currentFlower.health <= 0)
             {
                 currentFlower = null;
+                isAttacking = false;
+                lastStopAttackTime = Time.time;
+                return;
+            }
+
+            else if (currentShooter != null && currentShooter.health <= 0)
+            {
+                currentShooter = null;
                 isAttacking = false;
                 lastStopAttackTime = Time.time;
                 return;
@@ -94,6 +103,8 @@ public class MonsterBehavior : MonoBehaviour
                     currentTarget.TakeDamage(1);
                 else if (currentFlower != null)
                     currentFlower.TakeDamage(1);
+                else if (currentShooter != null)
+                    currentShooter.TakeDamage(1);
                 else if (targetHouse != null)
                     targetHouse.DamagePlayer(1f);
 
@@ -124,18 +135,24 @@ public class MonsterBehavior : MonoBehaviour
     {   
         if (collision.gameObject.CompareTag("Monster"))
         {
-            MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
+            MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
             FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
+            ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
 
-            if (other != null && other.playerId != playerId && other.health > 0)
+            if (monster != null && monster.playerId != playerId && monster.health > 0)
             {
                 isAttacking = true;
-                currentTarget = other;
+                currentTarget = monster;
             }
             else if (flower != null && flower.playerId != playerId && flower.health > 0)
             {
                 isAttacking = true;
                 currentFlower = flower;
+            }
+            else if (shooter != null && shooter.playerId != playerId && shooter.health > 0)
+            {
+                isAttacking = true;
+                currentShooter = shooter;
             }
         }
         else if (collision.gameObject.CompareTag(TargetHouse))
@@ -151,8 +168,9 @@ public class MonsterBehavior : MonoBehaviour
         {
             MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
             FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
+            ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
 
-            if ((other != null && other.health <= 0) || (flower != null && flower.health <= 0))
+            if ((other != null && other.health <= 0) || (flower != null && flower.health <= 0) || (shooter != null && shooter.health <= 0))
             {
                 lastStopAttackTime = Time.time;
             }
@@ -160,6 +178,7 @@ public class MonsterBehavior : MonoBehaviour
             isAttacking = false;
             currentTarget = null;
             currentFlower = null;
+            currentShooter = null;
             targetHouse = null;
         }
     }

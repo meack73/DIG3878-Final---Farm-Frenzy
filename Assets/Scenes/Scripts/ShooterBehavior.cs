@@ -12,6 +12,7 @@ public class ShooterBehavior : MonoBehaviour
     public bool isAttacking = false;
     public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
+    private bool isDying = false;
 
     public int playerId = 0;
 
@@ -41,12 +42,7 @@ public class ShooterBehavior : MonoBehaviour
             animator.SetBool("Idle", true);
         }
 
-        isAttacking  = false; 
-
-        if (health <= 0)
-        {
-            PlayDeath();
-        }
+        //isAttacking  = false; 
     }
 
     void OnCollisionEnter(Collision collision)
@@ -59,8 +55,9 @@ public class ShooterBehavior : MonoBehaviour
         } 
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
+        if (isDying) return;
         health -= damage;
         Debug.Log(gameObject.name + " Health: " + health);
 
@@ -72,11 +69,12 @@ public class ShooterBehavior : MonoBehaviour
    
     void PlayDeath()
     {
-        animator.SetBool("Die", true);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Idle", false);
-        if(GetComponent<Collider>()) GetComponent<Collider>().enabled = false; 
-        Destroy(gameObject, 3f);
-    }
+        if (isDying) return;
+        isDying = true;
 
+        animator.SetBool("Die", true);
+        GetComponent<Collider>().enabled = false;
+        rb.isKinematic = true;
+        Destroy(gameObject, 5f);
+    }
 }
