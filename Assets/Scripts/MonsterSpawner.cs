@@ -9,7 +9,6 @@ public class MonsterSpawner : MonoBehaviour
 
     void Start()
     {    
-        Debug.Log("MONSTER SPAWNER START");
         gameBoard = GetComponentInParent<GameBoard>();
 
         playerId = gameBoard.playerId;     
@@ -17,22 +16,19 @@ public class MonsterSpawner : MonoBehaviour
 
     public void PlaceMonster(int x, int z) 
     {
-        //Maybe remove
         if (playerId == 1 && gameBoard.monsterLocations[x, z] != 0) 
         {
-            Debug.Log("Space occupied!");
             return;
         }
 
         if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length) return;
         
-        LogMonsterGrid();
-        // We use the board's logic to find the exact center of the tile
         float startX = -((gameBoard.width - 1) * gameBoard.tileSize) / 2f;
         float startZ = -((gameBoard.depth - 1) * gameBoard.tileSize) / 2f;
 
         float localX = startX + (x * gameBoard.tileSize) - (gameBoard.tileSize / 2f);
         float localZ = startZ + (z * gameBoard.tileSize) + (gameBoard.tileSize / 2f);
+
         Vector3 localPos = new Vector3(localX, 0.5f, localZ);
         Vector3 worldPos = transform.TransformPoint(localPos);
         
@@ -56,7 +52,7 @@ public class MonsterSpawner : MonoBehaviour
                 behavior.playerId = playerId; 
             }
         }
-        else //sunflower
+        else if (selectedMonster == 3) //sunflower
         {
             FlowerBehavior behavior = newMonster.GetComponent<FlowerBehavior>();
             if (behavior != null)
@@ -74,21 +70,28 @@ public class MonsterSpawner : MonoBehaviour
 
     private void RotateMonster(GameObject monster)
     {
-        if (selectedMonster == 0)
+        if (selectedMonster == 0) //shooter
         {
             monster.transform.Rotate(0, 180, 0);
+            monster.transform.Translate(-1.5f, 0, 0);
         }
-        else if (selectedMonster == 1 || selectedMonster == 2)
+        else if (selectedMonster == 1 || selectedMonster == 2) //cactus and mushroom
         {
             monster.transform.Rotate(0, 90, 0);
             monster.transform.Translate(0, -0.5f, 0);
         }
-        else if (selectedMonster == 3)
+        else if (selectedMonster == 3) //sunflower
         {
-            monster.transform.Rotate(0, 0, 180);
-            monster.transform.Translate(0, -0.5f, 0);
+            if (playerId == 1)
+            {
+                monster.transform.Translate(1f, 1f, 0);
+            }
+            else if (playerId == 2)
+            {
+                monster.transform.Translate(-1.5f, 1f, 0);
+                monster.transform.Rotate(0, 180, 0);
+            }
         }
-        
     }
 
     public void LogMonsterGrid()
@@ -107,4 +110,3 @@ public class MonsterSpawner : MonoBehaviour
         Debug.Log(visualGrid);
     }
     }
-

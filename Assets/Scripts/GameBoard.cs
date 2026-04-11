@@ -18,8 +18,6 @@ public class GameBoard : MonoBehaviour
         if (gameObject.CompareTag("P1Board")) playerId = 1;
         else if (gameObject.CompareTag("P2Board")) playerId = 2;
 
-        Debug.Log("GAME BOARD AWAKE");
-
         monsterLocations = new int[width, depth];
         offset = tileSize * width / 2 + 0.5f; //separator width
         if (playerId == 1)

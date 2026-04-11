@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 6096312193273766057}
   - component: {fileID: -3531385958406202684}
   - component: {fileID: -1254221380051886239}
-  - component: {fileID: -7107972419326957077}
+  - component: {fileID: -1939119680954906488}
   m_Layer: 0
   m_Name: CactusPBR
   m_TagString: Monster
@@ -197,12 +197,12 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!136 &-7107972419326957077
+--- !u!136 &-1939119680954906488
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,10 +221,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.8
-  m_Height: 2
+  m_Radius: 0.4408551
+  m_Height: 1.433663
   m_Direction: 1
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0.059144925, y: 0.6837705, z: 0}
 --- !u!1 &1006438018938304421
 GameObject:
   m_ObjectHideFlags: 0

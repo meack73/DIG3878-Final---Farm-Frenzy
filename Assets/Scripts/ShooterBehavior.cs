@@ -12,6 +12,7 @@ public class ShooterBehavior : MonoBehaviour
     public bool isAttacking = false;
     public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
+    private bool isDying = false;
 
     public int playerId = 0;
 
@@ -42,41 +43,38 @@ public class ShooterBehavior : MonoBehaviour
         }
 
         isAttacking  = false; 
-
-        if (health <= 0)
-        {
-            PlayDeath();
-        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet") && !gameObject.name.Contains("PlantShooterAsset"))
+        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
+        if (collision.gameObject.CompareTag(enemyBulletTag))
         {
             Destroy(collision.gameObject);
-            health--;            
-        } else if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag("House"))
-        {
-            isAttacking = true;
-            //rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
-            //animator.SetBool("Walk", false);
-        }
+            TakeDamage(1);        
+        } 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (isDying) return;
+        health -= damage;
+        Debug.Log(gameObject.name + " Health: " + health);
 
         if (health <= 0)
         {
             PlayDeath();
         }
-        
     }
-
    
     void PlayDeath()
     {
-        animator.SetBool("Die", true);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Idle", false);
-        if(GetComponent<Collider>()) GetComponent<Collider>().enabled = false; 
-        Destroy(gameObject, 3f);
-    }
+        if (isDying) return;
+        isDying = true;
 
+        animator.SetBool("Die", true);
+        GetComponent<Collider>().enabled = false;
+        rb.isKinematic = true;
+        Destroy(gameObject, 5f);
+    }
 }
