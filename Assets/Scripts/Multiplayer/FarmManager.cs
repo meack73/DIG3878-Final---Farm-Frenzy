@@ -4,90 +4,49 @@ using UnityEngine;
 public class FarmManager : MonoBehaviourPunCallbacks
 {
 
-    private CameraWork camera;
+    public CameraMovement camera;
 
     private bool isPlayerOne;
-
-    // 0 = own side, 1 = center, 2 = enemy side
-    private int currView;
 
     #region private Camera Update
 
     private void UpdateCameraView()
     {
-        if (isPlayerOne)
+
+        if (camera == null)
         {
-            if (currView == 0)
-            {
-                camera.setToLeftSide();
-            }
-            else if (currView == 1)
-            {
-                camera.setToCenter();
-            }
-            else if (currView == 2)
-            {
-                camera.setToRightSide();
-            }
+            Debug.LogError("camera is NULL in FarmManager");
+            return;
         }
-        else
-        {
-            if (currView == 0)
-            {
-                camera.setToRightSide();
-            }
-            else if (currView == 1)
-            {
-                camera.setToCenter();
-            }
-            else if (currView == 2)
-            {
-                camera.setToLeftSide();
-            }
-        }
-    }
 
-    #endregion
-
-    #region public Pan Methods
-
-    public void panTowardsCenterOrEnemy()
-    {
-        currView = Mathf.Min(currView + 1, 2);
-        UpdateCameraView();
-    }
-
-    public void panTowardsFarm()
-    {
-        currView = Mathf.Max(currView - 1, 0);
-        UpdateCameraView();
+        camera.SetStartSide(isPlayerOne);
     }
 
     #endregion
 
     #region public Arrow Methods
 
-    public void OnRightArrow()
+    public void OnDKey()
     {
         if (isPlayerOne)
         {
-            panTowardsCenterOrEnemy();
+            camera.MoveRight();
         }
         else
         {
-            panTowardsFarm();
+            camera.MoveLeft();
         }
     }
 
-    public void OnLeftArrow()
+    public void OnAKey()
     {
         if (isPlayerOne)
         {
-            panTowardsFarm();
+            camera.MoveLeft();
         }
         else
         {
-            panTowardsCenterOrEnemy();
+            camera.MoveRight();
         }
     }
 
@@ -102,17 +61,22 @@ public class FarmManager : MonoBehaviourPunCallbacks
             return;
         }
 
-         //if player entered first playerOne = true, if not playerOne = false
-         isPlayerOne = PhotonNetwork.LocalPlayer.ActorNumber == 1;
+        //if player entered first playerOne = true, if not playerOne = false
+        isPlayerOne = PhotonNetwork.LocalPlayer.ActorNumber == 1;
 
-        currView = 0;
-        UpdateCameraView();
-        camera.snapToTarget();
+        camera.SetStartSide(isPlayerOne);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            OnDKey();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            OnAKey();
+        }
     }
-}
+};

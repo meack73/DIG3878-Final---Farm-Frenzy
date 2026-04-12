@@ -14,7 +14,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject waitingLabel;
 
     [Header("Scene Settings")]
-    [SerializeField] private string gameplayScene = "SampleScene";
+    [SerializeField] private string gameplayScene = "SampleScene 1";
 
     //This is client's ver # so that users are separated from each other by gameVersion (allowing for breaking changes)
     private string gameVersion = "1";
@@ -59,10 +59,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressLabel.SetActive(false);
         controlPanel.SetActive(false);
 
-        /*
+        
         Debug.Log("Adding to Player Count for testing");
         numJoined++;
-        */
+        
 
         if (numJoined < maxPlayersPerRoom)
         {
@@ -143,7 +143,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
 
         Debug.Log("Enough players joined. Loading game scene...");
-        PhotonNetwork.LoadLevel(gameplayScene);
+        //PhotonNetwork.LoadLevel(gameplayScene);
+        PhotonNetwork.LoadLevel("SampleScene 1");
     }
 
     #endregion
