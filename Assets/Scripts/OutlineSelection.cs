@@ -9,6 +9,13 @@ public class OutlineSelection : MonoBehaviour
     private Transform selection;
     private RaycastHit raycastHit;
     public MonsterSpawner monsterSpawner;
+    StoreManager storeManager;
+
+    void Start()
+    {
+        GameObject gameManager = GameObject.FindWithTag("GameManager");
+        storeManager = gameManager.GetComponent<StoreManager>();
+    }
 
     void Update()
     {
@@ -61,7 +68,15 @@ public class OutlineSelection : MonoBehaviour
 
                 if (tile != null && monsterSpawner != null)
                 {
-                    monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
+                    if (storeManager.plantPrice[storeManager.currentSelected].canBuy)
+                    {
+                        monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
+                        if (!storeManager.plantPrice[storeManager.currentSelected].onCooldown)
+                        {
+                            StartCoroutine(storeManager.BuyCooldown(storeManager.currentSelected));
+                        }
+                        Deselect();
+                    }
                 }
                 
                 Debug.Log($"Selected tile at {tile.xIndex}, {tile.zIndex}");
@@ -79,6 +94,12 @@ public class OutlineSelection : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Deselect()
+    {
+        //yield return null;
+        monsterSpawner.selectedMonster = -1;
     }
 
 }

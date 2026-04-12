@@ -16,6 +16,7 @@ TagManager:
   - P1Bullet
   - P2Bullet
   - Tile
+  - GameManager
   layers:
   - Default
   - TransparentFX
