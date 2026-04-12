@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Photon.Pun;
-using JetBrains.Annotations;
 
 //player name input - appears above character in game
 [RequireComponent(typeof(InputField))]
@@ -14,15 +13,16 @@ public class PlayerNameInputField : MonoBehaviour
     void Start()
     {
 
-        string defaultName = string.Empty;
+        string defaultName = "Player" + Random.Range(1000, 9999);
         InputField inputField = GetComponent<InputField>();
 
-        if (inputField != null && PlayerPrefs.HasKey(playerNamePrefKey))
+        if (PlayerPrefs.HasKey(playerNamePrefKey))
         {
             defaultName = PlayerPrefs.GetString(playerNamePrefKey);
             Debug.Log("Player Name originally: " + defaultName);
-            inputField.text = defaultName;
         }
+
+        inputField.text = defaultName;
 
         PhotonNetwork.NickName = defaultName;
 

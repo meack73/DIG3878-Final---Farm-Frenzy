@@ -1,7 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using Unity.VisualScripting;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -29,7 +28,6 @@ public class Launcher : MonoBehaviourPunCallbacks
         if (isConnecting)
         {
             PhotonNetwork.JoinRandomRoom();
-            OnJoinedRoom();
         }
 
     }
@@ -50,19 +48,21 @@ public class Launcher : MonoBehaviourPunCallbacks
     }
 
     //temp variablee to test photon network
-    int numJoined = 1;
+    int numJoined;
 
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined room. Player count = " + PhotonNetwork.CurrentRoom.PlayerCount);
 
-        //Debug.Log("Joined room. Player count = " + ++numJoined);
-
         numJoined = PhotonNetwork.CurrentRoom.PlayerCount;
 
         progressLabel.SetActive(false);
         controlPanel.SetActive(false);
-        isConnecting = true;
+
+        /*
+        Debug.Log("Adding to Player Count for testing");
+        numJoined++;
+        */
 
         if (numJoined < maxPlayersPerRoom)
         {
@@ -72,6 +72,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
+            waitingLabel.SetActive(false);
             StartGame();
         }
     }
@@ -108,13 +109,14 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         progressLabel.SetActive(true);
         controlPanel.SetActive(false);
+        waitingLabel.SetActive(false);
 
         isConnecting = true;
 
         if (PhotonNetwork.IsConnected)
         {
             Debug.Log("Connected to Master");
-            OnConnectedToMaster();
+            PhotonNetwork.JoinRandomRoom();
         }
         else
         {
