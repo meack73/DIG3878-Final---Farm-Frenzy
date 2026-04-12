@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
@@ -8,11 +9,18 @@ public class StoreManager : MonoBehaviour
     public MonsterSpawner monsterSpawner;
     [HideInInspector] public int currentSelected = 3;
 
+    public Text[] texts; 
+    
     void Start()
     {
         //Finds the currency script attached to the camera
         Camera camera = Camera.main;
         currency = camera.GetComponent<PlayerCurrency>();
+        for (int i = 0; i < texts.Length; i++)
+        {
+            texts[i].text = plantPrice[i].price.ToString();
+        }
+
     }
 
     void Update()
