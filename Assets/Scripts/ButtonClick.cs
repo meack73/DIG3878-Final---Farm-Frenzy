@@ -4,12 +4,11 @@ using UnityEngine;
 public class ButtonClick : MonoBehaviour
 {
     public MonsterSpawner monsterSpawner;
-    StoreManager storeManager;
+    public StoreManager storeManager;
     
-    void Start()
+    void Awake()
     {
         GameObject manager = GameObject.FindGameObjectWithTag("GameManager");
-        storeManager = manager.GetComponent<StoreManager>();
     }
 
     public void OnClick1() 
