@@ -1,27 +1,55 @@
+using System.Collections;
 using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
 {
     public MonsterSpawner monsterSpawner;
+    StoreManager storeManager;
     
+    void Start()
+    {
+        GameObject manager = GameObject.FindGameObjectWithTag("GameManager");
+        storeManager = manager.GetComponent<StoreManager>();
+    }
+
     public void OnClick1() 
     { 
-        monsterSpawner.selectedMonster = 0;
+        //sets the id of the plant to shooter
+        storeManager.CheckMonsterPrice(0);
+        StartCoroutine(SelectPlant(0));
     } 
 
     public void OnClick2() 
     {
-        monsterSpawner.selectedMonster = 1; 
+        //sets the id of the plant to cactus
+        storeManager.CheckMonsterPrice(1);
+        StartCoroutine(SelectPlant(1));
     }
 
     public void OnClick3() 
     { 
-        monsterSpawner.selectedMonster = 2; 
+        //sets the id of the plant to mushroom
+        storeManager.CheckMonsterPrice(2);
+        StartCoroutine(SelectPlant(2));
     }
 
     public void OnClick4() 
     { 
-        monsterSpawner.selectedMonster = 3; 
+        //sets the id of the plant to sunflower
+        storeManager.CheckMonsterPrice(3);
+        StartCoroutine(SelectPlant(3));
     }
 
+    IEnumerator SelectPlant(int mID)
+    {
+        yield return null;
+        if (storeManager.plantPrice[mID].canBuy)
+        {
+            monsterSpawner.selectedMonster = mID;
+        }
+        else
+        {
+            Debug.Log("Player does not have enough money.");
+        }
+    }
 }

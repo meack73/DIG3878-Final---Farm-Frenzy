@@ -41,6 +41,7 @@ public class MonsterSpawner : MonoBehaviour
                 behavior.spawnPoint = localPos;
                 behavior.spawnTile = new Vector3Int(x, 0, z);
                 behavior.playerId = playerId; 
+                //selectedMonster = -1;
             }
         } else if (selectedMonster == 0) //shooter
         {
@@ -60,6 +61,7 @@ public class MonsterSpawner : MonoBehaviour
                 behavior.spawnPoint = localPos;
                 behavior.spawnTile = new Vector3Int(x, 0, z);
                 behavior.playerId = playerId; 
+                //selectedMonster = -1;
             }
         }
         

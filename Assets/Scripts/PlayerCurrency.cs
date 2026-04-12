@@ -15,4 +15,10 @@ public class PlayerCurrency : MonoBehaviour
         plyrCurrencyText.text = "Sun Coins: $" + playerCurrency;
 
     }
+
+    public void DeductPrice (int price)
+    {
+        playerCurrency -= price;
+        plyrCurrencyText.text = "Sun Coins: $" + playerCurrency;
+    }
 }

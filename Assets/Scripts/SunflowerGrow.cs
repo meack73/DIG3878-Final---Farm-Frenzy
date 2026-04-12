@@ -158,7 +158,7 @@ public class SunflowerGrow : MonoBehaviour
 
         StopAllCoroutines();
         ResetSunflower();
-        StartCoroutine(GrowSunflower());
+        //StartCoroutine(GrowSunflower());
     }
 
     void DropCoins()

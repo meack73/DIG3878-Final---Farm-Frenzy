@@ -994,6 +994,7 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585549}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1154,6 +1155,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   camStartsOnLeft: 1
+--- !u!114 &330585550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurrency
+  SunCoins: 0
+  plyrCurrencyText: {fileID: 3406653731391649872}
+  playerCurrency: 0
 --- !u!4 &375799848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6695003846789372269, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
@@ -1266,7 +1282,7 @@ Transform:
   m_GameObject: {fileID: 392035149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4.9, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1629,26 +1645,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6662174415517613310, guid: 81dad7d5552c9a341b390c79338fe0a4, type: 3}
   m_PrefabInstance: {fileID: 1903832187}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &506338081 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3145676803300823663, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
-  m_PrefabInstance: {fileID: 1552932251}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &506338082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 506338081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurrency
-  SunCoins: 0
-  plyrCurrencyText: {fileID: 3406653731391649872}
-  playerCurrency: 0
 --- !u!1 &539739112
 GameObject:
   m_ObjectHideFlags: 0
@@ -4207,7 +4203,7 @@ PrefabInstance:
     - target: {fileID: 5958729469645547373, guid: 4714f9ac87c6a7c41b7c615999ddedf9, type: 3}
       propertyPath: healthManager
       value: 
-      objectReference: {fileID: 2098113040}
+      objectReference: {fileID: 1657890191045257623}
     - target: {fileID: 5985080631431231070, guid: 4714f9ac87c6a7c41b7c615999ddedf9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -33.5
@@ -4834,14 +4830,11 @@ PrefabInstance:
     - target: {fileID: 6333075533492398302, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
       propertyPath: healthManager
       value: 
-      objectReference: {fileID: 2098113040}
+      objectReference: {fileID: 1657890191045257623}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3145676803300823663, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 506338082}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
 --- !u!1 &1553877171
 GameObject:
@@ -6230,53 +6223,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb422acdc199d6e42910f589b81c283b, type: 3}
---- !u!1 &2098113039
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2098113041}
-  - component: {fileID: 2098113040}
-  m_Layer: 0
-  m_Name: HealthManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2098113040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098113039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84b95a5caaf13c345a85e722a08d0a20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  p1Health: 0
-  p2Health: 0
-  gameManager: {fileID: 730253203}
---- !u!4 &2098113041
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2098113039}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2110362042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6651,8 +6597,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -857, y: 322}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -816.4805, y: 353}
+  m_SizeDelta: {x: 241.0389, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2326372083964970446
 MonoBehaviour:
@@ -6832,13 +6778,45 @@ GameObject:
   m_Component:
   - component: {fileID: 662319484649218299}
   - component: {fileID: 4287875280086788684}
+  - component: {fileID: 4461579185313564154}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4461579185313564154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461579185313564153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f2e139277bbc6047a55dcae92c438f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  plantPrice:
+  - cooldown: 7
+    price: 3
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 10
+    price: 7
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 18
+    price: 12
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 5
+    price: 0
+    canBuy: 1
+    onCooldown: 0
+  monsterSpawner: {fileID: 934463579}
+  currentSelected: 3
 --- !u!222 &4540341991202388638
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7174,4 +7152,3 @@ SceneRoots:
   - {fileID: 1955842429}
   - {fileID: 832597671}
   - {fileID: 730253204}
-  - {fileID: 2098113041}
