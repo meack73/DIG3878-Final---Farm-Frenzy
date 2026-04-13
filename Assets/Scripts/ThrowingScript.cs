@@ -8,10 +8,10 @@ public class ThrowingScript : MonoBehaviour
     public GameObject rockPrefab; 
     float rockImpulse = 30f; 
     public ShooterBehavior shooter;
-    private float throwDelay = 0.5f;
+    public float throwDelay = 0.2f;
     private float shotTimer = 0f;
     private bool canShoot = true;
-    private float repeatTimer = 0f;
+    private float repeatTimer = 0.833f;
 
 
     private string bulletTag = "P1Bullet";
