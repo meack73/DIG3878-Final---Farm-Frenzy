@@ -29,12 +29,12 @@ public class PlayerHealthManager : MonoBehaviour
         //Detects when a player dies and ends the game
         if (p1Health <= 0)
         {
-            gameManager.GameWin();
+            //gameManager.GameWin();
             gameManager.winnerNum = 2;
         }
         else if (p2Health <= 0)
         {
-            gameManager.GameWin();
+            //gameManager.GameWin();
             gameManager.winnerNum = 1;
         }
 

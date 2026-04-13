@@ -59,10 +59,10 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressLabel.SetActive(false);
         controlPanel.SetActive(false);
 
-        
+       /* 
         Debug.Log("Adding to Player Count for testing");
         numJoined++;
-        
+        */
 
         if (numJoined < maxPlayersPerRoom)
         {
