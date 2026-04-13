@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    /*
+    
     public void GameWin()
     {
         winScreen.SetActive(true);
@@ -63,5 +63,5 @@ public class GameManager : MonoBehaviour
             nameText.text = "Player 2 Wins";
         }
     }
-    */
+    
 }
