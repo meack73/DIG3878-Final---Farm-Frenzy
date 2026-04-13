@@ -6702,6 +6702,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3265211775402938449}
+  - component: {fileID: 3265211775402938450}
   m_Layer: 5
   m_Name: P2HealthBar
   m_TagString: Untagged
@@ -6777,6 +6778,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400460530197025618}
   - component: {fileID: 1657890191045257623}
+  - component: {fileID: 1657890191045257625}
+  - component: {fileID: 1657890191045257624}
   m_Layer: 0
   m_Name: HealthManager
   m_TagString: Untagged
@@ -6810,7 +6813,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1416280654760420611}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84b95a5caaf13c345a85e722a08d0a20, type: 3}
   m_Name: 
@@ -6818,6 +6821,45 @@ MonoBehaviour:
   p1Health: 0
   p2Health: 0
   gameManager: {fileID: 4287875280086788684}
+--- !u!114 &1657890191045257624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416280654760420611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1657890191045257625}
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &1657890191045257625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416280654760420611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3e9a6702bad556439982429a4291c7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipPlayerHealthManager
+  maxPlayerHealth: 100
+  gameManager: {fileID: 4287875280086788684}
+  p1Health: 0
+  p2Health: 0
 --- !u!1 &1759308754941507090
 GameObject:
   m_ObjectHideFlags: 0
@@ -6926,6 +6968,23 @@ RectTransform:
   m_AnchoredPosition: {x: 83, y: 293}
   m_SizeDelta: {x: 500, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3265211775402938450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563508706888107505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd989bc62213464985b5c7a0a7ae89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipPlayerHealth
+  healthManager: {fileID: 1657890191045257625}
+  playerNum: 1
+  healthBar: {fileID: 5908661758146938467}
+  playerHealth: 0
+  maxPlayerHealth: 100
 --- !u!114 &3340841517123798544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7076,6 +7135,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7971112222595126231}
+  - component: {fileID: 7971112222595126232}
   m_Layer: 5
   m_Name: P1HealthBar
   m_TagString: Untagged
@@ -7303,6 +7363,23 @@ RectTransform:
   m_AnchoredPosition: {x: -83, y: 293}
   m_SizeDelta: {x: 500, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7971112222595126232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108770775075144490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd989bc62213464985b5c7a0a7ae89c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipPlayerHealth
+  healthManager: {fileID: 1657890191045257625}
+  playerNum: 1
+  healthBar: {fileID: 6882517981429531894}
+  playerHealth: 0
+  maxPlayerHealth: 100
 --- !u!222 &8254166925951563955
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
 
 public class SunflowerGrow : MonoBehaviour
 {
@@ -26,11 +27,15 @@ public class SunflowerGrow : MonoBehaviour
     public float coinSpawnHeight = 0.2f;
     public Collider flowerCol;
 
+    [SerializeField] private MultipPlayerHealthManager healthManager;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         flowerCol = GetComponent<Collider>();
         flowerCol.enabled = false;
+
+        healthManager = FindObjectOfType<MultipPlayerHealthManager>();
 
         ResetSunflower();
         StartCoroutine(GrowSunflower());
@@ -129,6 +134,7 @@ public class SunflowerGrow : MonoBehaviour
 
     }
 
+    /*
     void OnMouseDown()
     {
         Debug.Log("Sunflower is clicked.");
@@ -139,21 +145,15 @@ public class SunflowerGrow : MonoBehaviour
             return;
         }
 
-        PlayerHealth player = FindObjectOfType<PlayerHealth>();
-        if (player != null)
-        {
-            player.Heal(healAmount);
-            Debug.Log("Player healed!");
-        }
-        else
-        {
-            Debug.Log("No PlayerHealth found in scene :(");
-        }
+        int playerNum = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
+        healthManager.healPlayer(playerNum, healAmount);
+        Debug.Log("Player " + playerNum + " healed!");
 
         StopAllCoroutines();
         ResetSunflower();
         StartCoroutine(GrowSunflower());
     }
+    */
 
     void DropCoins()
     {
@@ -169,7 +169,7 @@ public class SunflowerGrow : MonoBehaviour
 
             Vector3 spawnPosition = transform.position + randomOffset;
             GameObject SunCoin = Instantiate(sunCoinPrefab, spawnPosition, Quaternion.identity);
-            Destroy(SunCoin, 10f);
+            Destroy(SunCoin, 4f);
         }
 
         Debug.Log("Coins dropped");
