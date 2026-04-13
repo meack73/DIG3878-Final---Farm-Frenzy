@@ -8,12 +8,14 @@ public class ThrowingScript : MonoBehaviour
     public GameObject rockPrefab; 
     float rockImpulse = 30f; 
     private ShooterBehavior shooter;
-    private float throwDelay = 0.5f; // to sync with animation
+    private float throwDelay = 0f; // to sync with animation
     private float shotTimer = 0f;
-    private float shotInterval = 1f; 
+    private float shotInterval = 0.833f; 
     private bool canShoot = true;
     private float repeatTimer = 0f;
-
+    private float animTimer = 0f;
+    private bool isAnimating = false;
+    
     private string bulletTag = "P1Bullet";
 
     void Start()
@@ -24,16 +26,23 @@ public class ThrowingScript : MonoBehaviour
             bulletTag = "P2Bullet";
         }
     }
+
+
     void Update()
     {
-        if (repeatTimer > shotInterval && canShoot) 
+        repeatTimer += Time.deltaTime;
+
+        if (canShoot && repeatTimer > shotInterval) 
         {
-            repeatTimer = 0f;
             if (Time.time >= shooter.lastAttackTime + shooter.attackCooldown)
             {
+                shooter.lastAttackTime = Time.time;
                 canShoot = false; 
                 shotTimer = 0f;
-                shooter.isAttacking = true; //start animation
+                animTimer = 0f;
+                isAnimating = true;
+                shooter.isAttacking = true;
+                repeatTimer = 0f;
             }
         }
 
@@ -43,10 +52,19 @@ public class ThrowingScript : MonoBehaviour
             if (shotTimer >= throwDelay)
             {
                 Shoot();
-                canShoot = true; 
+                canShoot = true;
             }
         }
-        repeatTimer += Time.deltaTime;
+
+        if (isAnimating)
+        {
+            animTimer += Time.deltaTime;
+            if (animTimer >= shotInterval)
+            {
+                shooter.isAttacking = false;
+                isAnimating = false;
+            }
+        }
     }
 
     void Shoot()

@@ -28,21 +28,14 @@ public class ShooterBehavior : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (Time.time >= lastAttackTime + attackCooldown)
-            {
-                animator.SetBool("Attack", true);
-                animator.SetBool("Idle", false);
-                lastAttackTime = Time.time;
-
-                isAttacking = true;; 
-            }
-        } else
+            animator.SetBool("Attack", true);
+            animator.SetBool("Idle", false);
+        } 
+        else
         {
             animator.SetBool("Attack", false);
             animator.SetBool("Idle", true);
         }
-
-        isAttacking  = false; 
     }
 
     void OnCollisionEnter(Collision collision)
