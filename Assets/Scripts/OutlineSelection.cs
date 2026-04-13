@@ -64,8 +64,6 @@ public class OutlineSelection : MonoBehaviour
 
                 TileData tile = highlight.GetComponentInParent<TileData>();
 
-                Debug.Log("TileData found: " + tile.name + ", " + tile.xIndex + ", " + tile.zIndex);
-
                 if (tile != null && monsterSpawner != null)
                 {
                     if (storeManager.plantPrice[storeManager.currentSelected].canBuy)
@@ -79,7 +77,7 @@ public class OutlineSelection : MonoBehaviour
                     }
                 }
                 
-                Debug.Log($"Selected tile at {tile.xIndex}, {tile.zIndex}");
+                //Debug.Log($"Selected tile at {tile.xIndex}, {tile.zIndex}");
                 
                 selection = raycastHit.transform;
                 selection.gameObject.GetComponent<Outline>().enabled = true;

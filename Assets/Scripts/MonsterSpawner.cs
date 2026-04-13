@@ -33,7 +33,7 @@ public class MonsterSpawner : MonoBehaviour
         Vector3 worldPos = transform.TransformPoint(localPos);
         
         GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], worldPos, transform.rotation); 
-        if (selectedMonster == 1 || selectedMonster == 2) //Cactus or mushroom
+        if (selectedMonster == 0 || selectedMonster == 1) //Cactus or mushroom
         {
             MonsterBehavior behavior = newMonster.GetComponent<MonsterBehavior>();
             if (behavior != null)
@@ -43,7 +43,7 @@ public class MonsterSpawner : MonoBehaviour
                 behavior.playerId = playerId; 
                 //selectedMonster = -1;
             }
-        } else if (selectedMonster == 0) //shooter
+        } else if (selectedMonster == 3) //shooter
         {
             ShooterBehavior behavior = newMonster.GetComponent<ShooterBehavior>();
             if (behavior != null)
@@ -72,12 +72,12 @@ public class MonsterSpawner : MonoBehaviour
 
     private void RotateMonster(GameObject monster)
     {
-        if (selectedMonster == 0) //shooter
+        if (selectedMonster == 2) //shooter
         {
             monster.transform.Rotate(0, 180, 0);
             monster.transform.Translate(-1.5f, 0, 0);
         }
-        else if (selectedMonster == 1 || selectedMonster == 2) //cactus and mushroom
+        else if (selectedMonster == 0 || selectedMonster == 1) //cactus and mushroom
         {
             monster.transform.Rotate(0, 90, 0);
             monster.transform.Translate(0, -0.5f, 0);

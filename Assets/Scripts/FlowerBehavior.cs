@@ -10,8 +10,8 @@ public class FlowerBehavior : MonoBehaviour
     public Vector3 spawnPoint = Vector3Int.zero; 
     public Vector3Int spawnTile = Vector3Int.zero; 
 
-    private float damageTimer = 0f;
-    private float damageCooldown = 3.0f; // same as monster attack cooldown 
+    //private float damageTimer = 0f;
+    //private float damageCooldown = 3.0f; // same as monster attack cooldown 
 
     public int playerId = 0; 
     public bool coinSpawn = false; 

@@ -143,7 +143,6 @@ public class MonsterBehavior : MonoBehaviour
         }
         else if (flower != null && flower.playerId != playerId && flower.health > 0)
         {
-            Debug.Log("P2 MONSTER FOUND FLOWER SCRIPT!");
             isAttacking = true;
             currentFlower = flower;
         }
