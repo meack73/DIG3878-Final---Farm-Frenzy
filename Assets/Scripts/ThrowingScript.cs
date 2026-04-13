@@ -7,12 +7,12 @@ public class ThrowingScript : MonoBehaviour
     [Header("Shooting Settings")]
     public GameObject rockPrefab; 
     float rockImpulse = 30f; 
-    private ShooterBehavior shooter;
-    private float throwDelay = 0.5f; // to sync with animation
+    public ShooterBehavior shooter;
+    private float throwDelay = 0.5f;
     private float shotTimer = 0f;
-    private float shotInterval = 1f; 
     private bool canShoot = true;
     private float repeatTimer = 0f;
+
 
     private string bulletTag = "P1Bullet";
 
@@ -24,9 +24,10 @@ public class ThrowingScript : MonoBehaviour
             bulletTag = "P2Bullet";
         }
     }
+
     void Update()
     {
-        if (repeatTimer > shotInterval && canShoot) 
+        if (repeatTimer > 3f && canShoot) 
         {
             repeatTimer = 0f;
             if (Time.time >= shooter.lastAttackTime + shooter.attackCooldown)
@@ -44,6 +45,8 @@ public class ThrowingScript : MonoBehaviour
             {
                 Shoot();
                 canShoot = true; 
+                shooter.isAttacking = false;
+                shooter.lastAttackTime = Time.time;
             }
         }
         repeatTimer += Time.deltaTime;
@@ -52,7 +55,6 @@ public class ThrowingScript : MonoBehaviour
     void Shoot()
     {
         GameObject therock = (GameObject)Instantiate(rockPrefab, this.transform.position, this.transform.rotation); 
-        therock.tag = bulletTag;
         therock.GetComponent<Rigidbody>().AddForce(this.transform.forward * rockImpulse, ForceMode.Impulse); //adding force to our rock
     }
 }

@@ -1042,9 +1042,9 @@ MonoBehaviour:
   selectedMonster: 1
   gameBoard: {fileID: 45852926}
   monsterPrefabs:
-  - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
   - {fileID: 662468794185850985, guid: a48631e259d0486fa83621f7d8f36e72, type: 3}
   - {fileID: 875073071404757921, guid: 35f16650380449c78eeac51057eaff2a, type: 3}
+  - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
   - {fileID: 1311075292995546189, guid: e6d52ee7ae1ece042b2ff86bcb4fe268, type: 3}
 --- !u!114 &294119419
 MonoBehaviour:
