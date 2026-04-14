@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 //script goes on cannon
 public class ThrowingScript : MonoBehaviour
@@ -8,11 +9,10 @@ public class ThrowingScript : MonoBehaviour
     public GameObject rockPrefab; 
     float rockImpulse = 30f; 
     public ShooterBehavior shooter;
-    private float throwDelay = 0.5f;
+    public float throwDelay = 0.5f;
     private float shotTimer = 0f;
     private bool canShoot = true;
-    private float repeatTimer = 0f;
-
+    private float repeatTimer = 0.833f;
 
     private string bulletTag = "P1Bullet";
 
@@ -27,15 +27,13 @@ public class ThrowingScript : MonoBehaviour
 
     void Update()
     {
-        if (repeatTimer > 3f && canShoot) 
+        bool attackReady = Time.time >= shooter.lastAttackTime + shooter.attackCooldown;
+
+        if (attackReady && canShoot)
         {
-            repeatTimer = 0f;
-            if (Time.time >= shooter.lastAttackTime + shooter.attackCooldown)
-            {
-                canShoot = false; 
-                shotTimer = 0f;
-                shooter.isAttacking = true; //start animation
-            }
+            canShoot = false;
+            shotTimer = 0f;
+            shooter.lastAttackTime = Time.time; // opens the animation window
         }
 
         if (!canShoot)
@@ -44,12 +42,9 @@ public class ThrowingScript : MonoBehaviour
             if (shotTimer >= throwDelay)
             {
                 Shoot();
-                canShoot = true; 
-                shooter.isAttacking = false;
-                shooter.lastAttackTime = Time.time;
+                canShoot = true;
             }
         }
-        repeatTimer += Time.deltaTime;
     }
 
     void Shoot()
