@@ -12,8 +12,12 @@ public class ShooterBehavior : MonoBehaviour
     public bool isAttacking = false;
     public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
     public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
+
     private bool isDying = false;
 
+    private float animTimer = 0f;
+    private bool isAnimating = false;
+    
     public int playerId = 0;
 
     void Start()
@@ -28,15 +32,28 @@ public class ShooterBehavior : MonoBehaviour
     {
         if (isAttacking)
         {
-            animator.SetBool("Attack", true);
-            animator.SetBool("Idle", false);
-        } 
-        else
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                animator.SetBool("Attack", true);
+                animator.SetBool("Idle", false);
+                lastAttackTime = Time.time;
+
+                isAttacking = true;; 
+            }
+        } else
         {
             animator.SetBool("Attack", false);
             animator.SetBool("Idle", true);
         }
+
+        isAttacking  = false; 
+
+        if (health <= 0)
+        {
+            PlayDeath();
+        }
     }
+
 
     void OnCollisionEnter(Collision collision)
     {

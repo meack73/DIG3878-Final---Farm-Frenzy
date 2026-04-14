@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 //script goes on cannon
 public class ThrowingScript : MonoBehaviour
@@ -12,7 +13,6 @@ public class ThrowingScript : MonoBehaviour
     private float shotTimer = 0f;
     private bool canShoot = true;
     private float repeatTimer = 0.833f;
-
 
     private string bulletTag = "P1Bullet";
 
@@ -45,8 +45,6 @@ public class ThrowingScript : MonoBehaviour
             {
                 Shoot();
                 canShoot = true; 
-                shooter.isAttacking = false;
-                shooter.lastAttackTime = Time.time;
             }
         }
         repeatTimer += Time.deltaTime;
