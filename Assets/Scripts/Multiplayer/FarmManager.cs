@@ -26,7 +26,7 @@ public class FarmManager : MonoBehaviourPunCallbacks
 
     #region public Arrow Methods
 
-    public void OnDKey()
+    public void OnAKey()
     {
         if (isPlayerOne)
         {
@@ -38,7 +38,7 @@ public class FarmManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnAKey()
+    public void OnDKey()
     {
         if (isPlayerOne)
         {
@@ -60,6 +60,7 @@ public class FarmManager : MonoBehaviourPunCallbacks
             Debug.Log("Missing camera");
             return;
         }
+        Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
 
         //if player entered first playerOne = true, if not playerOne = false
         isPlayerOne = PhotonNetwork.LocalPlayer.ActorNumber == 1;
