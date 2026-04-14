@@ -45,10 +45,12 @@ public class ButtonClick : MonoBehaviour
         if (storeManager.plantPrice[mID].canBuy)
         {
             monsterSpawner.selectedMonster = mID;
+            StartCoroutine(storeManager.BuyCooldown(mID));
         }
         else
         {
             Debug.Log("Player does not have enough money.");
         }
     }
+    
 }
