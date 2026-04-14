@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 11985111627232756}
   m_Layer: 0
   m_Name: Cannon
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,6 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrowingScript
   rockPrefab: {fileID: 6145706723880417205, guid: eda488bdc8e43944bbbc1edf2fab384a, type: 3}
+  shooter: {fileID: 0}
+  throwDelay: 0.5
 --- !u!1001 &2785886659586732450
 PrefabInstance:
   m_ObjectHideFlags: 0

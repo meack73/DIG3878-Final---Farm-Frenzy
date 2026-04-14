@@ -30,28 +30,10 @@ public class ShooterBehavior : MonoBehaviour
 
     void Update()
     {
-        if (isAttacking)
-        {
-            if (Time.time >= lastAttackTime + attackCooldown)
-            {
-                animator.SetBool("Attack", true);
-                animator.SetBool("Idle", false);
-                lastAttackTime = Time.time;
+        bool inAttackWindow = (Time.time < lastAttackTime + attackCooldown);
 
-                isAttacking = true;; 
-            }
-        } else
-        {
-            animator.SetBool("Attack", false);
-            animator.SetBool("Idle", true);
-        }
-
-        isAttacking  = false; 
-
-        if (health <= 0)
-        {
-            PlayDeath();
-        }
+        animator.SetBool("Attack", inAttackWindow);
+        animator.SetBool("Idle", !inAttackWindow);
     }
 
 
