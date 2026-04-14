@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic; 
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class StoreManager : MonoBehaviour
     [HideInInspector] public int currentSelected = 3;
 
     public Text[] texts; 
+    public Image[] buttonCooldowns;
     
     void Start()
     {
@@ -39,7 +41,7 @@ public class StoreManager : MonoBehaviour
         if (currency.playerCurrency >= plantPrice[monsterID].price && !plantPrice[monsterID].onCooldown)
         {
             plantPrice[monsterID].canBuy = true;
-            //StartCoroutine(BuyCooldown(monsterID));
+            StartCoroutine(BuyCooldown(monsterID));
         }
         else if (currency.playerCurrency < plantPrice[monsterID].price || plantPrice[monsterID].onCooldown)
         {
@@ -55,6 +57,9 @@ public class StoreManager : MonoBehaviour
     public IEnumerator BuyCooldown(int plantID)
     {
         Debug.Log("Buy Cooldown Started for plant " + plantID);
+        Abilities ability = buttonCooldowns[plantID].GetComponent<Abilities>();
+        ability.StartCooldown(plantPrice[plantID].cooldown);
+
         plantPrice[plantID].onCooldown = true;
         float cooldown = plantPrice[plantID].cooldown;
         yield return new WaitForSeconds(cooldown);
