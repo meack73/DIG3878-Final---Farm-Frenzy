@@ -32,6 +32,54 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public int getPlayerNum()
+    {
+        return PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
+    }
+
+    public bool canAfford(int playerNum, int cost)
+    {
+        return getCurrency(playerNum) >= cost;
+
+    }
+
+    public bool spendCoins(int playerNum, int cost)
+    {
+        if (!canAfford(playerNum, cost))
+        {
+            Debug.Log("Player " + playerNum + " cannot afford this purchase.");
+            return false;
+        }
+
+        photonView.RPC(nameof(RPC_spendCoins), RpcTarget.All, playerNum, cost);
+        return true;
+    }
+
+
+    [PunRPC]
+    private void RPC_spendCoins(int playerNum, int cost)
+    {
+        if (playerNum == 1)
+        {
+            p1Currency -= cost;
+            if (p1Currency < 0)
+            {
+                p1Currency = 0;
+            }
+
+            Debug.Log("Player 1 spent " + cost + " currency. Remaining currency: " + p1Currency);
+        }
+        else if (playerNum == 2)
+        {
+            p2SunCoins -= cost;
+            if (p2Currency < 0)
+            {
+                p2Currency = 0;
+            }
+            Debug.Log("Player 2 spent " + cost + " currency. Remaining currency: " + p2Currency);
+        }
+    }
+
     public int getCurrency(int playerNum)
     {
         return playerNum == 1 ? p1Currency : p2Currency;
@@ -40,7 +88,16 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
     public int getSunCoins(int playerNum)
     {
         return playerNum == 1 ? p1SunCoins : p2SunCoins;
+    }
 
+    public int getLocalSunCoins()
+    {
+        return getSunCoins(getPlayerNum());
+    }
+
+    public int getLocalCurrency()
+    {
+        return getCurrency(getPlayerNum());
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -59,17 +116,5 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
             p1Currency = (int)stream.ReceiveNext();
             p2Currency = (int)stream.ReceiveNext();
         }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

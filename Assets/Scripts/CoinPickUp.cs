@@ -3,7 +3,7 @@ using UnityEngine;
 public class CoinPickUp : MonoBehaviour
 {
     public int coinValue = 1;
-
+    /*
     void OnMouseDown()
     {
         PlayerCurrency playerCurrency = FindObjectOfType<PlayerCurrency>();
@@ -18,4 +18,5 @@ public class CoinPickUp : MonoBehaviour
             Debug.Log("Player has no currency");
         }
     }
+    */
 }

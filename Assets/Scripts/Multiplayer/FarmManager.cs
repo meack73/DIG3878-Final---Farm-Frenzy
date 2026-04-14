@@ -72,8 +72,8 @@ public class FarmManager : MonoBehaviourPunCallbacks
         }
 
         //if player entered first playerOne = true, if not playerOne = false
-        //isLeftSide = PhotonNetwork.LocalPlayer.ActorNumber == 1;
-        isLeftSide = true; // for testing purposes
+        isLeftSide = PhotonNetwork.LocalPlayer.ActorNumber == 1;
+        //isLeftSide = true; // for testing purposes
         //isLeftSide = false; // for testing purposes
 
         Debug.Log("isLeftSide = " + isLeftSide);
