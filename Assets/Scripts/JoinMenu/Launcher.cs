@@ -20,7 +20,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     private string gameVersion = "1";
     private bool isConnecting;  //bool to connect trigger scene change
 
-    #region MonoBehaviorPunCallbacks Callbacks
+    #region Public Methods
 
     public override void OnConnectedToMaster()
     {
@@ -44,17 +44,17 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         Debug.Log("No random room available, creating a new room");
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom, IsVisible = true, IsOpen = true });
     }
 
     //temp variablee to test photon network
-    int numJoined;
+    //int numJoined;
 
     public override void OnJoinedRoom()
     {
         Debug.Log("Joined room. Player count = " + PhotonNetwork.CurrentRoom.PlayerCount);
 
-        numJoined = PhotonNetwork.CurrentRoom.PlayerCount;
+        //numJoined = PhotonNetwork.CurrentRoom.PlayerCount;
 
         progressLabel.SetActive(false);
         controlPanel.SetActive(false);
@@ -64,7 +64,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         numJoined++;
         */
 
-        if (numJoined < maxPlayersPerRoom)
+        if (PhotonNetwork.CurrentRoom.PlayerCount < maxPlayersPerRoom)
         {
             waitingLabel.SetActive(true);
 
@@ -81,15 +81,31 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Player entered: " + newPlayer.NickName);
 
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom && PhotonNetwork.CurrentRoom != null)
         {
             StartGame();
         }
     }
 
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.LogError($"Create room failed: {message} ({returnCode})");
+        controlPanel.SetActive(true);
+        progressLabel.SetActive(false);
+        waitingLabel.SetActive(false);
+    }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.LogError($"Join room failed: {message} ({returnCode})");
+        controlPanel.SetActive(true);
+        progressLabel.SetActive(false);
+        waitingLabel.SetActive(false);
+    }
+
     #endregion
 
-    #region Public Methods
+    #region MonoBehaviorPunCallbacks Callbacks
 
     void Awake()
     {
@@ -134,17 +150,23 @@ public class Launcher : MonoBehaviourPunCallbacks
             return;
         }
 
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            Debug.Log("No room found.");
+            return;
+        }
+
         //waitingLabel.SetActive(false);
 
-        if (numJoined < maxPlayersPerRoom)
+        if (PhotonNetwork.CurrentRoom.PlayerCount < maxPlayersPerRoom)
         {
             Debug.Log("Still waiting on player to join...");
             return;
         }
 
         Debug.Log("Enough players joined. Loading game scene...");
-        //PhotonNetwork.LoadLevel(gameplayScene);
-        PhotonNetwork.LoadLevel("SampleScene 1");
+        PhotonNetwork.LoadLevel(gameplayScene);
+        //PhotonNetwork.LoadLevel("SampleScene 1");
     }
 
     #endregion

@@ -7,6 +7,8 @@ using Photon.Realtime;
 public class JoinSceneManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private string lobbyScene = "JoinMenu";
+    [SerializeField] private GameObject personLeftWarning;
+
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(lobbyScene);
@@ -19,7 +21,7 @@ public class JoinSceneManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player other)
     {
-        Debug.LogFormat($"{other.NickName} left the room");
+        Debug.Log($"{other.NickName} left the room");
     }
 
     public void LeaveRoom()
@@ -36,7 +38,7 @@ public class JoinSceneManager : MonoBehaviourPunCallbacks
             return;
         }
         string sceneName = "Room For " + PhotonNetwork.CurrentRoom.PlayerCount;
-        Debug.LogFormat("PhotonNetwork: Loading Level: {sceneName}");
+        Debug.Log("PhotonNetwork: Loading Level: " + sceneName);
         PhotonNetwork.LoadLevel(sceneName);
     }
     */

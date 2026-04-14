@@ -5,6 +5,7 @@ using Photon.Pun;
 
 //player name input - appears above character in game
 [RequireComponent(typeof(InputField))]
+
 public class PlayerNameInputField : MonoBehaviour
 {
 
