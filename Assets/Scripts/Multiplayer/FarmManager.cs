@@ -4,23 +4,18 @@ using UnityEngine;
 public class FarmManager : MonoBehaviourPunCallbacks
 {
 
-    public CameraMovement camera;
+    [SerializeField] private CameraMovement cameraMovement;
 
-    private bool isPlayerOne;
+    private bool isLeftSide;
 
-    #region private Camera Update
+    #region view points
+    [SerializeField] private Transform LownView;
+    [SerializeField] private Transform LcenterView;
+    [SerializeField] private Transform LenemyView;
 
-    private void UpdateCameraView()
-    {
-
-        if (camera == null)
-        {
-            Debug.LogError("camera is NULL in FarmManager");
-            return;
-        }
-
-        camera.SetStartSide(isPlayerOne);
-    }
+    [SerializeField] private Transform RownView;
+    [SerializeField] private Transform RcenterView;
+    [SerializeField] private Transform RenemyView;
 
     #endregion
 
@@ -28,43 +23,73 @@ public class FarmManager : MonoBehaviourPunCallbacks
 
     public void OnDKey()
     {
-        if (isPlayerOne)
+        if (cameraMovement == null)
         {
-            camera.MoveRight();
+            return;
+        }
+
+        if (isLeftSide)
+        {
+            cameraMovement.MoveRight();
+            Debug.Log("Left side: Move right");
         }
         else
         {
-            camera.MoveLeft();
+            cameraMovement.MoveLeft();
+            Debug.Log("Right side: Move left");
         }
     }
 
     public void OnAKey()
     {
-        if (isPlayerOne)
+        if (cameraMovement == null)
         {
-            camera.MoveLeft();
+            return;
+        }
+
+        if (isLeftSide)
+        {
+            cameraMovement.MoveLeft();
+            Debug.Log("Left side: Move left");
         }
         else
         {
-            camera.MoveRight();
+            cameraMovement.MoveRight();
+            Debug.Log("Right side: Move right");
         }
     }
 
     #endregion
 
+    #region MonoBehaviour Callbacks
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (camera == null)
+        if (cameraMovement == null)
         {
             Debug.Log("Missing camera");
             return;
         }
 
         //if player entered first playerOne = true, if not playerOne = false
-        isPlayerOne = PhotonNetwork.LocalPlayer.ActorNumber == 1;
+        //isLeftSide = PhotonNetwork.LocalPlayer.ActorNumber == 1;
+        isLeftSide = true; // for testing purposes
+        //isLeftSide = false; // for testing purposes
 
-        camera.SetStartSide(isPlayerOne);
+        Debug.Log("isLeftSide = " + isLeftSide);
+
+        if (isLeftSide)
+        {
+            Debug.Log("Assigning left side views");
+            cameraMovement.setViewPoints(LownView, LcenterView, LenemyView);
+        }
+        else
+        {
+            Debug.Log("Assigning right side views");
+            cameraMovement.setViewPoints(RownView, RcenterView, RenemyView);
+        }
+
+        cameraMovement.SetStartSide();
     }
 
     // Update is called once per frame
@@ -73,10 +98,13 @@ public class FarmManager : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.D))
         {
             OnDKey();
+            Debug.Log("D key pressed");
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             OnAKey();
+            Debug.Log("A key pressed");
         }
     }
+    #endregion
 };
