@@ -7234,10 +7234,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1206528407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 106, y: 214}
-  m_SizeDelta: {x: 160, y: 40}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 149, y: -258}
+  m_SizeDelta: {x: 200, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2326372083964970446
 MonoBehaviour:
@@ -7438,20 +7438,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoreManager
   plantPrice:
-  - cooldown: 0
+  - cooldown: 5
     price: 0
     canBuy: 0
     onCooldown: 0
   - cooldown: 3
-    price: 2
+    price: 4
     canBuy: 0
     onCooldown: 0
   - cooldown: 4
     price: 3
     canBuy: 0
     onCooldown: 0
-  - cooldown: 5
-    price: 4
+  - cooldown: 0
+    price: 0
     canBuy: 0
     onCooldown: 0
   monsterSpawner: {fileID: 934463579}
