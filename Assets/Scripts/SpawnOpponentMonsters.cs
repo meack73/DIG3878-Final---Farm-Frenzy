@@ -4,7 +4,7 @@ public class SpawnOpponentMonsters : MonoBehaviour
 {
     public MonsterSpawner monsterSpawner;
     public GameBoard gameBoard;
-
+    /*
     void Start()
     {
         Debug.Log("SPAWN OPP MONSTERS");
@@ -30,5 +30,7 @@ public class SpawnOpponentMonsters : MonoBehaviour
             }
         }
     }
+    */
 
 }
+    

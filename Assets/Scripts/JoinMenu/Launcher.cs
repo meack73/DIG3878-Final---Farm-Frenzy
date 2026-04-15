@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -45,6 +46,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("No random room available, creating a new room");
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom, IsVisible = true, IsOpen = true });
+
+        Debug.Log("Joined room name: " + PhotonNetwork.CurrentRoom.Name);
+        Debug.Log("My actor number: " + PhotonNetwork.LocalPlayer.ActorNumber);
+        Debug.Log("Player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
     }
 
     //temp variablee to test photon network
@@ -52,6 +57,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        
         Debug.Log("Joined room. Player count = " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         //numJoined = PhotonNetwork.CurrentRoom.PlayerCount;
@@ -59,10 +65,23 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressLabel.SetActive(false);
         controlPanel.SetActive(false);
 
-       /* 
-        Debug.Log("Adding to Player Count for testing");
-        numJoined++;
-        */
+        /* 
+         Debug.Log("Adding to Player Count for testing");
+         numJoined++;
+         */
+
+        Hashtable props = new Hashtable();
+
+        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+        {
+            props["side"] = "left";
+        }
+        else
+        {
+            props["side"] = "right";
+        }
+
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
         if (PhotonNetwork.CurrentRoom.PlayerCount < maxPlayersPerRoom)
         {

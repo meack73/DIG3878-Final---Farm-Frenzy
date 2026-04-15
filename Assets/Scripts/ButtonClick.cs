@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
 {
-    public MonsterSpawner monsterSpawner;
+    public MultipMonsterSpawner monsterSpawner;
     
     public void OnClick1() 
     { 

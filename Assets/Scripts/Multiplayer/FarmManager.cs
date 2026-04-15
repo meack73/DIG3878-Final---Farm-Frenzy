@@ -1,12 +1,13 @@
 using Photon.Pun;
 using UnityEngine;
+using ExitGames.Client.Photon;
 
 public class FarmManager : MonoBehaviourPunCallbacks
 {
 
     [SerializeField] private CameraMovement cameraMovement;
 
-    private bool isLeftSide;
+    public bool isLeftSide;
 
     #region view points
     [SerializeField] private Transform LownView;
@@ -73,11 +74,25 @@ public class FarmManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.LocalPlayer.ActorNumber);
 
         //if player entered first playerOne = true, if not playerOne = false
-        isLeftSide = PhotonNetwork.LocalPlayer.ActorNumber == 1;
+        //isLeftSide = PhotonNetwork.LocalPlayer.ActorNumber == 1;
         //isLeftSide = true; // for testing purposes
         //isLeftSide = false; // for testing purposes
 
-        Debug.Log("isLeftSide = " + isLeftSide);
+        object sideValue;
+        if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("side", out sideValue))
+        {
+            string side = sideValue.ToString();
+            isLeftSide = side == "left";
+        }
+        else
+        {
+            Debug.LogWarning("No side property found, falling back to ActorNumber.");
+            isLeftSide = PhotonNetwork.LocalPlayer.ActorNumber == 1;
+        }
+
+        Debug.Log("Local nickname: " + PhotonNetwork.LocalPlayer.NickName);
+        Debug.Log("ActorNumber: " + PhotonNetwork.LocalPlayer.ActorNumber);
+        Debug.Log("isLeftSide: " + isLeftSide);
 
         if (isLeftSide)
         {

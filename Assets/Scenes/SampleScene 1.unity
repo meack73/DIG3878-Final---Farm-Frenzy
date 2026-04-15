@@ -260,7 +260,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 45852927}
-  - component: {fileID: 45852926}
+  - component: {fileID: 45852928}
+  - component: {fileID: 45852929}
   m_Layer: 0
   m_Name: P1BoardManager
   m_TagString: P1Board
@@ -268,23 +269,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &45852926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45852925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f79f65cbac8f32948b0b096cb6b00716, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameBoard
-  tilePrefab: {fileID: 7104982377838083460, guid: 2145883ebf196f94bb6e3f96105f52d0, type: 3}
-  width: 8
-  depth: 5
-  tileSize: 3
-  playerId: 0
 --- !u!4 &45852927
 Transform:
   m_ObjectHideFlags: 0
@@ -301,6 +285,45 @@ Transform:
   - {fileID: 934463580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45852928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45852925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e5ecf5ce94dfd4f8846662dd4c0ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipGameBoard
+  tilePrefab: {fileID: 7104982377838083460, guid: 2145883ebf196f94bb6e3f96105f52d0, type: 3}
+  width: 8
+  depth: 5
+  tileSize: 3
+  playerId: 0
+--- !u!114 &45852929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45852925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 5
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &82031737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -940,9 +963,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294119416}
-  - component: {fileID: 294119418}
   - component: {fileID: 294119417}
-  - component: {fileID: 294119419}
+  - component: {fileID: 294119420}
+  - component: {fileID: 294119421}
   m_Layer: 0
   m_Name: P2MonsterSpawner
   m_TagString: Untagged
@@ -972,13 +995,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294119415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 492a6170604db954bb7c707c3d28e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
-  monsterSpawner: {fileID: 294119418}
---- !u!114 &294119418
+  monsterSpawner: {fileID: 294119420}
+--- !u!114 &294119420
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -987,17 +1010,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 294119415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 174e7360bd413024a8eeee6856d04dea, type: 3}
+  m_Script: {fileID: 11500000, guid: af1b92f32fdb5b844a754f256a05119c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterSpawner
+  m_EditorClassIdentifier: Assembly-CSharp::MultipMonsterSpawner
   selectedMonster: 1
-  gameBoard: {fileID: 45852926}
+  gameBoard: {fileID: 1470922036}
   monsterPrefabs:
   - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
   - {fileID: 662468794185850985, guid: a48631e259d0486fa83621f7d8f36e72, type: 3}
   - {fileID: 875073071404757921, guid: 35f16650380449c78eeac51057eaff2a, type: 3}
-  - {fileID: 3017161166397942267, guid: 3000926817df3ec41a4be5b7a57a8622, type: 3}
---- !u!114 &294119419
+  - {fileID: 6768540953796974225, guid: e6d52ee7ae1ece042b2ff86bcb4fe268, type: 3}
+--- !u!114 &294119421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1006,11 +1029,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 294119415}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04ccd2bcacf78b049a0e147804379aa1, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SpawnOpponentMonsters
-  monsterSpawner: {fileID: 0}
-  gameBoard: {fileID: 0}
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 4
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2298,6 +2329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmManager
   cameraMovement: {fileID: 330585549}
+  isLeftSide: 0
   LownView: {fileID: 1260549093}
   LcenterView: {fileID: 465250408}
   LenemyView: {fileID: 1786029401}
@@ -3440,8 +3472,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 934463580}
-  - component: {fileID: 934463579}
   - component: {fileID: 934463581}
+  - component: {fileID: 934463582}
+  - component: {fileID: 934463583}
+  - component: {fileID: 934463584}
   m_Layer: 0
   m_Name: P1MonsterSpawner
   m_TagString: Untagged
@@ -3449,25 +3483,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &934463579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934463578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 174e7360bd413024a8eeee6856d04dea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterSpawner
-  selectedMonster: 1
-  gameBoard: {fileID: 45852926}
-  monsterPrefabs:
-  - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
-  - {fileID: 662468794185850985, guid: a48631e259d0486fa83621f7d8f36e72, type: 3}
-  - {fileID: 875073071404757921, guid: 35f16650380449c78eeac51057eaff2a, type: 3}
-  - {fileID: 6768540953796974225, guid: e6d52ee7ae1ece042b2ff86bcb4fe268, type: 3}
 --- !u!4 &934463580
 Transform:
   m_ObjectHideFlags: 0
@@ -3490,12 +3505,65 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934463578}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 492a6170604db954bb7c707c3d28e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
-  monsterSpawner: {fileID: 934463579}
+  monsterSpawner: {fileID: 934463582}
+--- !u!114 &934463582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1b92f32fdb5b844a754f256a05119c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipMonsterSpawner
+  selectedMonster: 1
+  gameBoard: {fileID: 45852928}
+  monsterPrefabs:
+  - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
+  - {fileID: 662468794185850985, guid: a48631e259d0486fa83621f7d8f36e72, type: 3}
+  - {fileID: 875073071404757921, guid: 35f16650380449c78eeac51057eaff2a, type: 3}
+  - {fileID: 6768540953796974225, guid: e6d52ee7ae1ece042b2ff86bcb4fe268, type: 3}
+--- !u!114 &934463583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &934463584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a9c166aacea1e544af3e3bf019ea4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipDebugTest
 --- !u!4 &943793376 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6695003846789372269, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
@@ -4146,27 +4214,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1276641528}
-  - component: {fileID: 1276641527}
+  - component: {fileID: 1276641529}
   m_Layer: 0
   m_Name: OutlineSelection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1276641527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1276641526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef846a70d21e56943b62eb19d7d23481, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OutlineSelection
-  monsterSpawner: {fileID: 934463579}
+  m_IsActive: 0
 --- !u!4 &1276641528
 Transform:
   m_ObjectHideFlags: 0
@@ -4182,6 +4237,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276641529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276641526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf83563583ae1a4181cceee5d464713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipOutline
+  monsterSpawner: {fileID: 934463582}
 --- !u!1001 &1315518653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4799,7 +4867,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1470922035}
-  - component: {fileID: 1470922034}
+  - component: {fileID: 1470922036}
+  - component: {fileID: 1470922037}
   m_Layer: 0
   m_Name: P2BoardManager
   m_TagString: P2Board
@@ -4807,23 +4876,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1470922034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1470922033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f79f65cbac8f32948b0b096cb6b00716, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameBoard
-  tilePrefab: {fileID: 7104982377838083460, guid: ebc255389906eec4eba9d64e3b67490f, type: 3}
-  width: 8
-  depth: 5
-  tileSize: 3
-  playerId: 0
 --- !u!4 &1470922035
 Transform:
   m_ObjectHideFlags: 0
@@ -4840,6 +4892,45 @@ Transform:
   - {fileID: 294119416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470922036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470922033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e5ecf5ce94dfd4f8846662dd4c0ffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipGameBoard
+  tilePrefab: {fileID: 7104982377838083460, guid: ebc255389906eec4eba9d64e3b67490f, type: 3}
+  width: 8
+  depth: 5
+  tileSize: 3
+  playerId: 0
+--- !u!114 &1470922037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470922033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1477086423
 GameObject:
   m_ObjectHideFlags: 0
