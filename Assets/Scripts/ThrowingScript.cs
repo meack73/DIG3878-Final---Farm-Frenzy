@@ -50,6 +50,7 @@ public class ThrowingScript : MonoBehaviour
     void Shoot()
     {
         GameObject therock = (GameObject)Instantiate(rockPrefab, this.transform.position, this.transform.rotation); 
+        therock.tag = bulletTag;
         therock.GetComponent<Rigidbody>().AddForce(this.transform.forward * rockImpulse, ForceMode.Impulse); //adding force to our rock
     }
 }

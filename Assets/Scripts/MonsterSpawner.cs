@@ -5,68 +5,77 @@ public class MonsterSpawner : MonoBehaviour
     public int selectedMonster = 0;
     public GameBoard gameBoard;
     public GameObject[] monsterPrefabs;
-    private int playerId = 0;
+    public int playerId = 0;
 
     void Start()
     {    
         gameBoard = GetComponentInParent<GameBoard>();
 
+        if (gameBoard == null)
+        {
+            Debug.Log("cannot find gameboard"); 
+        }
         playerId = gameBoard.playerId;     
     }
 
-    public void PlaceMonster(int x, int z) 
+    public void PlaceMonster(int x, int z)
     {
-        if (playerId == 1 && gameBoard.monsterLocations[x, z] != 0) 
+
+        if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length)
+            return;
+
+        if (gameBoard.monsterLocations[x, z] != 0)
+            return;
+
+        // ✔ DIRECTLY use tile transform (NO math, NO rotation logic)
+        string tileName = $"Tile_{x}_{z}";
+        Transform tile = gameBoard.transform.Find(tileName);
+
+        if (tile == null)
         {
+            Debug.LogError(tileName + " not found");
             return;
         }
 
-        if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length) return;
-        
-        float startX = -((gameBoard.width - 1) * gameBoard.tileSize) / 2f;
-        float startZ = -((gameBoard.depth - 1) * gameBoard.tileSize) / 2f;
+        Vector3 spawnPos = tile.position;
 
-        float localX = startX + (x * gameBoard.tileSize) - (gameBoard.tileSize / 2f);
-        float localZ = startZ + (z * gameBoard.tileSize) + (gameBoard.tileSize / 2f);
+        GameObject newMonster = Instantiate(
+            monsterPrefabs[selectedMonster],
+            spawnPos,
+            Quaternion.identity
+        );
 
-        Vector3 localPos = new Vector3(localX, 0.5f, localZ);
-        Vector3 worldPos = transform.TransformPoint(localPos);
-        
-        GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], worldPos, transform.rotation); 
-        if (selectedMonster == 0 || selectedMonster == 1) //Cactus or mushroom
+        gameBoard.monsterLocations[x, z] = selectedMonster + 1;
+
+        // assign data
+        if (selectedMonster == 0 || selectedMonster == 1)
         {
-            MonsterBehavior behavior = newMonster.GetComponent<MonsterBehavior>();
-            if (behavior != null)
+            var b = newMonster.GetComponent<MonsterBehavior>();
+            if (b != null)
             {
-                behavior.spawnPoint = localPos;
-                behavior.spawnTile = new Vector3Int(x, 0, z);
-                behavior.playerId = playerId; 
-                //selectedMonster = -1;
-            }
-        } else if (selectedMonster == 2) //shooter
-        {
-            ShooterBehavior behavior = newMonster.GetComponent<ShooterBehavior>();
-            if (behavior != null)
-            {
-                behavior.spawnPoint = localPos;
-                behavior.spawnTile = new Vector3Int(x, 0, z);
-                behavior.playerId = playerId; 
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
             }
         }
-        else if (selectedMonster == 3) //sunflower
+        else if (selectedMonster == 2)
         {
-            FlowerBehavior behavior = newMonster.GetComponent<FlowerBehavior>();
-            if (behavior != null)
+            var b = newMonster.GetComponent<ShooterBehavior>();
+            if (b != null)
             {
-                behavior.spawnPoint = localPos;
-                behavior.spawnTile = new Vector3Int(x, 0, z);
-                behavior.playerId = playerId; 
-                //selectedMonster = -1;
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
             }
         }
-        
-        gameBoard.monsterLocations[x, z] = selectedMonster + 1; // Store ID (offset by 1 so 0 stays 'Empty')
-        
+        else if (selectedMonster == 3)
+        {
+            var b = newMonster.GetComponent<FlowerBehavior>();
+            if (b != null)
+            {
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
+            }
+        }
+
         RotateMonster(newMonster);
     }
 
@@ -93,6 +102,11 @@ public class MonsterSpawner : MonoBehaviour
                 monster.transform.Translate(-1.5f, 1f, 0);
                 monster.transform.Rotate(0, 180, 0);
             }
+        }
+
+        if (playerId == 2)
+        {
+            monster.transform.Rotate(0,180,0); 
         }
     }
 
