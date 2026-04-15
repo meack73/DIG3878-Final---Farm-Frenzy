@@ -23,7 +23,6 @@ public class MonsterSpawner : MonoBehaviour
 
     public void PlaceMonster(int x, int z)
     {
-
         if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length)
             return;
 
@@ -47,7 +46,13 @@ public class MonsterSpawner : MonoBehaviour
             Quaternion.identity
         );
 
-        gameBoard.monsterLocations[x, z] = selectedMonster + 1;
+        //Allows for monsters to be placed after monsters move off their orignal spots
+        //eventually want to make the monster location update so you cant spawn on top of moving monsters
+        if (selectedMonster != 0 && selectedMonster != 1)
+        {
+            gameBoard.monsterLocations[x, z] = selectedMonster + 1;
+
+        }
 
         // assign data
         if (selectedMonster == 0 || selectedMonster == 1)
@@ -92,39 +97,35 @@ public class MonsterSpawner : MonoBehaviour
 
     private void RotateMonster(GameObject monster)
     {
-        if (selectedMonster == 2) //shooter
+        if (playerId == 2 && selectedMonster != 4)
         {
-            monster.transform.Rotate(0, 180, 0);
-            monster.transform.Translate(-1.5f, 0, 0);
+            monster.transform.Rotate(0,180,0); 
         }
-        else if (selectedMonster == 0 || selectedMonster == 1) //cactus and mushroom
+
+        if (selectedMonster == 0 || selectedMonster == 1) //cactus and mushroom
         {
             monster.transform.Rotate(0, 90, 0);
-            monster.transform.Translate(0, -0.5f, 0);
+        }
+        else if (selectedMonster == 2) //shooter
+        {
+            monster.transform.Translate(0, 0.5f, 0);
+            monster.transform.Rotate(0, 180, 0);
         }
         else if (selectedMonster == 3) //sunflower
         {
             if (playerId == 1)
             {
-                monster.transform.Translate(1f, 1f, 0);
+                monster.transform.Translate(0f, 1.3f, 0);
             }
             else if (playerId == 2)
             {
-                monster.transform.Translate(-1.5f, 1f, 0);
+                monster.transform.Translate(0, 1.3f, 0);
                 monster.transform.Rotate(0, 180, 0);
             }
         } 
-        else if (selectedMonster == 4) //walnut
+        else if (selectedMonster == 4)
         {
-            if (playerId == 2)
-            {
-                monster.transform.Rotate(0, 180, 0);
-            }
-        }
-
-        if (playerId == 1)
-        {
-            monster.transform.Rotate(0,180,0); 
+            monster.transform.Rotate(0, 180, 0);
         }
     }
 

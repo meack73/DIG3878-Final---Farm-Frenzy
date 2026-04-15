@@ -12,7 +12,8 @@ public class ThrowingScript : MonoBehaviour
     public float throwDelay = 0.5f;
     private float shotTimer = 0f;
     private bool canShoot = true;
-    private float repeatTimer = 0.833f;
+
+    //private float repeatTimer = 0.833f;
 
     private string bulletTag = "P1Bullet";
 
@@ -34,6 +35,7 @@ public class ThrowingScript : MonoBehaviour
             canShoot = false;
             shotTimer = 0f;
             shooter.lastAttackTime = Time.time; // opens the animation window
+            shooter.PlaySound();
         }
 
         if (!canShoot)

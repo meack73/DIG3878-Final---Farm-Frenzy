@@ -6,6 +6,7 @@ public class FlowerBehavior : MonoBehaviour
     private Animator animator;    
     private Rigidbody rb;
 
+    [Header("Stats")]
     public int health = 3;
     public Vector3 spawnPoint = Vector3Int.zero; 
     public Vector3Int spawnTile = Vector3Int.zero; 
@@ -19,8 +20,13 @@ public class FlowerBehavior : MonoBehaviour
     private float coinSpawnAnimationTimer = 0f;
     private bool isDying = false;
 
+    [Header("Audio")]
+    public AudioClip death;
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         animator.SetBool("Idle", true);
         rb = GetComponent<Rigidbody>();
@@ -95,6 +101,7 @@ public class FlowerBehavior : MonoBehaviour
 
         transform.rotation = endRot;
         GetComponent<Collider>().enabled = false;
+        audioSource.PlayOneShot(death);
         Destroy(gameObject, 2f);
     }
 }
