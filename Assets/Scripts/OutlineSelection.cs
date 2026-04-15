@@ -88,9 +88,10 @@ else
                 if (tile != null && tile.CompareTag(tileTag) && monsterSpawner != null)
                 {
 
-                    if (storeManager.plantPrice[storeManager.currentSelected].canBuy)
+                    if (storeManager.plantPrice[storeManager.currentSelected].canBuy && monsterSpawner.selectedMonster != -1)
                     {
                         monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
+                        monsterSpawner.speaker.PlayOneShot(monsterSpawner.placeSFX);
 
                         if (!storeManager.plantPrice[storeManager.currentSelected].onCooldown)
                         {
