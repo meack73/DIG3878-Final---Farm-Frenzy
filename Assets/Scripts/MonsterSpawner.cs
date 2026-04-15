@@ -27,7 +27,6 @@ public class MonsterSpawner : MonoBehaviour
         if (gameBoard.monsterLocations[x, z] != 0)
             return;
 
-        // ✔ DIRECTLY use tile transform (NO math, NO rotation logic)
         string tileName = $"Tile_{x}_{z}";
         Transform tile = gameBoard.transform.Find(tileName);
 
