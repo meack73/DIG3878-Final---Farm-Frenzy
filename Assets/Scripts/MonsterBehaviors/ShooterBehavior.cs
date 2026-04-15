@@ -15,13 +15,16 @@ public class ShooterBehavior : MonoBehaviour
 
     private bool isDying = false;
 
-    private float animTimer = 0f;
-    private bool isAnimating = false;
-    
     public int playerId = 0;
+
+    [Header("Audio")]
+    public AudioClip shoot;
+    public AudioClip death;
+    AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         rb.isKinematic = false;
@@ -30,10 +33,15 @@ public class ShooterBehavior : MonoBehaviour
 
     void Update()
     {
-        bool inAttackWindow = (Time.time < lastAttackTime + attackCooldown);
+        bool inAttackWindow = Time.time < lastAttackTime + attackCooldown;
 
         animator.SetBool("Attack", inAttackWindow);
         animator.SetBool("Idle", !inAttackWindow);
+    }
+
+    public void PlaySound()
+    {
+        audioSource.PlayOneShot(shoot);
     }
 
 
@@ -67,6 +75,7 @@ public class ShooterBehavior : MonoBehaviour
         animator.SetBool("Die", true);
         GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
-        Destroy(gameObject, 5f);
+        audioSource.PlayOneShot(death);
+        Destroy(gameObject, 2f);
     }
 }

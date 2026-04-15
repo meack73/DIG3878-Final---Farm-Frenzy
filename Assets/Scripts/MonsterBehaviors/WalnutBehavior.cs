@@ -5,7 +5,8 @@ public class WalnutBehavior : MonoBehaviour
 {
     private Animator animator;    
     private Rigidbody rb;
-
+    
+    [Header("Stats")]
     public int health = 3;
     public Vector3 spawnPoint = Vector3Int.zero; 
     public Vector3Int spawnTile = Vector3Int.zero; 
@@ -17,8 +18,13 @@ public class WalnutBehavior : MonoBehaviour
     public bool coinSpawn = false; 
     private bool isDying = false;
 
+    [Header("Audio")]
+    public AudioClip death;
+    AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.freezeRotation = true;
@@ -64,6 +70,7 @@ public class WalnutBehavior : MonoBehaviour
 
         transform.rotation = endRot;
         GetComponent<Collider>().enabled = false;
+        audioSource.PlayOneShot(death);
         Destroy(gameObject, 2f);
     }
 }

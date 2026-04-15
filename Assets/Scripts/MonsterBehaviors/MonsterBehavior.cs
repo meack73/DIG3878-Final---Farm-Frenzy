@@ -28,8 +28,15 @@ public class MonsterBehavior : MonoBehaviour
     private string TargetHouse = "Player1";
     private PlayerHealth targetHouse = null;
 
+    [Header("Audio")]
+    public AudioClip attack;
+    public AudioClip death;
+    AudioSource audioSource;
+
     void Start()
-    {
+    {        
+        audioSource = GetComponent<AudioSource>();
+
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         rb.isKinematic = false;
@@ -97,6 +104,8 @@ public class MonsterBehavior : MonoBehaviour
             if (Time.time >= lastAttackTime + attackCooldown)
             {
                 animator.SetBool("Attack", true);
+                audioSource.PlayOneShot(attack);
+
                 lastAttackTime = Time.time;
 
                 if (currentTarget != null)
@@ -216,6 +225,7 @@ public class MonsterBehavior : MonoBehaviour
         animator.SetBool("Die", true);
         GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
-        Destroy(gameObject, 5f);
+        audioSource.PlayOneShot(death);
+        Destroy(gameObject, 2f);
     }
 }
