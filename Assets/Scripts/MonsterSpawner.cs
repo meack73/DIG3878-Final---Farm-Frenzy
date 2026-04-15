@@ -23,7 +23,6 @@ public class MonsterSpawner : MonoBehaviour
 
     public void PlaceMonster(int x, int z)
     {
-
         if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length)
             return;
 
@@ -47,7 +46,13 @@ public class MonsterSpawner : MonoBehaviour
             Quaternion.identity
         );
 
-        gameBoard.monsterLocations[x, z] = selectedMonster + 1;
+        //Allows for monsters to be placed after monsters move off their orignal spots
+        //eventually want to make the monster location update so you cant spawn on top of moving monsters
+        if (selectedMonster != 0 && selectedMonster != 1)
+        {
+            gameBoard.monsterLocations[x, z] = selectedMonster + 1;
+
+        }
 
         // assign data
         if (selectedMonster == 0 || selectedMonster == 1)
@@ -111,14 +116,18 @@ public class MonsterSpawner : MonoBehaviour
         {
             if (playerId == 1)
             {
-                monster.transform.Translate(1f, 1f, 0);
+                monster.transform.Translate(1f, 1.3f, 0);
             }
             else if (playerId == 2)
             {
-                monster.transform.Translate(-1.5f, 1f, 0);
+                monster.transform.Translate(-1.5f, 1.3f, 0);
                 monster.transform.Rotate(0, 180, 0);
             }
         } 
+        else if (selectedMonster == 4)
+        {
+            monster.transform.Rotate(0, 180, 0);
+        }
     }
 
     public void LogMonsterGrid()
