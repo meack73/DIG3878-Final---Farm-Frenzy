@@ -42,6 +42,9 @@ MonoBehaviour:
   - RPC_addCoins
   - RPC_ApplyDamage
   - RPC_ApplyHeal
+  - RPC_PlaceMonster
+  - RPC_spendCoins
+  - TestRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -534,6 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JoinSceneManager
   lobbyScene: JoinMenu
+  personLeftWarning: {fileID: 0}
 --- !u!1 &170443816
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,7 +1360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa2ee9ed57e8d649bb8adfbdde3a401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  camStartsOnLeft: 1
+  ownView: {fileID: 0}
+  centerView: {fileID: 0}
+  enemyView: {fileID: 0}
+  moveSpeed: 200
 --- !u!1 &364719563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1397,7 @@ MonoBehaviour:
   controlPanel: {fileID: 1509461255}
   progressLabel: {fileID: 732840447}
   waitingLabel: {fileID: 593591801}
-  gameplayScene: SampleScene
+  gameplayScene: SampleScene 1
 --- !u!4 &364719565
 Transform:
   m_ObjectHideFlags: 0
