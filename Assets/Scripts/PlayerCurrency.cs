@@ -12,13 +12,13 @@ public class PlayerCurrency : MonoBehaviour
         SunCoins += amount;
         playerCurrency = SunCoins * 2;
         Debug.Log("Sun Coins: " + SunCoins);
-        plyrCurrencyText.text = "Sun Coins: $" + playerCurrency;
+        plyrCurrencyText.text = playerCurrency.ToString();
 
     }
 
     public void DeductPrice (int price)
     {
         playerCurrency -= price;
-        plyrCurrencyText.text = "Sun Coins: $" + playerCurrency;
+        plyrCurrencyText.text = playerCurrency.ToString();
     }
 }
