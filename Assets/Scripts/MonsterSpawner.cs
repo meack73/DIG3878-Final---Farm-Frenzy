@@ -30,7 +30,6 @@ public class MonsterSpawner : MonoBehaviour
         if (gameBoard.monsterLocations[x, z] != 0)
             return;
 
-        // ✔ DIRECTLY use tile transform (NO math, NO rotation logic)
         string tileName = $"Tile_{x}_{z}";
         Transform tile = gameBoard.transform.Find(tileName);
 
@@ -78,6 +77,15 @@ public class MonsterSpawner : MonoBehaviour
                 b.playerId = playerId;
             }
         }
+        else if (selectedMonster == 4)
+        {
+            var b = newMonster.GetComponent<WalnutBehavior>();
+            if (b != null)
+            {
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
+            }
+        }
 
         RotateMonster(newMonster);
     }
@@ -105,9 +113,16 @@ public class MonsterSpawner : MonoBehaviour
                 monster.transform.Translate(-1.5f, 1f, 0);
                 monster.transform.Rotate(0, 180, 0);
             }
+        } 
+        else if (selectedMonster == 4) //walnut
+        {
+            if (playerId == 2)
+            {
+                monster.transform.Rotate(0, 180, 0);
+            }
         }
 
-        if (playerId == 2)
+        if (playerId == 1)
         {
             monster.transform.Rotate(0,180,0); 
         }
