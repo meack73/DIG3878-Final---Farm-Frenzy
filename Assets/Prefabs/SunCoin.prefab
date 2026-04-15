@@ -126,3 +126,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPickUp
   coinValue: 1
+  coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}

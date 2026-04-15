@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject playerText;
     public int playerId = 1; 
+    public AudioSource speaker;
+    public AudioClip victorySFX;
 
     [HideInInspector] public int winnerNum = 0;
 
@@ -23,5 +25,7 @@ public class GameManager : MonoBehaviour
             TextMeshProUGUI nameText = playerText.GetComponent<TextMeshProUGUI>();
             nameText.text = "Player 2 Wins";
         }
+
+        speaker.PlayOneShot(victorySFX);
     }
 }

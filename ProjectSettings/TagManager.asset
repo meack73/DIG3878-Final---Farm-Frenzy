@@ -19,6 +19,7 @@ TagManager:
   - P1Tile
   - P2Tile
   - Tile
+  - Speaker
   layers:
   - Default
   - TransparentFX

@@ -5,10 +5,17 @@ public class ButtonClick : MonoBehaviour
 {
     public MonsterSpawner monsterSpawner;
     public StoreManager storeManager;
+    public AudioClip canPlace;
+    public AudioClip cantPlace;
+    GameObject publicSpeaker;
+    AudioSource speaker;
     
     void Awake()
     {
         GameObject manager = GameObject.FindGameObjectWithTag("GameManager");
+        
+        publicSpeaker = GameObject.FindWithTag("Speaker");
+        speaker = publicSpeaker.GetComponent<AudioSource>();
     }
 
     public void OnClick1() 
@@ -39,6 +46,13 @@ public class ButtonClick : MonoBehaviour
         StartCoroutine(SelectPlant(3));
     }
 
+    public void OnClick5() 
+    { 
+        //sets the id of the plant to walnut
+        storeManager.CheckMonsterPrice(4);
+        StartCoroutine(SelectPlant(4));
+    }
+
     IEnumerator SelectPlant(int mID)
     {
         yield return null;
@@ -46,10 +60,12 @@ public class ButtonClick : MonoBehaviour
         {
             monsterSpawner.selectedMonster = mID;
             StartCoroutine(storeManager.BuyCooldown(mID));
+            speaker.PlayOneShot(canPlace);
         }
         else
         {
             Debug.Log("Player does not have enough money.");
+            speaker.PlayOneShot(cantPlace);
         }
     }
     
