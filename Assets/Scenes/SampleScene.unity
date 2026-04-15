@@ -4738,7 +4738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79f65cbac8f32948b0b096cb6b00716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameBoard
-  tilePrefab: {fileID: 7104982377838083460, guid: ebc255389906eec4eba9d64e3b67490f, type: 3}
+  tilePrefab: {fileID: 7104982377838083460, guid: 2145883ebf196f94bb6e3f96105f52d0, type: 3}
   width: 8
   depth: 5
   tileSize: 3
@@ -6916,8 +6916,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 149, y: -258}
-  m_SizeDelta: {x: 200, y: 40}
+  m_AnchoredPosition: {x: 180.2, y: -258}
+  m_SizeDelta: {x: 300, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2326372083964970446
 MonoBehaviour:
@@ -7086,6 +7086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   winScreen: {fileID: 1221426538}
   playerText: {fileID: 742583070}
+  playerId: 2
   winnerNum: 0
 --- !u!1 &4461579185313564153
 GameObject:

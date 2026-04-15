@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject winScreen;
     public GameObject playerText;
+    public int playerId = 1; 
 
     [HideInInspector] public int winnerNum = 0;
 

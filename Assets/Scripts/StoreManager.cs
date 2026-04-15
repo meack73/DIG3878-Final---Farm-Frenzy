@@ -8,31 +8,36 @@ public class StoreManager : MonoBehaviour
     public PriceClass[] plantPrice;
     PlayerCurrency currency;
     public MonsterSpawner monsterSpawner;
+    GameManager gameManager; 
     [HideInInspector] public int currentSelected = 3;
 
     public Text[] texts; 
     public Image[] buttonCooldowns;
+    string boardTag = "P1Board";
     
     void Start()
     {
         //Finds the currency script attached to the camera
         Camera camera = Camera.main;
         currency = camera.GetComponent<PlayerCurrency>();
+        GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager = gm.GetComponent<GameManager>();
+        
+        if (gameManager.playerId == 2) {
+            boardTag = "P2Board";
+        }
+        monsterSpawner = GameObject.FindGameObjectWithTag(boardTag).GetComponentInChildren<MonsterSpawner>();
+
+
+        if (monsterSpawner == null)
+        {
+            Debug.Log("store manager cannot find monster spawner"); 
+        }
         for (int i = 0; i < texts.Length; i++)
         {
             texts[i].text = plantPrice[i].price.ToString();
         }
 
-    }
-
-    void Update()
-    {
-        if (monsterSpawner.selectedMonster != -1)
-        {
-            currentSelected = monsterSpawner.selectedMonster;
-        }
-
-        //Debug.Log ("current selected plant is " + currentSelected);
     }
 
     public void CheckMonsterPrice(int monsterID)
@@ -41,6 +46,7 @@ public class StoreManager : MonoBehaviour
         if (currency.playerCurrency >= plantPrice[monsterID].price && !plantPrice[monsterID].onCooldown)
         {
             plantPrice[monsterID].canBuy = true;
+            monsterSpawner.selectedMonster = monsterID;
             StartCoroutine(BuyCooldown(monsterID));
         }
         else if (currency.playerCurrency < plantPrice[monsterID].price || plantPrice[monsterID].onCooldown)
@@ -51,6 +57,7 @@ public class StoreManager : MonoBehaviour
         if (plantPrice[monsterID].price == 0 && !plantPrice[monsterID].onCooldown)
         {
             plantPrice[monsterID].canBuy = true;
+            monsterSpawner.selectedMonster = monsterID; 
         }
     }
 

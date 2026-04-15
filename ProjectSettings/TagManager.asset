@@ -15,8 +15,10 @@ TagManager:
   - Monster
   - P1Bullet
   - P2Bullet
-  - Tile
   - GameManager
+  - P1Tile
+  - P2Tile
+  - Tile
   layers:
   - Default
   - TransparentFX

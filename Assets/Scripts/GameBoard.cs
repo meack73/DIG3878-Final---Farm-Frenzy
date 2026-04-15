@@ -12,11 +12,19 @@ public class GameBoard : MonoBehaviour
     private float offset;
     
     public int[,] monsterLocations;
+    private string tileTag = "P1Tile";
 
     void Awake()
     {
+        
         if (gameObject.CompareTag("P1Board")) playerId = 1;
         else if (gameObject.CompareTag("P2Board")) playerId = 2;
+
+
+        if (playerId == 2)
+        {
+            tileTag = "P2Tile";
+        }
 
         monsterLocations = new int[width, depth];
         offset = tileSize * width / 2 + 0.5f; //separator width
@@ -72,6 +80,7 @@ public class GameBoard : MonoBehaviour
                 Vector3 localSpawnPos = new Vector3(startX + (x * tileSize), 0, startZ + (z * tileSize));                
                 
                 GameObject newTile = Instantiate(tilePrefab, transform);
+                newTile.tag = tileTag; 
                 newTile.transform.localPosition = localSpawnPos;
                 newTile.transform.localRotation = Quaternion.identity;
 

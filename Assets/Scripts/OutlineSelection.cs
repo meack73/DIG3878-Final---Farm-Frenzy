@@ -8,13 +8,33 @@ public class OutlineSelection : MonoBehaviour
     private Transform highlight;
     private Transform selection;
     private RaycastHit raycastHit;
-    public MonsterSpawner monsterSpawner;
     StoreManager storeManager;
+    GameManager gameManager;
+    private MonsterSpawner monsterSpawner;
+    private string tileTag = "P1Tile"; 
+    
 
     void Start()
     {
-        GameObject gameManager = GameObject.FindWithTag("GameManager");
+        GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+        
+        gameManager = gm.GetComponent<GameManager>();
         storeManager = gameManager.GetComponent<StoreManager>();
+
+
+        if (gameManager.playerId == 2)
+        {
+            tileTag = "P2Tile"; 
+        }
+
+        string boardTag = gameManager.playerId == 1 ? "P1Board" : "P2Board";
+        GameObject board = GameObject.FindGameObjectWithTag(boardTag);
+        monsterSpawner = board.GetComponentInChildren<MonsterSpawner>();
+
+        if (monsterSpawner == null)
+    Debug.LogError("MonsterSpawner not found for player " + gameManager.playerId);
+else
+    Debug.Log("Found spawner with playerId=" + monsterSpawner.playerId);
     }
 
     void Update()
@@ -29,20 +49,21 @@ public class OutlineSelection : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit)) //Make sure you have EventSystem in the hierarchy before using EventSystem
         {
             highlight = raycastHit.transform;
-            if (highlight.CompareTag("Selectable") && highlight != selection)
+
+            TileData tile = highlight.GetComponentInParent<TileData>();
+
+            if (highlight.CompareTag("Selectable") && tile != null && tile.CompareTag(tileTag) && highlight != selection)
             {
-                if (highlight.gameObject.GetComponent<Outline>() != null)
+                Outline outline = highlight.GetComponent<Outline>();
+
+                if (outline == null)
                 {
-                    highlight.gameObject.GetComponent<Outline>().enabled = true;
+                    outline = highlight.gameObject.AddComponent<Outline>();
+                    outline.OutlineColor = Color.magenta;
+                    outline.OutlineWidth = 7.0f;
                 }
-                else
-                {
-                    Outline outline = highlight.gameObject.AddComponent<Outline>();
-                    outline.enabled = true;
-                    highlight.gameObject.GetComponent<Outline>().OutlineColor = Color.magenta;
-                    highlight.gameObject.GetComponent<Outline>().OutlineWidth = 7.0f;
-                    
-                }
+
+                outline.enabled = true;
             }
             else
             {
@@ -62,17 +83,20 @@ public class OutlineSelection : MonoBehaviour
                 selection = highlight;
                 selection.gameObject.GetComponent<Outline>().enabled = true;
 
-                TileData tile = highlight.GetComponentInParent<TileData>();
+               TileData tile = highlight.GetComponentInParent<TileData>();
 
-                if (tile != null && monsterSpawner != null)
+                if (tile != null && tile.CompareTag(tileTag) && monsterSpawner != null)
                 {
+
                     if (storeManager.plantPrice[storeManager.currentSelected].canBuy)
                     {
                         monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
+
                         if (!storeManager.plantPrice[storeManager.currentSelected].onCooldown)
                         {
                             StartCoroutine(storeManager.BuyCooldown(storeManager.currentSelected));
                         }
+
                         Deselect();
                     }
                 }
