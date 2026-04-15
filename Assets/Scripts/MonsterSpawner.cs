@@ -101,26 +101,25 @@ public class MonsterSpawner : MonoBehaviour
         {
             monster.transform.Rotate(0,180,0); 
         }
-        
-        if (selectedMonster == 2) //shooter
-        {
-            monster.transform.Rotate(0, 180, 0);
-            monster.transform.Translate(-1.5f, 0, 0);
-        }
-        else if (selectedMonster == 0 || selectedMonster == 1) //cactus and mushroom
+
+        if (selectedMonster == 0 || selectedMonster == 1) //cactus and mushroom
         {
             monster.transform.Rotate(0, 90, 0);
-            monster.transform.Translate(0, -0.5f, 0);
+        }
+        else if (selectedMonster == 2) //shooter
+        {
+            monster.transform.Translate(0, 0.5f, 0);
+            monster.transform.Rotate(0, 180, 0);
         }
         else if (selectedMonster == 3) //sunflower
         {
             if (playerId == 1)
             {
-                monster.transform.Translate(1f, 1.3f, 0);
+                monster.transform.Translate(0f, 1.3f, 0);
             }
             else if (playerId == 2)
             {
-                monster.transform.Translate(-1.5f, 1.3f, 0);
+                monster.transform.Translate(0, 1.3f, 0);
                 monster.transform.Rotate(0, 180, 0);
             }
         } 
