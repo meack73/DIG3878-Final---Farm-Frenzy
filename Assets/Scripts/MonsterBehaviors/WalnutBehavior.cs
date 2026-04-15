@@ -49,11 +49,11 @@ public class WalnutBehavior : MonoBehaviour
 
     IEnumerator Die()
     {
-        float duration = 0.7f;
+        float duration = 0.5f;
         float time = 0f;
 
         Quaternion startRot = transform.rotation;
-        Quaternion endRot = Quaternion.Euler(90, 0, 0);
+        Quaternion endRot = startRot * Quaternion.Euler(90, 0, 0);
 
         while (time < duration)
         {

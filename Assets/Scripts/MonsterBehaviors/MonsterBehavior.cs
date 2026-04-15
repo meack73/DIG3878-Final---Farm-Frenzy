@@ -23,6 +23,7 @@ public class MonsterBehavior : MonoBehaviour
     private MonsterBehavior currentTarget; //current plant target 
     private FlowerBehavior currentFlower;
     private ShooterBehavior currentShooter; 
+    private WalnutBehavior currentWalnut; 
 
     private string TargetHouse = "Player1";
     private PlayerHealth targetHouse = null;
@@ -104,6 +105,8 @@ public class MonsterBehavior : MonoBehaviour
                     currentFlower.TakeDamage(1);
                 else if (currentShooter != null)
                     currentShooter.TakeDamage(1);
+                else if (currentWalnut != null)
+                    currentWalnut.TakeDamage(1);
                 else if (targetHouse != null)
                     targetHouse.DamagePlayer(1f);
 
@@ -135,7 +138,8 @@ public class MonsterBehavior : MonoBehaviour
         MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
         FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
         ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
-
+        WalnutBehavior walnut = collision.gameObject.GetComponent<WalnutBehavior>(); 
+        
         if (monster != null && monster.playerId != playerId && monster.health > 0)
         {
             isAttacking = true;
@@ -151,6 +155,11 @@ public class MonsterBehavior : MonoBehaviour
             isAttacking = true;
             currentShooter = shooter;
         }
+        else if (walnut != null && walnut.playerId != playerId && walnut.health > 0)
+        {
+            isAttacking = true;
+            currentWalnut = walnut;
+        }
         else if (collision.gameObject.CompareTag(TargetHouse))
         {
             isAttacking = true;
@@ -165,8 +174,9 @@ public class MonsterBehavior : MonoBehaviour
             MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
             FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
             ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
+            WalnutBehavior walnut = collision.gameObject.GetComponent<WalnutBehavior>();
 
-            if ((other != null && other.health <= 0) || (flower != null && flower.health <= 0) || (shooter != null && shooter.health <= 0))
+            if ((other != null && other.health <= 0) || (walnut != null && walnut.health <= 0) || (flower != null && flower.health <= 0) || (shooter != null && shooter.health <= 0))
             {
                 lastStopAttackTime = Time.time;
             }
@@ -175,6 +185,7 @@ public class MonsterBehavior : MonoBehaviour
             currentTarget = null;
             currentFlower = null;
             currentShooter = null;
+            currentWalnut = null;
             targetHouse = null;
         }
     }
