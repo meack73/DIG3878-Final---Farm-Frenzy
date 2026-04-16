@@ -24,7 +24,7 @@ public class CoinPickUp : MonoBehaviour
             Debug.Log("Sun Coin picked up");
             coin.SetActive(false);
             audioSource.PlayOneShot(coinSFX);
-            Destroy(coin, 0.1f);
+            Destroy(coin, 0.5f);
         }
         else
         {

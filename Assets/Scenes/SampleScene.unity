@@ -1168,7 +1168,6 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585549}
   - component: {fileID: 330585548}
-  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1329,21 +1328,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   camStartsOnLeft: 1
---- !u!114 &330585550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurrency
-  SunCoins: 0
-  plyrCurrencyText: {fileID: 3406653731391649872}
-  playerCurrency: 50
 --- !u!4 &375799848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6695003846789372269, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
@@ -7672,6 +7656,7 @@ GameObject:
   - component: {fileID: 662319484649218299}
   - component: {fileID: 4287875280086788684}
   - component: {fileID: 4461579185313564154}
+  - component: {fileID: 4461579185313564155}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -7726,6 +7711,21 @@ MonoBehaviour:
   - {fileID: 1013942915}
   - {fileID: 1776740129}
   - {fileID: 1832420443}
+--- !u!114 &4461579185313564155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461579185313564153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCurrency
+  SunCoins: 0
+  plyrCurrencyText: {fileID: 3406653731391649872}
+  playerCurrency: 50
 --- !u!222 &4540341991202388638
 CanvasRenderer:
   m_ObjectHideFlags: 0
