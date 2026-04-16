@@ -7,22 +7,24 @@ public class CoinPickUp : MonoBehaviour
     public AudioClip coinSFX;
     GameObject publicSpeaker;
     AudioSource audioSource;
+    PlayerCurrency playerCurrency;
 
     void Start()
     {
         publicSpeaker = GameObject.FindWithTag("Speaker");
         audioSource = publicSpeaker.GetComponent<AudioSource>();
+        playerCurrency = FindObjectOfType<PlayerCurrency>();
     }
 
-    void OnMouseDown()
+    public void CollectCoin(GameObject coin)
     {
-        PlayerCurrency playerCurrency = FindObjectOfType<PlayerCurrency>();
         if (playerCurrency != null)
         {
             playerCurrency.AddCoins(coinValue);
             Debug.Log("Sun Coin picked up");
+            coin.SetActive(false);
             audioSource.PlayOneShot(coinSFX);
-            Destroy(gameObject);
+            Destroy(coin, 0.1f);
         }
         else
         {

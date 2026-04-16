@@ -297,7 +297,7 @@ MonoBehaviour:
   spawnTile: {x: 0, y: 0, z: 0}
   playerId: 0
   shoot: {fileID: 8300000, guid: 669b8f5b690a1d9419c7e91167972a5f, type: 3}
-  death: {fileID: 8300000, guid: 7b8e5733108161843a3f40ed717d13df, type: 3}
+  death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
 --- !u!54 &-5866361317737650698
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -4325,6 +4325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276641528}
   - component: {fileID: 1276641527}
+  - component: {fileID: 1276641529}
   m_Layer: 0
   m_Name: OutlineSelection
   m_TagString: Untagged
@@ -4359,6 +4360,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276641529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276641526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2924602deae194985e5fd670f0bb72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinPickUp
+  coinValue: 1
+  coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
 --- !u!1 &1295078095
 GameObject:
   m_ObjectHideFlags: 0
@@ -7642,7 +7657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   winScreen: {fileID: 1221426538}
   playerText: {fileID: 742583070}
-  playerId: 2
+  playerId: 1
   speaker: {fileID: 769259481}
   victorySFX: {fileID: 8300000, guid: 9e4d99c4e207f13409db72f149720a1d, type: 3}
   winnerNum: 0

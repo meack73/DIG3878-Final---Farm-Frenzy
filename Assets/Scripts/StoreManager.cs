@@ -17,10 +17,8 @@ public class StoreManager : MonoBehaviour
     
     void Start()
     {
-        //Finds the currency script attached to the camera
-        Camera camera = Camera.main;
-        currency = camera.GetComponent<PlayerCurrency>();
         GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+        currency = gm.GetComponent<PlayerCurrency>();
         gameManager = gm.GetComponent<GameManager>();
         
         if (gameManager.playerId == 2) {
