@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
 {
-    public MonsterSpawner monsterSpawner;
+    public MultipMonsterSpawner monsterSpawner;
     public StoreManager storeManager;
     public AudioClip canPlace;
     public AudioClip cantPlace;

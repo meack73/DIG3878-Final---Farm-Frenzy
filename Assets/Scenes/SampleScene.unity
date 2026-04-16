@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492a6170604db954bb7c707c3d28e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
-  monsterSpawner: {fileID: 294119418}
+  monsterSpawner: {fileID: 0}
   storeManager: {fileID: 4461579185313564154}
   canPlace: {fileID: 8300000, guid: 5ce0515287425e140b85701415b77872, type: 3}
   cantPlace: {fileID: 8300000, guid: b218601819debd14ea12a93463d49d86, type: 3}
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   ownView: {fileID: 1949561516}
   centerView: {fileID: 1584248457}
   enemyView: {fileID: 2118510662}
-  moveSpeed: 200
+  moveSpeed: 10
 --- !u!4 &375799848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6695003846789372269, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
@@ -3545,7 +3545,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492a6170604db954bb7c707c3d28e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
-  monsterSpawner: {fileID: 934463579}
+  monsterSpawner: {fileID: 0}
   storeManager: {fileID: 4461579185313564154}
   canPlace: {fileID: 8300000, guid: 5ce0515287425e140b85701415b77872, type: 3}
   cantPlace: {fileID: 8300000, guid: b218601819debd14ea12a93463d49d86, type: 3}
