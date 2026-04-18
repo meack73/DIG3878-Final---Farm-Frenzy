@@ -1,32 +1,19 @@
 using UnityEngine;
 using System.Collections; 
 
-public class FlowerBehavior : MonoBehaviour
+public class FlowerBehavior : PlantBehavior
 {
     private Animator animator;    
     private Rigidbody rb;
 
-    [Header("Stats")]
-    public int health = 3;
-    public Vector3 spawnPoint = Vector3Int.zero; 
-    public Vector3Int spawnTile = Vector3Int.zero; 
-
-    //private float damageTimer = 0f;
-    //private float damageCooldown = 3.0f; // same as monster attack cooldown 
-
-    public int playerId = 0; 
     public bool coinSpawn = false; 
     private float coinSpawnAnimationCooldown = 2.5f; 
     private float coinSpawnAnimationTimer = 0f;
-    private bool isDying = false;
 
-    [Header("Audio")]
-    public AudioClip death;
-    AudioSource audioSource;
 
-    void Start()
+    protected override void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        base.Start(); //runs parent class plant behavior (audiosource)
         animator = GetComponent<Animator>();
         animator.SetBool("Idle", true);
         rb = GetComponent<Rigidbody>();
@@ -41,9 +28,15 @@ public class FlowerBehavior : MonoBehaviour
             CoinAnimation();
         } else
         {
-            animator.SetBool("Coin", false); 
-            animator.SetBool("Idle", true);
+            SetAnimationState("Idle");
         }
+    }
+
+// ------------------------------- Set states -------------------------------------------- //
+    void SetAnimationState(string state)
+    {
+        animator.SetBool("Coin", state == "Coin");
+        animator.SetBool("Idle", state == "Idle");
     }
 
     public void CoinAnimation()
@@ -54,37 +47,20 @@ public class FlowerBehavior : MonoBehaviour
         {        
             if (coinSpawn)
             {
-                animator.SetBool("Coin", true);
+                SetAnimationState("Coin");
                 coinSpawn = false;
             }
             
             coinSpawnAnimationTimer = 0f;
         }
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
-        if (collision.gameObject.CompareTag(enemyBulletTag))
-        {
-            Destroy(collision.gameObject);
-            TakeDamage(1);        
-        } 
-    }
   
-    public void TakeDamage(int damage)
+    protected override void Die ()
     {
-        if (isDying || health <= 0) return;
-        health -= damage;
-
-        if (health <= 0)
-        {
-            isDying = true;
-            StartCoroutine(Die());
-        } 
+        StartCoroutine(DieAnimation());
     }
 
-    IEnumerator Die()
+    IEnumerator DieAnimation()
     {
         float duration = 0.7f;
         float time = 0f;

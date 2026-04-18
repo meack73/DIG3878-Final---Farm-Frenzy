@@ -1,59 +1,27 @@
 using UnityEngine;
 using System.Collections; 
 
-public class WalnutBehavior : MonoBehaviour
+public class WalnutBehavior : PlantBehavior
 {
     private Animator animator;    
     private Rigidbody rb;
-    
-    [Header("Stats")]
-    public int health = 3;
-    public Vector3 spawnPoint = Vector3Int.zero; 
-    public Vector3Int spawnTile = Vector3Int.zero; 
 
-    //private float damageTimer = 0f;
-    //private float damageCooldown = 3.0f; // same as monster attack cooldown 
-
-    public int playerId = 0; 
     public bool coinSpawn = false; 
-    private bool isDying = false;
 
-    [Header("Audio")]
-    public AudioClip death;
-    AudioSource audioSource;
-
-    void Start()
+    protected override void Start()
     {
         audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.freezeRotation = true;
     }
-    
 
-    void OnCollisionEnter(Collision collision)
+    protected override void Die ()
     {
-        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
-        if (collision.gameObject.CompareTag(enemyBulletTag))
-        {
-            Destroy(collision.gameObject);
-            TakeDamage(1);        
-        } 
-    }
-  
-    public void TakeDamage(int damage)
-    {
-        if (isDying || health <= 0) return;
-        health -= damage;
-
-        if (health <= 0)
-        {
-            isDying = true;
-            StartCoroutine(Die());
-        } 
+        StartCoroutine(DieAnimation());
     }
 
-    IEnumerator Die()
+    IEnumerator DieAnimation()
     {
         float duration = 0.5f;
         float time = 0f;
