@@ -26,73 +26,72 @@ public class MonsterSpawner : MonoBehaviour
         if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length)
             return;
 
+        if (selectedMonster == 6)
+        {
+            PlacePumpkin(x,z); 
+            return;
+        }
         if (gameBoard.monsterLocations[x, z] != 0)
             return;
 
         string tileName = $"Tile_{x}_{z}";
         Transform tile = gameBoard.transform.Find(tileName);
 
-        if (tile == null)
-        {
-            Debug.LogError(tileName + " not found");
-            return;
-        }
+        if (tile == null) return;
 
-        Vector3 spawnPos = tile.position;
 
         GameObject newMonster = Instantiate(
             monsterPrefabs[selectedMonster],
-            spawnPos,
+            tile.position,
             Quaternion.identity
         );
 
-        //Allows for monsters to be placed after monsters move off their orignal spots
-        //eventually want to make the monster location update so you cant spawn on top of moving monsters
-        if (selectedMonster != 0 && selectedMonster != 1)
+        PlantBehavior b = newMonster.GetComponent<PlantBehavior>();
+        if (b != null)
         {
+            b.spawnTile = new Vector3Int(x, 0, z);
+            b.playerId = playerId;
+        }
+
+        if (selectedMonster > 1)
             gameBoard.monsterLocations[x, z] = selectedMonster + 1;
 
-        }
-
-        // assign data
-        if (selectedMonster == 0 || selectedMonster == 1)
-        {
-            var b = newMonster.GetComponent<MonsterBehavior>();
-            if (b != null)
-            {
-                b.spawnTile = new Vector3Int(x, 0, z);
-                b.playerId = playerId;
-            }
-        }
-        else if (selectedMonster == 2)
-        {
-            var b = newMonster.GetComponent<ShooterBehavior>();
-            if (b != null)
-            {
-                b.spawnTile = new Vector3Int(x, 0, z);
-                b.playerId = playerId;
-            }
-        }
-        else if (selectedMonster == 3)
-        {
-            var b = newMonster.GetComponent<FlowerBehavior>();
-            if (b != null)
-            {
-                b.spawnTile = new Vector3Int(x, 0, z);
-                b.playerId = playerId;
-            }
-        }
-        else if (selectedMonster == 4)
-        {
-            var b = newMonster.GetComponent<WalnutBehavior>();
-            if (b != null)
-            {
-                b.spawnTile = new Vector3Int(x, 0, z);
-                b.playerId = playerId;
-            }
-        }
-
         RotateMonster(newMonster);
+    }
+
+    private void PlacePumpkin(int x, int z)
+    {
+        string tileName = $"Tile_{x}_{z}";
+        Transform tile = gameBoard.transform.Find(tileName);
+        if (tile == null) return;
+
+        // find a monster at that tile
+        Collider[] hits = Physics.OverlapBox(tile.position, new Vector3(0.5f, 1f, 0.5f));
+        foreach (Collider hit in hits)
+        {
+            PlantBehavior plant = hit.GetComponent<PlantBehavior>();
+            if (plant != null && plant.playerId == playerId)
+            {
+                // check it doesnt already have a pumpkin
+                if (plant.GetComponentInChildren<PumpkinBehavior>() != null)
+                {
+                    Debug.Log("already has a pumpkin");
+                    return;
+                }
+
+                GameObject pumpkin = Instantiate(monsterPrefabs[6], plant.transform.position, Quaternion.identity);
+                pumpkin.transform.Rotate(-90, 0, 0);
+
+                Vector3 pos = pumpkin.transform.position;
+                pumpkin.transform.position = new Vector3(pos.x, 0.3f, pos.z);
+                
+                pumpkin.transform.SetParent(plant.transform);
+                pumpkin.GetComponent<PumpkinBehavior>().playerId = playerId;
+                return;
+            }
+        }
+
+        Debug.Log("no friendly monster at that tile");
     }
 
     private void RotateMonster(GameObject monster)
