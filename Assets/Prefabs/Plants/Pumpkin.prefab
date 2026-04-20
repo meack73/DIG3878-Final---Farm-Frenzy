@@ -61,8 +61,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 861c4191cebd8374dbd72b69f639c5ca, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -4852847752350748516}
+      insertIndex: 2
+      addedObject: {fileID: -691254484992427562}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 861c4191cebd8374dbd72b69f639c5ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: -935839910649791124}
@@ -78,7 +78,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 861c4191cebd8374dbd72b69f639c5ca, type: 3}
   m_PrefabInstance: {fileID: 7161515036313490}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-4852847752350748516
+--- !u!114 &-691254484992427562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,10 +92,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PumpkinBehavior
   health: 3
   playerId: 0
-  spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
-  death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
-  coinSpawn: 0
+  orange: {fileID: 9003353085549565770, guid: 861c4191cebd8374dbd72b69f639c5ca, type: 3}
+  cracked: {fileID: 2100000, guid: ea42b0027abf01e48aaf97f43ed19800, type: 2}
+  veryCracked: {fileID: 2100000, guid: 6824b256110a9e842b4785b0039c2790, type: 2}
 --- !u!54 &-935839910649791124
 Rigidbody:
   m_ObjectHideFlags: 0
