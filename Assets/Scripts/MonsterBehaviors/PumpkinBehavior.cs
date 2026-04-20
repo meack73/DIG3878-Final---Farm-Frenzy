@@ -41,7 +41,24 @@ public class PumpkinBehavior : MonoBehaviour
 
     private void Die()
     {
-        // play crack/break effect
+        StartCoroutine(DeathSquish());
+    }
+
+    private IEnumerator DeathSquish()
+    {
+        float duration = 0.6f;
+        float time = 0f;
+        Vector3 originalScale = transform.localScale;
+        Vector3 squishScale =  new Vector3(originalScale.x, originalScale.y, 0f); 
+
+        // squish down
+        while (time < duration)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, squishScale, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
         Destroy(gameObject);
     }
 }
