@@ -23,7 +23,7 @@ public class SunflowerGrow : MonoBehaviour
     public GameObject sunCoinPrefab;
     public int numCoinsDrop = 2;
     public float dropRadius = 5f;
-    public float coinSpawnHeight = 0.2f;
+    public float coinSpawnHeight = 0f;
     public Collider flowerCol;
 
     public FlowerBehavior flowerBehavior;
@@ -170,11 +170,13 @@ public class SunflowerGrow : MonoBehaviour
             return;
         }
 
+        Vector3 basePosition = new Vector3(transform.position.x, coinSpawnHeight, transform.position.z);
+
         for (int i=0; i < numCoinsDrop; i++)
         {
             Vector3 randomOffset = new Vector3(Random.Range(-dropRadius, dropRadius), coinSpawnHeight, Random.Range(-dropRadius, dropRadius));
 
-            Vector3 spawnPosition = transform.position + randomOffset;
+            Vector3 spawnPosition = basePosition + randomOffset;
             GameObject SunCoin = Instantiate(sunCoinPrefab, spawnPosition, Quaternion.identity);
             Destroy(SunCoin, 10f);
         }

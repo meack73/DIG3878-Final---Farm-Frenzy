@@ -1,121 +1,105 @@
 using UnityEngine; 
 
-public class MonsterBehavior : MonoBehaviour
+public class MonsterBehavior : PlantBehavior
 {
-    private Animator animator;    
+    private Animator animator;
     private Rigidbody rb;
-
+ 
     [Header("Stats")]
-    public int health = 3;
-    public int playerId = 0;
     private float speed = 1.5f;
-
+ 
     [Header("Combat Settings")]
-    public float attackCooldown = 2.0f;  
+    public float attackCooldown = 2.0f;
     public float lastAttackTime = 0f;
     public bool isAttacking = false;
-
+ 
     private float postAttackDelay = 2.0f;
     private float lastStopAttackTime = -999f;
-
-    public Vector3 spawnPoint = Vector3Int.zero; //clear init board tile when walking
-    public Vector3Int spawnTile = Vector3Int.zero; //store spawn tile for pathfinding
-    private MonsterBehavior currentTarget; //current plant target 
-    private FlowerBehavior currentFlower;
-    private ShooterBehavior currentShooter; 
-    private WalnutBehavior currentWalnut; 
-
-    private string TargetHouse = "Player1";
+ 
+    private PlantBehavior currentTarget;     // Single reference covers all plant types
     private PlayerHealth targetHouse = null;
-
+    private string targetHouseTag = "Player1";
+    
     [Header("Audio")]
     public AudioClip attack;
-    public AudioClip death;
-    AudioSource audioSource;
 
-    void Start()
+    protected override void Start()
     {        
-        audioSource = GetComponent<AudioSource>();
-
-        rb = GetComponent<Rigidbody>();
+        base.Start(); //runs parent class plant behavior (audiosource)
         animator = GetComponent<Animator>();
+        animator.SetBool("Idle", true);
+        rb = GetComponent<Rigidbody>();
         rb.isKinematic = false;
         rb.freezeRotation = true;
 
-        if (playerId == 1)
-        {
-            TargetHouse = "Player1";
-        }
-        else
-        {
-            TargetHouse = "Player2";
-        }   
+        targetHouseTag = playerId == 1 ? "Player1" : "Player2";
     }
 
     void Update()
     {
-        if (health <= 0)
-        {
-            return;
-        }
+        if (health <= 0) return;
 
         if (!isAttacking && Time.time < lastStopAttackTime + postAttackDelay)
         {
-            rb.linearVelocity = new Vector3(0, 0, 0);
-
-            animator.SetBool("Walk", false);
-            animator.SetBool("Attack", false);
-            animator.SetBool("Idle", true);
-
+            IdleState();
             return;
         }
 
         if (isAttacking)
         {
-            
+            AttackState();
+  
+        } 
+        else
+        {
+            MovementState();
+        }
+    
+    }
+
+// ------------------------------- Set states -------------------------------------------- //
+    void SetAnimationState(string state)
+    {
+        animator.SetBool("Walk", state == "Walk");
+        animator.SetBool("Idle", state == "Idle");
+        animator.SetBool("Attack", state == "Attack");
+        animator.SetBool("Die", state == "Die");
+    }
+
+    void IdleState()
+    {
+        rb.linearVelocity = new Vector3(0, 0, 0);
+        SetAnimationState("Idle");
+    }
+
+    void MovementState()
+    {
+        Vector3 moveDir = transform.forward * speed;
+        rb.linearVelocity = new Vector3(moveDir.x, 0, moveDir.z);
+        SetAnimationState("Walk");
+    }
+
+    void AttackState()
+    {
             rb.linearVelocity = Vector3.zero;
-            animator.SetBool( "Walk", false);
-            animator.SetBool("Idle", false);
+            SetAnimationState("Attack");
 
             if (currentTarget != null && currentTarget.health <= 0)
             {
-                currentTarget = null;
-                isAttacking = false;
-                lastStopAttackTime = Time.time;
+                StopAttack();
                 return;
             }
 
-            else if (currentFlower != null && currentFlower.health <= 0)
-            {
-                currentFlower = null;
-                isAttacking = false;
-                lastStopAttackTime = Time.time;
-                return;
-            }
-
-            else if (currentShooter != null && currentShooter.health <= 0)
-            {
-                currentShooter = null;
-                isAttacking = false;
-                lastStopAttackTime = Time.time;
-                return;
-            }
-                        
+           
             if (Time.time >= lastAttackTime + attackCooldown)
             {
-                animator.SetBool("Attack", true);
+                SetAnimationState("Attack");
                 audioSource.PlayOneShot(attack);
 
                 lastAttackTime = Time.time;
 
                 if (currentTarget != null)
                     currentTarget.TakeDamage(1);
-                else if (currentFlower != null)
-                    currentFlower.TakeDamage(1);
-                else if (currentShooter != null)
-                    currentShooter.TakeDamage(1);
-                else if (currentWalnut != null)
-                    currentWalnut.TakeDamage(1);
                 else if (targetHouse != null)
                     targetHouse.DamagePlayer(1f);
 
@@ -123,53 +107,30 @@ public class MonsterBehavior : MonoBehaviour
 
             else if (Time.time >= lastAttackTime + 0.5f) // Reset attack animation halfway through cooldown
             {
-                animator.SetBool("Attack", false);
+                SetAnimationState("Idle");
             }
-        } 
-        else
-        {
-            HandleMovement();
-        }
+    }
     
-    }
-    void HandleMovement()
+    void StopAttack()
     {
-        Vector3 moveDir = transform.forward * speed;
-        rb.linearVelocity = new Vector3(moveDir.x, 0, moveDir.z);
-
-        animator.SetBool("Walk", true);
-        animator.SetBool("Attack", false);
-        animator.SetBool("Idle", false); 
+        currentTarget = null;
+        targetHouse = null;
+        isAttacking = false;
+        lastStopAttackTime = Time.time;
     }
+
+// ------------------------------- Collisions -------------------------------------------- //
 
     void OnCollisionStay(Collision collision)
     {   
-        MonsterBehavior monster = collision.gameObject.GetComponent<MonsterBehavior>();
-        FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
-        ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
-        WalnutBehavior walnut = collision.gameObject.GetComponent<WalnutBehavior>(); 
+        PlantBehavior plant = collision.gameObject.GetComponent<PlantBehavior>();
         
-        if (monster != null && monster.playerId != playerId && monster.health > 0)
+        if (plant != null && plant.playerId != playerId && plant.health > 0)
         {
             isAttacking = true;
-            currentTarget = monster;
+            currentTarget = plant;
         }
-        else if (flower != null && flower.playerId != playerId && flower.health > 0)
-        {
-            isAttacking = true;
-            currentFlower = flower;
-        }
-        else if (shooter != null && shooter.playerId != playerId && shooter.health > 0)
-        {
-            isAttacking = true;
-            currentShooter = shooter;
-        }
-        else if (walnut != null && walnut.playerId != playerId && walnut.health > 0)
-        {
-            isAttacking = true;
-            currentWalnut = walnut;
-        }
-        else if (collision.gameObject.CompareTag(TargetHouse))
+        else if (collision.gameObject.CompareTag(targetHouseTag))
         {
             isAttacking = true;
             targetHouse = collision.gameObject.GetComponent<PlayerHealth>();
@@ -178,51 +139,24 @@ public class MonsterBehavior : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag(TargetHouse))
+        if (collision.gameObject.CompareTag("Monster") || collision.gameObject.CompareTag(targetHouseTag))
         {
-            MonsterBehavior other = collision.gameObject.GetComponent<MonsterBehavior>();
-            FlowerBehavior flower = collision.gameObject.GetComponent<FlowerBehavior>();
-            ShooterBehavior shooter = collision.gameObject.GetComponent<ShooterBehavior>();
-            WalnutBehavior walnut = collision.gameObject.GetComponent<WalnutBehavior>();
+            PlantBehavior plant = collision.gameObject.GetComponent<PlantBehavior>();
 
-            if ((other != null && other.health <= 0) || (walnut != null && walnut.health <= 0) || (flower != null && flower.health <= 0) || (shooter != null && shooter.health <= 0))
+            if (plant != null && plant.health <= 0)
             {
                 lastStopAttackTime = Time.time;
             }
 
             isAttacking = false;
             currentTarget = null;
-            currentFlower = null;
-            currentShooter = null;
-            currentWalnut = null;
             targetHouse = null;
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected override void Die()
     {
-        string enemyBulletTag = playerId == 1 ? "P2Bullet" : "P1Bullet";
-        if (collision.gameObject.CompareTag(enemyBulletTag))
-        {
-            Destroy(collision.gameObject);
-            TakeDamage(1);        
-        } 
-    }
-
-    void TakeDamage(int damage)
-    {
-        health -= damage;
-        Debug.Log(gameObject.name + " Health: " + health);
-
-        if (health <= 0)
-        {
-            PlayDeath();
-        }
-    }
-
-    void PlayDeath()
-    {
-        animator.SetBool("Die", true);
+        SetAnimationState("Die");
         GetComponent<Collider>().enabled = false;
         rb.isKinematic = true;
         audioSource.PlayOneShot(death);

@@ -8,11 +8,12 @@ public class OutlineSelection : MonoBehaviour
     private Transform highlight;
     private Transform selection;
     private RaycastHit raycastHit;
+
     StoreManager storeManager;
     GameManager gameManager;
-    private MonsterSpawner monsterSpawner;
-    private string tileTag = "P1Tile"; 
-    
+    CoinPickUp coinManager;
+    MonsterSpawner monsterSpawner;
+    string tileTag = "P1Tile"; 
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class OutlineSelection : MonoBehaviour
         
         gameManager = gm.GetComponent<GameManager>();
         storeManager = gameManager.GetComponent<StoreManager>();
-
+        coinManager = GetComponent<CoinPickUp>();
 
         if (gameManager.playerId == 2)
         {
@@ -30,11 +31,6 @@ public class OutlineSelection : MonoBehaviour
         string boardTag = gameManager.playerId == 1 ? "P1Board" : "P2Board";
         GameObject board = GameObject.FindGameObjectWithTag(boardTag);
         monsterSpawner = board.GetComponentInChildren<MonsterSpawner>();
-
-        if (monsterSpawner == null)
-    Debug.LogError("MonsterSpawner not found for player " + gameManager.playerId);
-else
-    Debug.Log("Found spawner with playerId=" + monsterSpawner.playerId);
     }
 
     void Update()
@@ -46,9 +42,15 @@ else
             highlight = null;
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit)) //Make sure you have EventSystem in the hierarchy before using EventSystem
         {
             highlight = raycastHit.transform;
+
+            if (highlight.CompareTag("Coin") && highlight != selection)
+            {
+                coinManager.CollectCoin(highlight.gameObject);
+            }
 
             TileData tile = highlight.GetComponentInParent<TileData>();
 

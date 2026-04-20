@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_Name
-      value: sunflower
+      value: Sunflower
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_TagString
@@ -121,7 +121,7 @@ MonoBehaviour:
   spawnTile: {x: 0, y: 0, z: 0}
   playerId: 0
   coinSpawn: 0
-  death: {fileID: 8300000, guid: 7b8e5733108161843a3f40ed717d13df, type: 3}
+  death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
 --- !u!114 &-578691392437511086
 MonoBehaviour:
   m_ObjectHideFlags: 0
