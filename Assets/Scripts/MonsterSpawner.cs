@@ -96,7 +96,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void RotateMonster(GameObject monster)
     {
-        if (playerId == 2 && selectedMonster != 4)
+        if (playerId == 2 && selectedMonster != 4 && selectedMonster != 5)
         {
             monster.transform.Rotate(0,180,0); 
         }
@@ -122,10 +122,12 @@ public class MonsterSpawner : MonoBehaviour
                 monster.transform.Rotate(0, 180, 0);
             }
         } 
-        else if (selectedMonster == 4)
+        else if (selectedMonster == 4) //walnut
         {
             monster.transform.Rotate(0, 180, 0);
         }
+
+        
     }
 
     public void LogMonsterGrid()
