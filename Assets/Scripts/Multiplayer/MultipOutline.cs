@@ -57,16 +57,20 @@ public class MultipOutline : MonoBehaviour
 
                 TileData tile = highlight.GetComponentInParent<TileData>();
 
-                Debug.Log("TileData found: " + tile.name + ", " + tile.xIndex + ", " + tile.zIndex);
-
                 if (tile != null && monsterSpawner != null)
                 {
                     monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
+                    Debug.Log("TileData found: " + tile.name + ", " + tile.xIndex + ", " + tile.zIndex);
+
+                }
+                else
+                {
+                    Debug.Log("TileData or monsterSparner is missing");
                 }
 
                 Debug.Log($"Selected tile at {tile.xIndex}, {tile.zIndex}");
 
-                selection = raycastHit.transform;
+                //selection = raycastHit.transform;
                 selection.gameObject.GetComponent<Outline>().enabled = true;
                 highlight = null;
             }

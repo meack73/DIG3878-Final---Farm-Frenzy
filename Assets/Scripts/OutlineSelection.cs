@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class OutlineSelection : MonoBehaviour
 {
+    /*
     private Transform highlight;
     private Transform selection;
     private RaycastHit raycastHit;
@@ -126,5 +127,6 @@ public class OutlineSelection : MonoBehaviour
         //yield return null;
         monsterSpawner.selectedMonster = -1;
     }
+    */
 
 }

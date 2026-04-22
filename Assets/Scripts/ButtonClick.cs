@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
 {
+    /*
     public MultipMonsterSpawner monsterSpawner;
     public StoreManager storeManager;
     public AudioClip canPlace;
@@ -75,5 +76,5 @@ public class ButtonClick : MonoBehaviour
             speaker.PlayOneShot(cantPlace);
         }
     }
-    
+    */
 }

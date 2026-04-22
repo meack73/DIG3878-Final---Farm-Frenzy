@@ -36,14 +36,6 @@ public class MultipGameBoard : MonoBehaviour
         //in multiplayer version, constantly import and update monsterLocations
 
         GenerateGrid();
-        monsterLocations = new int[width, depth];
-        for (int x = 0; x < monsterLocations.GetLength(0); x++)
-        {
-            for (int z = 0; z < monsterLocations.GetLength(1); z++)
-            {
-                monsterLocations[x, z] = 0;
-            }
-        }
     }
 
     void GenerateGrid()

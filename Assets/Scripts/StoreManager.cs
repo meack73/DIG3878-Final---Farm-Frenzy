@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
+    /*
     public PriceClass[] plantPrice;
     PlayerCurrency currency;
     public MonsterSpawner monsterSpawner;
@@ -70,4 +71,5 @@ public class StoreManager : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         plantPrice[plantID].onCooldown = false;
     }
+    */
 }
