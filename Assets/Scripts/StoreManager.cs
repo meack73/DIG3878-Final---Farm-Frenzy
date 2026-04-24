@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StoreManager : MonoBehaviour
 {
-    /*
+    
     public PriceClass[] plantPrice;
     PlayerCurrency currency;
     public MonsterSpawner monsterSpawner;
@@ -22,9 +22,12 @@ public class StoreManager : MonoBehaviour
         currency = gm.GetComponent<PlayerCurrency>();
         gameManager = gm.GetComponent<GameManager>();
         
+        /*
         if (gameManager.playerId == 2) {
             boardTag = "P2Board";
         }
+        */
+        
         monsterSpawner = GameObject.FindGameObjectWithTag(boardTag).GetComponentInChildren<MonsterSpawner>();
 
 
@@ -71,5 +74,5 @@ public class StoreManager : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         plantPrice[plantID].onCooldown = false;
     }
-    */
+    
 }

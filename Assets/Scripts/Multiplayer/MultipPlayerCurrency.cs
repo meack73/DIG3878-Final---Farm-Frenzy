@@ -8,9 +8,6 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
     public int p1SunCoins = 0;
     public int p2SunCoins = 0;
 
-    public int p1Currency = 0;
-    public int p2Currency = 0;
-
     public void addCoins(int playerNum, int amount)
     {
         photonView.RPC(nameof(RPC_addCoins), RpcTarget.All, playerNum, amount);
@@ -22,13 +19,11 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
         if (playerNum == 1)
         {
             p1SunCoins += amount;
-            p1Currency = p1SunCoins * 2;
             Debug.Log("Player 1 Sun Coins: " + p1SunCoins);
         }
         else if (playerNum == 2)
         {
             p2SunCoins += amount;
-            p2Currency = p2SunCoins * 2;
             Debug.Log("Player 2 Sun Coins: " + p2SunCoins);
         }
     }
@@ -60,28 +55,28 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (playerNum == 1)
         {
-            p1Currency -= cost;
-            if (p1Currency < 0)
+            p1SunCoins -= cost;
+            if (p1SunCoins < 0)
             {
-                p1Currency = 0;
+                p1SunCoins = 0;
             }
 
-            Debug.Log("Player 1 spent " + cost + " currency. Remaining currency: " + p1Currency);
+            Debug.Log("Player 1 spent " + cost + " currency. Remaining currency: " + p1SunCoins);
         }
         else if (playerNum == 2)
         {
             p2SunCoins -= cost;
-            if (p2Currency < 0)
+            if (p2SunCoins < 0)
             {
-                p2Currency = 0;
+                p2SunCoins = 0;
             }
-            Debug.Log("Player 2 spent " + cost + " currency. Remaining currency: " + p2Currency);
+            Debug.Log("Player 2 spent " + cost + " currency. Remaining currency: " + p2SunCoins);
         }
     }
 
     public int getCurrency(int playerNum)
     {
-        return playerNum == 1 ? p1Currency : p2Currency;
+        return playerNum == 1 ? p1SunCoins : p2SunCoins;
     }
 
     public int getSunCoins(int playerNum)
@@ -105,15 +100,11 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
         {
             stream.SendNext(p1SunCoins);
             stream.SendNext(p2SunCoins);
-            stream.SendNext(p1Currency);
-            stream.SendNext(p2Currency);
         }
         else
         {
             p1SunCoins = (int)stream.ReceiveNext();
             p2SunCoins = (int)stream.ReceiveNext();
-            p1Currency = (int)stream.ReceiveNext();
-            p2Currency = (int)stream.ReceiveNext();
         }
     }
 

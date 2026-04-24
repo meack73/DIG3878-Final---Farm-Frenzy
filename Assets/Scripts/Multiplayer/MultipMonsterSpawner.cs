@@ -8,16 +8,41 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
     public GameObject[] monsterPrefabs;
     private int playerId = 0;
 
+    public int[] monsterCosts;
+    public MultipPlayerCurrency currencyManager;
+
+    public AudioClip placeSFX;
+    public AudioSource speaker;
+
     void Start()
     {
         Debug.Log("MONSTER SPAWNER START");
         gameBoard = GetComponentInParent<MultipGameBoard>();
 
         playerId = gameBoard.playerId;
+
+        if (currencyManager == null)
+        {
+            currencyManager = FindObjectOfType<MultipPlayerCurrency>();
+        }
     }
 
     public void PlaceMonster(int x, int z)
     {
+
+        if (gameBoard == null)
+        {
+            Debug.LogError("MultipMonsterSpawner gameBoard is NULL on " + gameObject.name);
+            return;
+        }
+
+        if (currencyManager == null)
+        {
+            Debug.LogError("MultipMonsterSpawner currencyManager is NULL on " + gameObject.name);
+            return;
+        }
+
+
         int localPlayerID = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2; // Determine local player ID based on Photon ActorNumber
         if (localPlayerID != playerId)
         {
@@ -25,7 +50,46 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
             return;
         }
 
+        if (x < 0 || x >= gameBoard.width || z < 0 || z >= gameBoard.depth)
+        {
+            Debug.Log("Invalid tile coordinates!");
+            return;
+        }
+
+        if (selectedMonster < 0 || selectedMonster >= monsterPrefabs.Length)
+        {
+            Debug.Log("Invalid monster selection!");
+            return;
+        }
+        
+        if(gameBoard.monsterLocations[x, z] != 0)
+        {
+            Debug.Log("Space occupied!");
+            return;
+        }
+
+        if (monsterCosts == null || selectedMonster >= monsterCosts.Length)
+        {
+            Debug.LogError("Monster costs not properly defined!");
+            return;
+        }
+
+        int cost = monsterCosts[selectedMonster];
+
+        if (currencyManager == null)
+        {
+            Debug.LogError("Currency manager not found!");
+            return;
+        }
+
+        if (!currencyManager.spendCoins(playerId, cost))
+        {
+            Debug.Log("Not enough currency to place this monster!");
+            return;
+        }
+
         photonView.RPC(nameof(RPC_PlaceMonster), RpcTarget.All, x, z, selectedMonster);
+   
     }
 
     [PunRPC]
@@ -40,74 +104,111 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
             Debug.Log("Space occupied!");
             return;
         }
+        string tileName = $"Tile_{x}_{z}";
+        Transform tile = gameBoard.transform.Find(tileName);
 
-        SpawnMonsterLocal(x, z, selectedMonster);
-    }
-
-    private void SpawnMonsterLocal(int x, int z, int selectedMonster)
-    {
-        // We use the board's logic to find the exact center of the tile
-        float startX = -((gameBoard.width - 1) * gameBoard.tileSize) / 2f;
-        float startZ = -((gameBoard.depth - 1) * gameBoard.tileSize) / 2f;
-
-        float localX = startX + (x * gameBoard.tileSize) - (gameBoard.tileSize / 2f);
-        float localZ = startZ + (z * gameBoard.tileSize) + (gameBoard.tileSize / 2f);
-        Vector3 localPos = new Vector3(localX, 0.5f, localZ);
-        Vector3 worldPos = transform.TransformPoint(localPos);
-
-        GameObject newMonster = Instantiate(monsterPrefabs[selectedMonster], worldPos, transform.rotation);
-        if (selectedMonster == 1 || selectedMonster == 2) //Cactus or mushroom
+        if (tile == null)
         {
-            MonsterBehavior behavior = newMonster.GetComponent<MonsterBehavior>();
-            if (behavior != null)
-            {
-                behavior.spawnPoint = localPos;
-                behavior.spawnTile = new Vector3Int(x, 0, z);
-                behavior.playerId = playerId;
-            }
-        }
-        else if (selectedMonster == 0) //shooter
-        {
-            ShooterBehavior behavior = newMonster.GetComponent<ShooterBehavior>();
-            if (behavior != null)
-            {
-                behavior.spawnPoint = localPos;
-                behavior.spawnTile = new Vector3Int(x, 0, z);
-                behavior.playerId = playerId;
-            }
-        }
-        else //sunflower
-        {
-            FlowerBehavior behavior = newMonster.GetComponent<FlowerBehavior>();
-            if (behavior != null)
-            {
-                behavior.spawnPoint = localPos;
-                behavior.spawnTile = new Vector3Int(x, 0, z);
-                behavior.playerId = playerId;
-            }
+            Debug.LogError(tileName + " not found");
+            return;
         }
 
-        gameBoard.monsterLocations[x, z] = selectedMonster + 1; // Store ID (offset by 1 so 0 stays 'Empty')
+        Vector3 spawnPos = tile.position;
+
+        GameObject newMonster = Instantiate(
+            monsterPrefabs[selectedMonster],
+            spawnPos,
+            Quaternion.identity
+        );
+
+        if (selectedMonster != 0 && selectedMonster != 1)
+        {
+            gameBoard.monsterLocations[x, z] = selectedMonster + 1;
+        }
+
+        assignMonsterData(newMonster, selectedMonster, x, z);
 
         RotateMonster(newMonster, selectedMonster);
+
+        if (speaker != null && placeSFX != null)
+        {
+            speaker.PlayOneShot(placeSFX);
+        }
+
         LogMonsterGrid();
+    }
+
+    private void assignMonsterData(GameObject newMonster, int selectedMonster, int x, int z)
+    {
+        if (selectedMonster == 0 || selectedMonster == 1)
+        {
+            var b = newMonster.GetComponent<MonsterBehavior>();
+            if (b != null)
+            {
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
+            }
+        }
+        else if (selectedMonster == 2)
+        {
+            var b = newMonster.GetComponent<ShooterBehavior>();
+            if (b != null)
+            {
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
+            }
+        }
+        else if (selectedMonster == 3)
+        {
+            var b = newMonster.GetComponent<FlowerBehavior>();
+            if (b != null)
+            {
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
+            }
+        }
+        else if (selectedMonster == 4)
+        {
+            var b = newMonster.GetComponent<WalnutBehavior>();
+            if (b != null)
+            {
+                b.spawnTile = new Vector3Int(x, 0, z);
+                b.playerId = playerId;
+            }
+        }
     }
 
     private void RotateMonster(GameObject monster, int selectedMonster)
     {
-        if (selectedMonster == 0)
+        if (playerId == 2 && selectedMonster != 4)
         {
             monster.transform.Rotate(0, 180, 0);
         }
-        else if (selectedMonster == 1 || selectedMonster == 2)
+
+        if (selectedMonster == 0 || selectedMonster == 1) //cactus and mushroom
         {
             monster.transform.Rotate(0, 90, 0);
-            monster.transform.Translate(0, -0.5f, 0);
         }
-        else if (selectedMonster == 3)
+        else if (selectedMonster == 2) //shooter
         {
-            monster.transform.Rotate(0, 0, 180);
-            monster.transform.Translate(0, -0.5f, 0);
+            monster.transform.Translate(0, 0.5f, 0);
+            monster.transform.Rotate(0, 180, 0);
+        }
+        else if (selectedMonster == 3) //sunflower
+        {
+            if (playerId == 1)
+            {
+                monster.transform.Translate(0f, 1.3f, 0);
+            }
+            else if (playerId == 2)
+            {
+                monster.transform.Translate(0, 1.3f, 0);
+                monster.transform.Rotate(0, 180, 0);
+            }
+        }
+        else if (selectedMonster == 4)
+        {
+            monster.transform.Rotate(0, 180, 0);
         }
 
     }

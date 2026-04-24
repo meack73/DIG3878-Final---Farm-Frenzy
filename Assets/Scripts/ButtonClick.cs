@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class ButtonClick : MonoBehaviour
 {
-    /*
+    
     public MultipMonsterSpawner monsterSpawner;
-    public StoreManager storeManager;
+    //public StoreManager storeManager;
+    public MultipStoreManager storeManager;
     public AudioClip canPlace;
     public AudioClip cantPlace;
     GameObject publicSpeaker;
@@ -13,7 +14,6 @@ public class ButtonClick : MonoBehaviour
     
     void Awake()
     {
-        GameObject manager = GameObject.FindGameObjectWithTag("GameManager");
         
         publicSpeaker = GameObject.FindWithTag("Speaker");
         speaker = publicSpeaker.GetComponent<AudioSource>();
@@ -64,6 +64,7 @@ public class ButtonClick : MonoBehaviour
     IEnumerator SelectPlant(int mID)
     {
         yield return null;
+        /*
         if (storeManager.plantPrice[mID].canBuy)
         {
             monsterSpawner.selectedMonster = mID;
@@ -75,6 +76,27 @@ public class ButtonClick : MonoBehaviour
             Debug.Log("Player does not have enough money.");
             speaker.PlayOneShot(cantPlace);
         }
+        */
+
+        if (storeManager == null)
+        {
+            Debug.LogError("ButtonClick storeManager is NULL");
+            yield break;
+        }
+
+        bool canBuy = storeManager.CheckMonsterPrice(mID);
+
+        if (canBuy)
+        {
+            StartCoroutine(storeManager.BuyCooldown(mID));
+
+            speaker.PlayOneShot(canPlace);
+        }
+        else
+        {
+            Debug.Log("Player does not have enough money.");
+            speaker.PlayOneShot(cantPlace);
+        }
     }
-    */
+    
 }

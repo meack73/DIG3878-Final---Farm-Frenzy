@@ -8,7 +8,26 @@ public class MultipOutline : MonoBehaviour
     private Transform highlight;
     private Transform selection;
     private RaycastHit raycastHit;
+
+
     public MultipMonsterSpawner monsterSpawner;
+    public MultipMonsterSpawner p1MonsterSpawner;
+    public MultipMonsterSpawner p2MonsterSpawner;
+
+    void Start()
+    {
+        int localPlayerID = Photon.Pun.PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
+        if (localPlayerID == 1)
+        {
+            monsterSpawner = p1MonsterSpawner;
+        }
+        else
+        {
+            monsterSpawner = p2MonsterSpawner;
+        }
+
+        Debug.Log("Outline using spawner for Player " + localPlayerID);
+    }
 
     void Update()
     {
