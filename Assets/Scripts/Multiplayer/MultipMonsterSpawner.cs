@@ -3,7 +3,7 @@ using Photon.Pun;
 
 public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
 {
-    public int selectedMonster = 0;
+    public int selectedMonster = -1;
     public MultipGameBoard gameBoard;
     public GameObject[] monsterPrefabs;
     private int playerId = 0;
@@ -29,6 +29,12 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
 
     public void PlaceMonster(int x, int z)
     {
+
+        if (selectedMonster == -1)
+        {
+            Debug.Log("No monster selected.");
+            return;
+        }
 
         if (gameBoard == null)
         {
@@ -89,7 +95,7 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
         }
 
         photonView.RPC(nameof(RPC_PlaceMonster), RpcTarget.All, x, z, selectedMonster);
-   
+        selectedMonster = -1; // Reset selection after placing
     }
 
     [PunRPC]

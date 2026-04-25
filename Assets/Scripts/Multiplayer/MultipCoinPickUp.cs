@@ -5,6 +5,7 @@ public class MultipCoinPickUp : MonoBehaviour
 {
 
     public int coinValue = 1;
+    public int ownerPlayerId = 0; // The player ID that owns this coin
 
     public AudioClip coinSFX;
     GameObject publicSpeaker;
@@ -32,28 +33,64 @@ public class MultipCoinPickUp : MonoBehaviour
         
     }
 
-    public void CollectCoin(GameObject coin)
+    void OnMouseDown()
     {
+        Debug.Log("COIN CLICKED");
+        CollectCoin();
+    }
+
+    public void SetOwner(int playerId)
+    {
+        ownerPlayerId = playerId;
+    }
+
+    public void CollectCoin()
+    {
+
+        if (playerCurrency == null)
+        {
+            playerCurrency = FindObjectOfType<MultipPlayerCurrency>();
+        }
+
         if (playerCurrency != null)
         {
             int localPlayerNum = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
-            playerCurrency.addCoins(localPlayerNum, coinValue);
 
-            Debug.Log("Sun Coin picked up by Player " + localPlayerNum);
-
-            coin.SetActive(false);
-
-            if(audioSource != null && coinSFX != null)
+            if (ownerPlayerId != 0 && ownerPlayerId != localPlayerNum)
             {
-                audioSource.PlayOneShot(coinSFX);
+                Debug.Log("This coin belongs to another player!");
+                return;
             }
 
-            Destroy(coin, 0.5f);
+            photonView.RPC(nameof(RPC_CollectCoin), RpcTarget.All, localPlayerNum);
         }
         else
         {
             Debug.Log("Player has no currency manager");
+            return;
         }
+    }
+
+    [PunRPC]
+    void RPC_CollectCoin(int playerNum)
+    {
+        if (playerCurrency == null)
+        {
+            playerCurrency = FindObjectOfType<MultipPlayerCurrency>();
+        }
+
+        if (playerCurrency != null && PhotonNewtowrk.LocalPlayer.ActorNumber == playerNum)
+        {
+            playerCurrency.addCoins(playerNum, coinValue);
+            Debug.Log("Player " + playerNum + " collected a coin worth " + coinValue + " currency.");
+        }
+
+        if (audioSource != null && coinSFX != null)
+        {
+            audioSource.PlayOneShot(coinSFX);
+        }
+
+        Destroy(gameObject);
     }
 
 

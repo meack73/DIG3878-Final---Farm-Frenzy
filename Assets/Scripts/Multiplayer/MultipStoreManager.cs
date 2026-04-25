@@ -89,7 +89,7 @@ public class MultipStoreManager : MonoBehaviour
         }
 
         int playerNum = currency.getPlayerNum();
-
+          
         if (currency.canAfford(playerNum, plantPrice[monsterID].price) && !plantPrice[monsterID].onCooldown)
         {
             plantPrice[monsterID].canBuy = true;

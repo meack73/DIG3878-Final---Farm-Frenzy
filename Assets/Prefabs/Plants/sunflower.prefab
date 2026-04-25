@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_Name
-      value: Sunflower
+      value: sunflower
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       propertyPath: m_TagString
@@ -82,9 +82,12 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: 1
-      addedObject: {fileID: -6727474554833358268}
+      addedObject: {fileID: -6854064514665605800}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: 2
+      addedObject: {fileID: -6727474554833358268}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
+      insertIndex: 3
       addedObject: {fileID: -578691392437511086}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: -1
@@ -98,12 +101,30 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3738442735529991341}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1468935914820070163}
   m_SourcePrefab: {fileID: 100100000, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
 --- !u!1 &1311075292995546189 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
   m_PrefabInstance: {fileID: 2229433383816483100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6854064514665605800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311075292995546189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedf78f6248b2db40b02f6ff8686b365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipCoinPickUp
+  coinValue: 1
+  coinSFX: {fileID: 0}
+  playerCurrency: {fileID: 0}
 --- !u!114 &-6727474554833358268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,11 +138,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlowerBehavior
   health: 3
+  playerId: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
-  playerId: 0
-  coinSpawn: 0
   death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
+  coinSpawn: 0
 --- !u!114 &-578691392437511086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,3 +329,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-1468935914820070163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311075292995546189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

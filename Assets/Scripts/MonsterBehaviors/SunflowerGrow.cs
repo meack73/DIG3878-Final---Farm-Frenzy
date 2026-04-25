@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
 
-public class SunflowerGrow : MonoBehaviour
+public class SunflowerGrow : MonoBehaviourPun
 {
     //parts of sunflower for growth later
     public GameObject pot;
@@ -23,7 +24,7 @@ public class SunflowerGrow : MonoBehaviour
     public GameObject sunCoinPrefab;
     public int numCoinsDrop = 2;
     public float dropRadius = 5f;
-    public float coinSpawnHeight = 0f;
+    public float coinSpawnHeight = 0.1f;
     public Collider flowerCol;
 
     public FlowerBehavior flowerBehavior;
@@ -90,8 +91,11 @@ public class SunflowerGrow : MonoBehaviour
         while (fullyGrown)
         {
             yield return new WaitForSeconds(3f);
-            DropCoins();
 
+            if (PhotonNetwork.IsMasterClient)
+            {
+                DropCoins();
+            }
         }
 
     }
@@ -145,20 +149,32 @@ public class SunflowerGrow : MonoBehaviour
             return;
         }
 
+        int localPlayerNum = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
+
+        if (flowerBehavior != null && flowerBehavior.playerId != localPlayerNum)
+        {
+            Debug.Log("This is not your sunflower!");
+            return;
+        }
+
+        photonView.RPC(nameof(RPC_PickFlower), RpcTarget.All, localPlayerNum);
+        //StartCoroutine(GrowSunflower());
+    }
+
+    [PunRPC]
+    void RPC_PickFlower(int playerNum)
+    {
+        Debug.Log("Sunflower picked by Player " + playerNum);
+
         PlayerHealth player = FindObjectOfType<PlayerHealth>();
         if (player != null)
         {
             player.Heal(healAmount);
-            Debug.Log("Player healed!");
-        }
-        else
-        {
-            Debug.Log("No PlayerHealth found in scene :(");
+            Debug.Log("Player " + playerNum + " healed for " + healAmount);
         }
 
         StopAllCoroutines();
         ResetSunflower();
-        //StartCoroutine(GrowSunflower());
     }
 
     void DropCoins()
@@ -178,6 +194,13 @@ public class SunflowerGrow : MonoBehaviour
 
             Vector3 spawnPosition = basePosition + randomOffset;
             GameObject SunCoin = Instantiate(sunCoinPrefab, spawnPosition, Quaternion.identity);
+
+            MultipCoinPickUp coinPickUp = SunCoin.GetComponent<MultipCoinPickUp>();
+            if (coinPickUp != null && flowerBehavior != null)
+            {
+                coinPickUp.photonView.RPC(nameof(MultipCoinPickUp.SetOwner), RpcTarget.All, flowerBehavior.playerId);
+            }
+
             Destroy(SunCoin, 10f);
         }
 

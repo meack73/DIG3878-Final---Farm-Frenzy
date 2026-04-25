@@ -1,12 +1,15 @@
 using UnityEngine;
 using Photon.Pun;
 using System.Xml.Serialization;
+using TMPro;  
 
 public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     public int p1SunCoins = 0;
     public int p2SunCoins = 0;
+
+    public TMP_Text currencyText;
 
     public void addCoins(int playerNum, int amount)
     {
@@ -26,6 +29,8 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
             p2SunCoins += amount;
             Debug.Log("Player 2 Sun Coins: " + p2SunCoins);
         }
+
+        UpdateCurrencyUI();
     }
 
     public int getPlayerNum()
@@ -94,6 +99,19 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
         return getCurrency(getPlayerNum());
     }
 
+    public void UpdateCurrencyUI()
+    {
+        if (currencyText == null)
+        {
+            return;
+        }
+
+        int localPlayer = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
+        int coins = (localPlayer == 1) ? p1SunCoins : p2SunCoins;
+
+        currencyText.text = coins.ToString();       
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -105,6 +123,7 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
         {
             p1SunCoins = (int)stream.ReceiveNext();
             p2SunCoins = (int)stream.ReceiveNext();
+            UpdateCurrencyUI();
         }
     }
 
@@ -112,7 +131,7 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        UpdateCurrencyUI();
     }
 
     // Update is called once per frame

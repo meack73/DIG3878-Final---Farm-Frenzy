@@ -65,40 +65,33 @@ public class MultipOutline : MonoBehaviour
         // Selection
         if (Input.GetMouseButtonDown(0))
         {
-            if (highlight)
-            {
-                if (selection)
-                {
-                    selection.gameObject.GetComponent<Outline>().enabled = false;
-                }
-                selection = highlight;
-                selection.gameObject.GetComponent<Outline>().enabled = true;
+            Ray clickRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits = Physics.RaycastAll(clickRay);
 
-                TileData tile = highlight.GetComponentInParent<TileData>();
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+
+            //check coins first
+            foreach (RaycastHit hit in hits)
+            {
+                MultipCoinPickUp coin = hit.transform.GetComponentInParent<MultipCoinPickUp>();
+
+                if (coin != null)
+                {
+                    Debug.Log("Coin found through RaycastAll.");
+                    coin.CollectCoin();
+                    return;
+                }
+            }
+
+            foreach (RaycastHit hit in hits)
+            {
+                TileData tile = hit.transform.GetComponentInParent<TileData>();
 
                 if (tile != null && monsterSpawner != null)
                 {
                     monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
                     Debug.Log("TileData found: " + tile.name + ", " + tile.xIndex + ", " + tile.zIndex);
-
-                }
-                else
-                {
-                    Debug.Log("TileData or monsterSparner is missing");
-                }
-
-                Debug.Log($"Selected tile at {tile.xIndex}, {tile.zIndex}");
-
-                //selection = raycastHit.transform;
-                selection.gameObject.GetComponent<Outline>().enabled = true;
-                highlight = null;
-            }
-            else
-            {
-                if (selection)
-                {
-                    selection.gameObject.GetComponent<Outline>().enabled = false;
-                    selection = null;
+                    return;
                 }
             }
         }

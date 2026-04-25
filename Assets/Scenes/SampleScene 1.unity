@@ -1130,6 +1130,7 @@ GameObject:
   - component: {fileID: 294119420}
   - component: {fileID: 294119421}
   - component: {fileID: 294119422}
+  - component: {fileID: 294119423}
   m_Layer: 0
   m_Name: P2MonsterSpawner
   m_TagString: Untagged
@@ -1246,6 +1247,28 @@ MonoBehaviour:
   coinValue: 1
   coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
   playerCurrency: {fileID: 4461579185313564157}
+--- !u!114 &294119423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294119415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,6 +3663,7 @@ GameObject:
   - component: {fileID: 934463581}
   - component: {fileID: 934463582}
   - component: {fileID: 934463583}
+  - component: {fileID: 934463584}
   m_Layer: 0
   m_Name: P1MonsterSpawner
   m_TagString: Untagged
@@ -3742,6 +3766,28 @@ MonoBehaviour:
   coinValue: 1
   coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
   playerCurrency: {fileID: 4461579185313564157}
+--- !u!114 &934463584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &937162913
 GameObject:
   m_ObjectHideFlags: 0
