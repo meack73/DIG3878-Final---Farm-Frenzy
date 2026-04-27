@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c597799fdc37d4fa0e463d0ce19f3c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -15.730727
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c597799fdc37d4fa0e463d0ce19f3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: -0.00000022296797
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c597799fdc37d4fa0e463d0ce19f3c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -2.7473047
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c597799fdc37d4fa0e463d0ce19f3c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -162,11 +162,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalnutBehavior
   health: 3
+  playerId: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
-  playerId: 0
-  coinSpawn: 0
   death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
+  materialObj: {fileID: 4001715228236974471}
+  coinSpawn: 0
 --- !u!114 &-7762136301786361033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,3 +279,8 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &4001715228236974471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7289735948786615064, guid: c2c597799fdc37d4fa0e463d0ce19f3c, type: 3}
+  m_PrefabInstance: {fileID: 3268862409023665519}
+  m_PrefabAsset: {fileID: 0}

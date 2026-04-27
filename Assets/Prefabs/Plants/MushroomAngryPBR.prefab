@@ -141,6 +141,7 @@ MonoBehaviour:
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
   death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
+  materialObj: {fileID: 5278060067821853555}
   attackCooldown: 2
   lastAttackTime: 0
   isAttacking: 0

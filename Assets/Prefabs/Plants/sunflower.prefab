@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultipCoinPickUp
   coinValue: 1
+  ownerPlayerId: 0
   coinSFX: {fileID: 0}
   playerCurrency: {fileID: 0}
 --- !u!114 &-6727474554833358268
@@ -142,6 +143,7 @@ MonoBehaviour:
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
   death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
+  materialObj: {fileID: 5067352482862408837}
   coinSpawn: 0
 --- !u!114 &-578691392437511086
 MonoBehaviour:
@@ -351,3 +353,8 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!1 &5067352482862408837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2836612569988172391, guid: 9150c1558c331d747b173f66afa0302e, type: 3}
+  m_PrefabInstance: {fileID: 2229433383816483100}
+  m_PrefabAsset: {fileID: 0}
