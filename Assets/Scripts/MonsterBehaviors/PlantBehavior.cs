@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class PlantBehavior : MonoBehaviour
@@ -13,6 +14,9 @@ public abstract class PlantBehavior : MonoBehaviour
     [Header("Audio")]
     public AudioClip death;
     protected AudioSource audioSource;
+
+    [Header("VFX")]
+    public GameObject materialObj;
 
     protected virtual void Start()
     {
@@ -30,6 +34,7 @@ public abstract class PlantBehavior : MonoBehaviour
         else
         {
             health -= damage;
+            StartCoroutine(DamageVFX());
             if (health <= 0)
             {
                 isDying = true;
@@ -48,5 +53,21 @@ public abstract class PlantBehavior : MonoBehaviour
             Destroy(collision.gameObject);
             TakeDamage(1);
         }
+    }
+
+    IEnumerator DamageVFX()
+    {
+        Renderer rend = materialObj.GetComponent<Renderer>();
+        MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+        rend.GetPropertyBlock(propertyBlock);
+        propertyBlock.SetColor("_BaseColor", Color.red);
+        rend.SetPropertyBlock(propertyBlock);
+
+        yield return new WaitForSeconds(0.1f);
+        propertyBlock.Clear();
+        rend.SetPropertyBlock(propertyBlock);
+        
+
+        //rend.materials = mats;
     }
 }
