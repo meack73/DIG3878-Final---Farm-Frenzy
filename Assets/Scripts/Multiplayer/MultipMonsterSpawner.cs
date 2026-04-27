@@ -148,11 +148,11 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
     {
         if (selectedMonster == 0 || selectedMonster == 1)
         {
-            var b = newMonster.GetComponent<MultipMonsterBehavior>();
+            var b = newMonster.GetComponent<MonsterBehavior>();
             if (b != null)
             {
                 b.spawnTile = new Vector3Int(x, 0, z);
-                b.InitMonster(playerId);
+                b.playerId = playerId;
             }
         }
         else if (selectedMonster == 2)

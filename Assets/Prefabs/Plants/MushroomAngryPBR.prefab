@@ -141,7 +141,6 @@ MonoBehaviour:
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}
   death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
-  materialObj: {fileID: 5278060067821853555}
   attackCooldown: 2
   lastAttackTime: 0
   isAttacking: 0
@@ -573,7 +572,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a5608799263d57044a7308656faa3d70, type: 2}
+  - {fileID: 2100000, guid: 2d8643687b664580b4248d279407fb7c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -3,52 +3,7 @@ guid: 9150c1558c331d747b173f66afa0302e
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Black
-    second: {fileID: 2100000, guid: f53bfb69d8e78b84a888696dd3297cf5, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Black.003
-    second: {fileID: 2100000, guid: 5a495c9b7802f1345a1740a2a4d3a572, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brown
-    second: {fileID: 2100000, guid: 3d86ebea953f26246a8ca5bc29de4bd8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Brown2
-    second: {fileID: 2100000, guid: 64ad6e9b6f8931d409ee4e4e7b8d707a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Green
-    second: {fileID: 2100000, guid: 6a60439c3e075ee46ae51805ad55e56c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Green.001
-    second: {fileID: 2100000, guid: 319bd84677f563049a4ae7ec7adaba21, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: f1a216fe57705e04aa0535f6fb257e97, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: 83cfbff5781f4df45832a80a23720c80, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Yellow
-    second: {fileID: 2100000, guid: efc156e8e950ca245810dc7eee3b7644, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
