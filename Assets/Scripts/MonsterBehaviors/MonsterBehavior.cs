@@ -125,6 +125,9 @@ public class MonsterBehavior : PlantBehavior
     {   
         PlantBehavior plant = collision.gameObject.GetComponent<PlantBehavior>();
         
+        if (plant == null)
+            plant = collision.gameObject.GetComponentInParent<PlantBehavior>();
+        
         if (plant != null && plant.playerId != playerId && plant.health > 0)
         {
             isAttacking = true;

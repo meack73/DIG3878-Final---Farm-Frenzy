@@ -61,6 +61,13 @@ public class ButtonClick : MonoBehaviour
         StartCoroutine(SelectPlant(5));
     }
 
+    public void OnClick7() 
+    { 
+        //sets the id of the plant to cherry
+        storeManager.CheckMonsterPrice(6);
+        StartCoroutine(SelectPlant(6));
+    }
+
     IEnumerator SelectPlant(int mID)
     {
         yield return null;

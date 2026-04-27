@@ -14,7 +14,7 @@ public class SpawnOpponentMonsters : MonoBehaviour
                     {3, 0, 4, 0, 0},
                     {0, 0, 0, 5, 0},
                     {0, 0, 0, 0, 0},
-                    {0, 4, 3, 2, 1}
+                    {6, 4, 3, 2, 1}
                 };
     void Start()
     {

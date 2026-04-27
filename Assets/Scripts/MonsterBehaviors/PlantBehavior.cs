@@ -21,13 +21,20 @@ public abstract class PlantBehavior : MonoBehaviour
 
     public virtual void TakeDamage(int damage)
     {
-        if (isDying || health <= 0) return;
-        health -= damage;
-
-        if (health <= 0)
+        PumpkinBehavior pumpkin = GetComponentInChildren<PumpkinBehavior>();
+        
+        if (pumpkin != null)
         {
-            isDying = true;
-            Die();
+            pumpkin.TakeDamage(damage); // pumpkin absorbs it, monster health untouched
+        }
+        else
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                isDying = true;
+                Die();
+            }
         }
     }
 
