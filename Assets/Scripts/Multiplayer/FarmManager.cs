@@ -22,7 +22,7 @@ public class FarmManager : MonoBehaviourPunCallbacks
 
     #region public Arrow Methods
 
-    public void OnAKey()
+    public void OnDKey()
     {
         if (cameraMovement == null)
         {
@@ -41,7 +41,7 @@ public class FarmManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void OnDKey()
+    public void OnAKey()
     {
         if (cameraMovement == null)
         {
