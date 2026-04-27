@@ -43,12 +43,16 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("No random room available, creating a new room");
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom, IsVisible = true, IsOpen = true });
+        Debug.Log("No random room available, creating a new room...");
 
-        Debug.Log("Joined room name: " + PhotonNetwork.CurrentRoom.Name);
-        Debug.Log("My actor number: " + PhotonNetwork.LocalPlayer.ActorNumber);
-        Debug.Log("Player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        RoomOptions options = new RoomOptions
+        {
+            MaxPlayers = maxPlayersPerRoom,
+            IsVisible = true,
+            IsOpen = true
+        };
+
+        PhotonNetwork.CreateRoom(null, options);
     }
 
     //temp variablee to test photon network
@@ -57,7 +61,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
 
-        Debug.Log("Joined room. Player count = " + PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.Log("Joined room name: " + PhotonNetwork.CurrentRoom.Name);
+        Debug.Log("My actor number: " + PhotonNetwork.LocalPlayer.ActorNumber);
+        Debug.Log("Player count: " + PhotonNetwork.CurrentRoom.PlayerCount);
 
         //numJoined = PhotonNetwork.CurrentRoom.PlayerCount;
 
@@ -86,7 +92,9 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         Debug.Log("Player entered: " + newPlayer.NickName);
 
-        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom && PhotonNetwork.CurrentRoom != null)
+        if (PhotonNetwork.CurrentRoom != null &&
+            PhotonNetwork.IsMasterClient &&
+            PhotonNetwork.CurrentRoom.PlayerCount == maxPlayersPerRoom)
         {
             StartGame();
         }
