@@ -82,6 +82,7 @@ public class MultipPlayerHealthManager : MonoBehaviourPunCallbacks, IPunObservab
         }
 
         checkForWinner();
+        Debug.Log("RPC_ApplyDamage DONE: P1=" + p1Health + " P2=" + p2Health);
     }
 
     [PunRPC]
@@ -117,6 +118,8 @@ public class MultipPlayerHealthManager : MonoBehaviourPunCallbacks, IPunObservab
             Debug.Log("Invalid player");
             return;
         }
+
+        Debug.Log("damagePlayer CALLED: player=" + playerNum + " damage=" + damage);
 
         //RPC syncs the damage applied for all players
         photonView.RPC(nameof(RPC_ApplyDamage), RpcTarget.All, playerNum, damage);
