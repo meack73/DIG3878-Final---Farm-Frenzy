@@ -14,7 +14,7 @@ public class SunflowerGrow : MonoBehaviourPun
 
     public float timeBetweenStages = 3f;
     public int healAmount = 10;
-    public int coinAmount = 2;
+    public int coinAmount = 1;
 
     int currStage = 0;
     bool fullyGrown = false;
@@ -90,7 +90,7 @@ public class SunflowerGrow : MonoBehaviourPun
     {
         while (fullyGrown)
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(7f);
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -141,15 +141,18 @@ public class SunflowerGrow : MonoBehaviourPun
 
     void OnMouseDown()
     {
+
+        int localPlayerNum = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
+
         Debug.Log("Sunflower is clicked.");
+        Debug.Log("Flower owner: " + flowerBehavior.playerId);
+        Debug.Log("Local player: " + localPlayerNum);
 
         if (!fullyGrown)
         {
             Debug.Log("Not fully grown yet...");
             return;
         }
-
-        int localPlayerNum = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? 1 : 2;
 
         if (flowerBehavior != null && flowerBehavior.playerId != localPlayerNum)
         {
@@ -166,10 +169,11 @@ public class SunflowerGrow : MonoBehaviourPun
     {
         Debug.Log("Sunflower picked by Player " + playerNum);
 
-        PlayerHealth player = FindObjectOfType<PlayerHealth>();
-        if (player != null)
+        MultipPlayerHealthManager healthManager = FindObjectOfType<MultipPlayerHealthManager>();
+
+        if (healthManager != null)
         {
-            player.Heal(healAmount);
+            healthManager.healPlayer(playerNum, healAmount);
             Debug.Log("Player " + playerNum + " healed for " + healAmount);
         }
 
@@ -186,25 +190,45 @@ public class SunflowerGrow : MonoBehaviourPun
             return;
         }
 
+        if (flowerBehavior == null)
+        {
+            Debug.LogWarning("No FlowerBehavior found");
+            return;
+        }
+
         Vector3 basePosition = new Vector3(transform.position.x, coinSpawnHeight, transform.position.z);
 
         for (int i=0; i < numCoinsDrop; i++)
         {
-            Vector3 randomOffset = new Vector3(Random.Range(-dropRadius, dropRadius), coinSpawnHeight, Random.Range(-dropRadius, dropRadius));
+            Vector3 randomOffset = new Vector3(Random.Range(-dropRadius, dropRadius), 0, Random.Range(-dropRadius, dropRadius));
 
             Vector3 spawnPosition = basePosition + randomOffset;
-            GameObject SunCoin = Instantiate(sunCoinPrefab, spawnPosition, Quaternion.identity);
+            GameObject SunCoin = PhotonNetwork.Instantiate(
+                sunCoinPrefab.name,
+                spawnPosition,
+                Quaternion.identity
+            );
 
             MultipCoinPickUp coinPickUp = SunCoin.GetComponent<MultipCoinPickUp>();
-            if (coinPickUp != null && flowerBehavior != null)
+            if (coinPickUp != null)
             {
-                coinPickUp.photonView.RPC(nameof(MultipCoinPickUp.SetOwner), RpcTarget.All, flowerBehavior.playerId);
+                coinPickUp.SetOwner(flowerBehavior.playerId);
             }
 
-            Destroy(SunCoin, 10f);
+            StartCoroutine(DestroyCoinLater(SunCoin, 10f));
         }
 
-        //Debug.Log("Coins dropped");
+        Debug.Log("Coins dropped");
+    }
+
+    IEnumerator DestroyCoinLater(GameObject coin, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (coin != null && PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(coin);
+        }
     }
 
     // Update is called once per frame

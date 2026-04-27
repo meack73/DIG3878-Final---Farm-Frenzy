@@ -5,7 +5,7 @@ public class MultipPlayerHealthManager : MonoBehaviourPunCallbacks, IPunObservab
 {
 
     [SerializeField] private float maxPlayerHealth = 100f;
-    [SerializeField] private GameManager gameManager;
+    [SerializeField] private MultipGameManager gameManager;
 
     public float p1Health;
     public float p2Health;
@@ -64,20 +64,21 @@ public class MultipPlayerHealthManager : MonoBehaviourPunCallbacks, IPunObservab
         }
 
         if (playerNum == 1)
+            p1Health = Mathf.Max(0, p1Health - damage);
+        else
+            p2Health = Mathf.Max(0, p2Health - damage);
+
+
+        if (p1Health < 0)
         {
-            p1Health -= damage;
-            if (p1Health < 0)
-            {
-                p1Health = 0;
-            }
+            p1Health = 0;
+            gameEnded = true;
         }
-        else if (playerNum == 2)
+
+        if (p2Health < 0)
         {
-            p2Health -= damage;
-            if (p2Health < 0)
-            {
-                p2Health = 0;
-            }
+            p2Health = 0;
+            gameEnded = true;
         }
 
         checkForWinner();
@@ -92,20 +93,19 @@ public class MultipPlayerHealthManager : MonoBehaviourPunCallbacks, IPunObservab
         }
 
         if (playerNum == 1)
+            p1Health = Mathf.Min(maxPlayerHealth, p1Health + healAmount);
+        else
+            p2Health = Mathf.Min(maxPlayerHealth, p2Health + healAmount);
+
+
+        if (p1Health > maxPlayerHealth)
         {
-            p1Health += healAmount;
-            if (p1Health > maxPlayerHealth)
-            {
-                p1Health = maxPlayerHealth;
-            }
+            p1Health = maxPlayerHealth;
         }
-        else if (playerNum == 2)
+
+        if (p2Health > maxPlayerHealth)
         {
-            p2Health += healAmount;
-            if (p2Health > maxPlayerHealth)
-            {
-                p2Health = maxPlayerHealth;
-            }
+            p2Health = maxPlayerHealth;
         }
 
     }

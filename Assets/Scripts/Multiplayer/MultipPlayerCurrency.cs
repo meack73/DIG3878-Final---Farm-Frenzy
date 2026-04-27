@@ -1,7 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using System.Xml.Serialization;
-using TMPro;  
+using UnityEngine.UI;  
 
 public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -9,7 +9,7 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
     public int p1SunCoins = 0;
     public int p2SunCoins = 0;
 
-    public TMP_Text currencyText;
+    public Text currencyText;
 
     public void addCoins(int playerNum, int amount)
     {
@@ -30,7 +30,10 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
             Debug.Log("Player 2 Sun Coins: " + p2SunCoins);
         }
 
-        UpdateCurrencyUI();
+        if (PhotonNetwork.LocalPlayer.ActorNumber == playerNum)
+        {
+            UpdateCurrencyUI();
+        }
     }
 
     public int getPlayerNum()
@@ -75,7 +78,13 @@ public class MultipPlayerCurrency : MonoBehaviourPunCallbacks, IPunObservable
             {
                 p2SunCoins = 0;
             }
+
             Debug.Log("Player 2 spent " + cost + " currency. Remaining currency: " + p2SunCoins);
+        }
+
+        if (PhotonNetwork.LocalPlayer.ActorNumber == playerNum)
+        {
+            UpdateCurrencyUI();
         }
     }
 

@@ -122,7 +122,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4772223845757536543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f2924602deae194985e5fd670f0bb72, type: 3}
   m_Name: 
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultipCoinPickUp
   coinValue: 1
+  ownerPlayerId: 0
   coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
   playerCurrency: {fileID: 0}
 --- !u!114 &-8306876002643798027

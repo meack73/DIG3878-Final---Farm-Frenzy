@@ -1,7 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class MultipCoinPickUp : MonoBehaviour
+public class MultipCoinPickUp : MonoBehaviourPun
 {
 
     public int coinValue = 1;
@@ -79,7 +79,7 @@ public class MultipCoinPickUp : MonoBehaviour
             playerCurrency = FindObjectOfType<MultipPlayerCurrency>();
         }
 
-        if (playerCurrency != null && PhotonNewtowrk.LocalPlayer.ActorNumber == playerNum)
+        if (playerCurrency != null && PhotonNetwork.LocalPlayer.ActorNumber == playerNum)
         {
             playerCurrency.addCoins(playerNum, coinValue);
             Debug.Log("Player " + playerNum + " collected a coin worth " + coinValue + " currency.");
@@ -90,8 +90,23 @@ public class MultipCoinPickUp : MonoBehaviour
             audioSource.PlayOneShot(coinSFX);
         }
 
-        Destroy(gameObject);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+        else
+        {
+            photonView.RPC(nameof(RPC_RequestDestroy), RpcTarget.MasterClient);
+        }
     }
 
+    [PunRPC]
+    void RPC_RequestDestroy()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
 
 }
