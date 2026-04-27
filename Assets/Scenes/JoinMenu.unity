@@ -5526,7 +5526,7 @@ MonoBehaviour:
   controlPanel: {fileID: 1883729758}
   progressLabel: {fileID: 1215421902}
   waitingLabel: {fileID: 590915095}
-  gameplayScene: SampleScene 1
+  gameplayScene: SampleScene
 --- !u!1001 &1592425672
 PrefabInstance:
   m_ObjectHideFlags: 0

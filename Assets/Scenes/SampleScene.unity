@@ -124,6 +124,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6695003846789372269, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
   m_PrefabInstance: {fileID: 1399753179}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &10119671
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 10119672}
+  m_Layer: 0
+  m_Name: RGHTownView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &10119672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10119671}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.35025638, y: 0, z: 0, w: 0.93665385}
+  m_LocalPosition: {x: 12.54, y: 10.74, z: -13.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 41.006, y: 0, z: 0}
 --- !u!1001 &25504662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 45852927}
   - component: {fileID: 45852926}
+  - component: {fileID: 45852928}
   m_Layer: 0
   m_Name: P1BoardManager
   m_TagString: P1Board
@@ -275,7 +307,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 45852925}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f79f65cbac8f32948b0b096cb6b00716, type: 3}
   m_Name: 
@@ -301,6 +333,23 @@ Transform:
   - {fileID: 934463580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &45852928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45852925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f251ce111c945994ba72410a0b66a0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipGameBoard
+  tilePrefab: {fileID: 7104982377838083460, guid: 2145883ebf196f94bb6e3f96105f52d0, type: 3}
+  width: 8
+  depth: 5
+  tileSize: 3
+  playerId: 0
 --- !u!1001 &82031737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1110,6 +1159,9 @@ GameObject:
   - component: {fileID: 294119418}
   - component: {fileID: 294119419}
   - component: {fileID: 294119420}
+  - component: {fileID: 294119421}
+  - component: {fileID: 294119423}
+  - component: {fileID: 294119422}
   m_Layer: 0
   m_Name: P2MonsterSpawner
   m_TagString: Untagged
@@ -1139,7 +1191,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294119415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 174e7360bd413024a8eeee6856d04dea, type: 3}
   m_Name: 
@@ -1164,7 +1216,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294119415}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04ccd2bcacf78b049a0e147804379aa1, type: 3}
   m_Name: 
@@ -1183,10 +1235,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492a6170604db954bb7c707c3d28e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
-  monsterSpawner: {fileID: 0}
-  storeManager: {fileID: 4461579185313564154}
+  monsterSpawner: {fileID: 294119421}
+  storeManager: {fileID: 4461579185313564158}
   canPlace: {fileID: 8300000, guid: 5ce0515287425e140b85701415b77872, type: 3}
   cantPlace: {fileID: 8300000, guid: b218601819debd14ea12a93463d49d86, type: 3}
+--- !u!114 &294119421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294119415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcde9efadc55774fa057a86a2a86e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipMonsterSpawner
+  selectedMonster: 0
+  gameBoard: {fileID: 1470922036}
+  monsterPrefabs:
+  - {fileID: 662468794185850985, guid: a48631e259d0486fa83621f7d8f36e72, type: 3}
+  - {fileID: 875073071404757921, guid: 35f16650380449c78eeac51057eaff2a, type: 3}
+  - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
+  - {fileID: 1311075292995546189, guid: e6d52ee7ae1ece042b2ff86bcb4fe268, type: 3}
+  - {fileID: 2421877612280711230, guid: 4274b7c5a08c82e4c9050da649990778, type: 3}
+  - {fileID: 8498413438144436898, guid: 6a5e1495d1554754ca706eab195984fc, type: 3}
+  - {fileID: 0}
+  monsterCosts: 02000000020000000200000000000000020000000200000002000000
+  currencyManager: {fileID: 4461579185313564157}
+  placeSFX: {fileID: 8300000, guid: 956bdd41e8aab2b4b8e57aead8e6acf1, type: 3}
+  speaker: {fileID: 769259481}
+--- !u!114 &294119422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294119415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &294119423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294119415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedf78f6248b2db40b02f6ff8686b365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipCoinPickUp
+  coinValue: 1
+  ownerPlayerId: 0
+  coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
+  playerCurrency: {fileID: 4461579185313564157}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,6 +1317,7 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585549}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585550}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1361,6 +1478,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   camStartsOnLeft: 1
+--- !u!114 &330585550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc07fffbe2855844ca3acb93a9f52bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipCameraMovement
+  ownView: {fileID: 1949561516}
+  centerView: {fileID: 1720262441}
+  enemyView: {fileID: 2118510662}
+  moveSpeed: 200
 --- !u!4 &375799848 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6695003846789372269, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
@@ -1936,7 +2069,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506338081}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
   m_Name: 
@@ -2943,12 +3076,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95c1928d413dd4a4a9f86c07f4b893cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FarmManager
-  cameraMovement: {fileID: 330585551}
+  cameraMovement: {fileID: 330585550}
   isLeftSide: 0
   LownView: {fileID: 1949561516}
-  LcenterView: {fileID: 1584248457}
+  LcenterView: {fileID: 1720262441}
   LenemyView: {fileID: 2118510662}
-  RownView: {fileID: 1500811451}
+  RownView: {fileID: 10119672}
   RcenterView: {fileID: 1592689478}
   RenemyView: {fileID: 289815005}
 --- !u!1001 &781894431
@@ -3545,6 +3678,9 @@ GameObject:
   - component: {fileID: 934463580}
   - component: {fileID: 934463579}
   - component: {fileID: 934463581}
+  - component: {fileID: 934463583}
+  - component: {fileID: 934463582}
+  - component: {fileID: 934463584}
   m_Layer: 0
   m_Name: P1MonsterSpawner
   m_TagString: Untagged
@@ -3559,7 +3695,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934463578}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 174e7360bd413024a8eeee6856d04dea, type: 3}
   m_Name: 
@@ -3604,10 +3740,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 492a6170604db954bb7c707c3d28e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonClick
-  monsterSpawner: {fileID: 0}
-  storeManager: {fileID: 4461579185313564154}
+  monsterSpawner: {fileID: 934463583}
+  storeManager: {fileID: 4461579185313564158}
   canPlace: {fileID: 8300000, guid: 5ce0515287425e140b85701415b77872, type: 3}
   cantPlace: {fileID: 8300000, guid: b218601819debd14ea12a93463d49d86, type: 3}
+--- !u!114 &934463582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedf78f6248b2db40b02f6ff8686b365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipCoinPickUp
+  coinValue: 1
+  ownerPlayerId: 0
+  coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
+  playerCurrency: {fileID: 4461579185313564157}
+--- !u!114 &934463583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcde9efadc55774fa057a86a2a86e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipMonsterSpawner
+  selectedMonster: 0
+  gameBoard: {fileID: 45852928}
+  monsterPrefabs:
+  - {fileID: 662468794185850985, guid: a48631e259d0486fa83621f7d8f36e72, type: 3}
+  - {fileID: 875073071404757921, guid: 35f16650380449c78eeac51057eaff2a, type: 3}
+  - {fileID: 3055724207190543603, guid: 60d203019233da94f9c92a22d69e79ba, type: 3}
+  - {fileID: 1311075292995546189, guid: e6d52ee7ae1ece042b2ff86bcb4fe268, type: 3}
+  - {fileID: 2421877612280711230, guid: 4274b7c5a08c82e4c9050da649990778, type: 3}
+  - {fileID: 8498413438144436898, guid: 6a5e1495d1554754ca706eab195984fc, type: 3}
+  - {fileID: 0}
+  monsterCosts: 02000000020000000200000000000000020000000200000002000000
+  currencyManager: {fileID: 4461579185313564157}
+  placeSFX: {fileID: 8300000, guid: 956bdd41e8aab2b4b8e57aead8e6acf1, type: 3}
+  speaker: {fileID: 769259481}
+--- !u!114 &934463584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934463578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &937162913
 GameObject:
   m_ObjectHideFlags: 0
@@ -4654,6 +4854,7 @@ GameObject:
   - component: {fileID: 1276641528}
   - component: {fileID: 1276641527}
   - component: {fileID: 1276641529}
+  - component: {fileID: 1276641530}
   m_Layer: 0
   m_Name: OutlineSelection
   m_TagString: Untagged
@@ -4668,7 +4869,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276641526}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef846a70d21e56943b62eb19d7d23481, type: 3}
   m_Name: 
@@ -4695,13 +4896,28 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276641526}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f2924602deae194985e5fd670f0bb72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoinPickUp
   coinValue: 1
   coinSFX: {fileID: 8300000, guid: 8964a2ccc34efa94fa17b13db638019f, type: 3}
+--- !u!114 &1276641530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276641526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fa545df4aa13c46a37a9d89b66a259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipOutline
+  monsterSpawner: {fileID: 934463583}
+  p1MonsterSpawner: {fileID: 934463583}
+  p2MonsterSpawner: {fileID: 294119421}
 --- !u!1 &1295078095
 GameObject:
   m_ObjectHideFlags: 0
@@ -5588,6 +5804,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1470922035}
   - component: {fileID: 1470922034}
+  - component: {fileID: 1470922036}
   m_Layer: 0
   m_Name: P2BoardManager
   m_TagString: P2Board
@@ -5602,7 +5819,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470922033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f79f65cbac8f32948b0b096cb6b00716, type: 3}
   m_Name: 
@@ -5628,6 +5845,23 @@ Transform:
   - {fileID: 294119416}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1470922036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470922033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f251ce111c945994ba72410a0b66a0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipGameBoard
+  tilePrefab: {fileID: 7104982377838083460, guid: 2145883ebf196f94bb6e3f96105f52d0, type: 3}
+  width: 8
+  depth: 5
+  tileSize: 3
+  playerId: 0
 --- !u!1001 &1497371640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5923,6 +6157,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 6882517981429531894}
+    - target: {fileID: 6333075533492398302, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6333075533492398302, guid: 7a033a168e626ae448bcb8a9b476253d, type: 3}
       propertyPath: healthManager
       value: 
@@ -6702,6 +6940,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bae468b3a6b9ea141967f3cfbe601352, type: 3}
+--- !u!1 &1720262440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1720262441}
+  m_Layer: 0
+  m_Name: LFTcenterView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1720262441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720262440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.35025638, y: 0, z: 0, w: 0.93665385}
+  m_LocalPosition: {x: 0, y: 10.74, z: -13.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 41.006, y: 0, z: 0}
 --- !u!1 &1776318320
 GameObject:
   m_ObjectHideFlags: 0
@@ -8180,6 +8449,7 @@ GameObject:
   m_Component:
   - component: {fileID: 400460530197025618}
   - component: {fileID: 1657890191045257623}
+  - component: {fileID: 1657890191045257624}
   m_Layer: 0
   m_Name: HealthManager
   m_TagString: Untagged
@@ -8221,6 +8491,22 @@ MonoBehaviour:
   p1Health: 0
   p2Health: 0
   gameManager: {fileID: 4287875280086788684}
+--- !u!114 &1657890191045257624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416280654760420611}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44bec10dcc154c049b9c0e69641f58be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipPlayerHealthManager
+  maxPlayerHealth: 100
+  gameManager: {fileID: 0}
+  p1Health: 0
+  p2Health: 0
 --- !u!1 &1759308754941507090
 GameObject:
   m_ObjectHideFlags: 0
@@ -8418,16 +8704,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4461579185313564153}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59ac1ee9c5a254445bd4b246005080d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
   winScreen: {fileID: 1221426538}
   playerText: {fileID: 742583070}
-  playerId: 1
-  speaker: {fileID: 769259481}
-  victorySFX: {fileID: 8300000, guid: 9e4d99c4e207f13409db72f149720a1d, type: 3}
   winnerNum: 0
 --- !u!1 &4461579185313564153
 GameObject:
@@ -8441,6 +8724,10 @@ GameObject:
   - component: {fileID: 4287875280086788684}
   - component: {fileID: 4461579185313564154}
   - component: {fileID: 4461579185313564155}
+  - component: {fileID: 4461579185313564158}
+  - component: {fileID: 4461579185313564157}
+  - component: {fileID: 4461579185313564156}
+  - component: {fileID: 4461579185313564159}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -8455,7 +8742,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4461579185313564153}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f2e139277bbc6047a55dcae92c438f1, type: 3}
   m_Name: 
@@ -8514,7 +8801,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4461579185313564153}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b542c4d6b0f30a4b848cca8b30e0f17, type: 3}
   m_Name: 
@@ -8522,6 +8809,124 @@ MonoBehaviour:
   SunCoins: 0
   plyrCurrencyText: {fileID: 3406653731391649872}
   playerCurrency: 50
+--- !u!114 &4461579185313564156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461579185313564153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PhotonUnityNetworking::Photon.Pun.PhotonView
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 4461579185313564157}
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &4461579185313564157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461579185313564153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75e8cde17776874ca9adb6d7a2f34f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipPlayerCurrency
+  p1SunCoins: 0
+  p2SunCoins: 0
+  currencyText: {fileID: 3406653731391649872}
+--- !u!114 &4461579185313564158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461579185313564153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89903c2a110c4448a08b3b0274cebdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipStoreManager
+  plantPrice:
+  - cooldown: 3
+    price: 2
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 3
+    price: 2
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 3
+    price: 2
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 7
+    price: 0
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 3
+    price: 2
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 3
+    price: 2
+    canBuy: 0
+    onCooldown: 0
+  - cooldown: 3
+    price: 2
+    canBuy: 0
+    onCooldown: 0
+  currency: {fileID: 4461579185313564157}
+  monsterSpawner: {fileID: 934463583}
+  gameManager: {fileID: 45852928}
+  currentSelected: 3
+  p1MonsterSpawner: {fileID: 934463583}
+  p2MonsterSpawner: {fileID: 294119421}
+  texts:
+  - {fileID: 89317424}
+  - {fileID: 1657453522}
+  - {fileID: 1039495760}
+  - {fileID: 1983133124}
+  - {fileID: 99900929}
+  - {fileID: 1015076508}
+  - {fileID: 1517082071}
+  buttonCooldowns:
+  - {fileID: 151821964}
+  - {fileID: 937162916}
+  - {fileID: 1013942915}
+  - {fileID: 1776740129}
+  - {fileID: 1832420443}
+  - {fileID: 476128584}
+  - {fileID: 962963536}
+--- !u!114 &4461579185313564159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461579185313564153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a10558f86adeb24db09ebfcb21dc9a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultipGameManager
+  winScreen: {fileID: 1221426538}
+  playerText: {fileID: 742583070}
+  speaker: {fileID: 769259481}
+  victorySFX: {fileID: 8300000, guid: 9e4d99c4e207f13409db72f149720a1d, type: 3}
+  winnerNum: 0
 --- !u!222 &4540341991202388638
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8859,8 +9264,8 @@ SceneRoots:
   - {fileID: 1955842429}
   - {fileID: 832597671}
   - {fileID: 1949561516}
-  - {fileID: 1584248457}
+  - {fileID: 1720262441}
   - {fileID: 2118510662}
-  - {fileID: 1500811451}
+  - {fileID: 10119672}
   - {fileID: 1592689478}
   - {fileID: 289815005}
