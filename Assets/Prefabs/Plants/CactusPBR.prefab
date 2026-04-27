@@ -171,13 +171,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterBehavior
   health: 3
   playerId: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
+  spawnTile: {x: 0, y: 0, z: 0}
+  death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
+  materialObj: {fileID: 1006438018938304421}
   attackCooldown: 1
   lastAttackTime: 0
   isAttacking: 0
-  spawnPoint: {x: 0, y: 0, z: 0}
-  spawnTile: {x: 0, y: 0, z: 0}
   attack: {fileID: 8300000, guid: 7488ba3307903ee4c93ea80d833dd9ad, type: 3}
-  death: {fileID: 8300000, guid: 9536fdfef5a290349af16733b66fa683, type: 3}
 --- !u!54 &-1254221380051886239
 Rigidbody:
   m_ObjectHideFlags: 0

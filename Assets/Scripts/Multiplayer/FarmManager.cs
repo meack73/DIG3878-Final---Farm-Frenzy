@@ -114,12 +114,12 @@ public class FarmManager : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.D))
         {
             OnDKey();
-            Debug.Log("D key pressed");
+            //Debug.Log("D key pressed");
         }
         if (Input.GetKeyDown(KeyCode.A))
         {
             OnAKey();
-            Debug.Log("A key pressed");
+            //Debug.Log("A key pressed");
         }
     }
     #endregion

@@ -17,7 +17,7 @@ public class MonsterBehavior : PlantBehavior
     private float lastStopAttackTime = -999f;
  
     private PlantBehavior currentTarget;     // Single reference covers all plant types
-    private PlayerHealth targetHouse = null;
+    private MultipPlayerHealth targetHouse = null;
     private string targetHouseTag = "Player1";
     
     [Header("Audio")]
@@ -101,7 +101,7 @@ public class MonsterBehavior : PlantBehavior
                 if (currentTarget != null)
                     currentTarget.TakeDamage(1);
                 else if (targetHouse != null)
-                    targetHouse.DamagePlayer(1f);
+                    targetHouse.damagePlayer(10f);
 
             }
 
@@ -136,7 +136,7 @@ public class MonsterBehavior : PlantBehavior
         else if (collision.gameObject.CompareTag(targetHouseTag))
         {
             isAttacking = true;
-            targetHouse = collision.gameObject.GetComponent<PlayerHealth>();
+            targetHouse = collision.gameObject.GetComponent<MultipPlayerHealth>();
         }
     }
 

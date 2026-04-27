@@ -23,6 +23,7 @@ public class PumpkinBehavior : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        DamageVFX();
         UpdateMaterial();
         if (health <= 0)
             Die();
@@ -60,5 +61,15 @@ public class PumpkinBehavior : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+    
+    IEnumerator DamageVFX()
+    {
+        Material mat = rend.material;
+        Color ogColor = mat.color;
+        Debug.Log("Material is red");
+        mat.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        mat.color = ogColor;
     }
 }
