@@ -36,6 +36,12 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
             return;
         }
 
+        if (selectedMonster == 6)
+        {
+            PlacePumpkin(x,z); 
+            return;
+        }
+
         if (gameBoard == null)
         {
             Debug.LogError("MultipMonsterSpawner gameBoard is NULL on " + gameObject.name);
@@ -96,6 +102,41 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
 
         photonView.RPC(nameof(RPC_PlaceMonster), RpcTarget.All, x, z, selectedMonster);
         selectedMonster = -1; // Reset selection after placing
+    }
+
+    private void PlacePumpkin(int x, int z)
+    {
+        string tileName = $"Tile_{x}_{z}";
+        Transform tile = gameBoard.transform.Find(tileName);
+        if (tile == null) return;
+
+        // find a monster at that tile
+        Collider[] hits = Physics.OverlapBox(tile.position, new Vector3(0.5f, 1f, 0.5f));
+        foreach (Collider hit in hits)
+        {
+            PlantBehavior plant = hit.GetComponent<PlantBehavior>();
+            if (plant != null && plant.playerId == playerId)
+            {
+                // check it doesnt already have a pumpkin
+                if (plant.GetComponentInChildren<PumpkinBehavior>() != null)
+                {
+                    Debug.Log("already has a pumpkin");
+                    return;
+                }
+
+                GameObject pumpkin = Instantiate(monsterPrefabs[6], plant.transform.position, Quaternion.identity);
+                pumpkin.transform.Rotate(-90, 0, 0);
+
+                Vector3 pos = pumpkin.transform.position;
+                pumpkin.transform.position = new Vector3(pos.x, 0.3f, pos.z);
+                
+                pumpkin.transform.SetParent(plant.transform);
+                pumpkin.GetComponent<PumpkinBehavior>().playerId = playerId;
+                return;
+            }
+        }
+
+        Debug.Log("no friendly monster at that tile");
     }
 
     [PunRPC]
@@ -212,9 +253,17 @@ public class MultipMonsterSpawner : MonoBehaviourPunCallbacks
                 monster.transform.Rotate(0, 180, 0);
             }
         }
-        else if (selectedMonster == 4)
+        else if (selectedMonster == 4) //walnut
         {
             monster.transform.Rotate(0, 180, 0);
+        }
+        
+        else if (selectedMonster == 5) //cherry
+        {
+            if (playerId == 2)
+            {
+                monster.transform.Rotate(0, 180, 0);
+            }
         }
 
     }
