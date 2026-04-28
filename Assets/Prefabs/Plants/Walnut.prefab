@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba8a5de7907f5848808e73d831d0303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WalnutBehavior
-  health: 3
+  health: 20
   playerId: 0
   spawnPoint: {x: 0, y: 0, z: 0}
   spawnTile: {x: 0, y: 0, z: 0}

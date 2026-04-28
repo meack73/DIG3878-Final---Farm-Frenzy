@@ -9084,32 +9084,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultipStoreManager
   plantPrice:
-  - cooldown: 3
-    price: 2
+  - cooldown: 20
+    price: 10
     canBuy: 0
     onCooldown: 0
-  - cooldown: 3
-    price: 2
+  - cooldown: 15
+    price: 7
     canBuy: 0
     onCooldown: 0
-  - cooldown: 3
-    price: 2
+  - cooldown: 10
+    price: 3
     canBuy: 0
     onCooldown: 0
   - cooldown: 7
     price: 0
     canBuy: 0
     onCooldown: 0
-  - cooldown: 3
-    price: 2
+  - cooldown: 10
+    price: 3
     canBuy: 0
     onCooldown: 0
-  - cooldown: 3
-    price: 2
+  - cooldown: 12
+    price: 5
     canBuy: 0
     onCooldown: 0
-  - cooldown: 3
-    price: 2
+  - cooldown: 20
+    price: 7
     canBuy: 0
     onCooldown: 0
   currency: {fileID: 4461579185313564157}

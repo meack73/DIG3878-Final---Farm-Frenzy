@@ -7,6 +7,11 @@ public class SceneChange : MonoBehaviour
 {
     public string SceneToLoad;
 
+    public void Start()
+    {
+        Debug.developerConsoleVisible = false;
+    }
+    
     public void LoadTheScene()
     {
         SceneManager.LoadScene(SceneToLoad);
