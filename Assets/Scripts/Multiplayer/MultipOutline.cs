@@ -9,10 +9,11 @@ public class MultipOutline : MonoBehaviour
     private Transform selection;
     private RaycastHit raycastHit;
 
-
     public MultipMonsterSpawner monsterSpawner;
     public MultipMonsterSpawner p1MonsterSpawner;
     public MultipMonsterSpawner p2MonsterSpawner;
+    
+    string tileTag = "P1Tile"; 
 
     void Start()
     {
@@ -24,8 +25,9 @@ public class MultipOutline : MonoBehaviour
         else
         {
             monsterSpawner = p2MonsterSpawner;
+            tileTag = "P2Tile"; 
         }
-
+  
         Debug.Log("Outline using spawner for Player " + localPlayerID);
     }
 
@@ -38,10 +40,13 @@ public class MultipOutline : MonoBehaviour
             highlight = null;
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
         if (!EventSystem.current.IsPointerOverGameObject() && Physics.Raycast(ray, out raycastHit)) //Make sure you have EventSystem in the hierarchy before using EventSystem
         {
             highlight = raycastHit.transform;
-            if (highlight.CompareTag("Selectable") && highlight != selection)
+            TileData tile = highlight.GetComponentInParent<TileData>();
+            
+            if (highlight.CompareTag("Selectable") && highlight != selection && tile != null && tile.CompareTag(tileTag))
             {
                 if (highlight.gameObject.GetComponent<Outline>() != null)
                 {
@@ -87,7 +92,7 @@ public class MultipOutline : MonoBehaviour
             {
                 TileData tile = hit.transform.GetComponentInParent<TileData>();
 
-                if (tile != null && monsterSpawner != null)
+                if (tile != null && tile.CompareTag(tileTag) && monsterSpawner != null)
                 {
                     monsterSpawner.PlaceMonster(tile.xIndex, tile.zIndex);
                     Debug.Log("TileData found: " + tile.name + ", " + tile.xIndex + ", " + tile.zIndex);
